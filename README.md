@@ -1,3 +1,3 @@
 # yelp_group_project
 
-![Schema](/documentation/yelpclone-schema.pdf)
+[![yelpclone-schema.png](https://i.postimg.cc/L8pgnhGM/yelpclone-schema.png)](https://postimg.cc/2V0StjzH)
