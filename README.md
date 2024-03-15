@@ -1,5 +1,5 @@
 # munch!
-[![yelpclone-schema.png](https://i.postimg.cc/kM2TyhGg/yelpclone-schema.png)](https://postimg.cc/xqSGf5Lw)
+[![aa-projects-munch.png](https://i.postimg.cc/pV7s4077/aa-projects-munch.png)](https://postimg.cc/DmrQbc7d)
 ## User Stories
 
 ### Sign Up
