@@ -9,7 +9,7 @@ class Amenity(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = Column(db.Integer, primary_key=True)
-    business_id = Column(db.Integer, ForeignKey('businesses.id'), nullable=False)
+    business_id = Column(db.Integer, ForeignKey(add_prefix_for_prod('businesses.id')), nullable=False)
     reservation = Column(db.Boolean, default=False)
     delivery = Column(db.Boolean, default=False)
     pickup = Column(db.Boolean, default=False)

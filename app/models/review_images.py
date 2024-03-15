@@ -9,7 +9,7 @@ class ReviewImage(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = Column(db.Integer, primary_key=True)
-    review_id = Column(Integer, ForeignKey('reviews.id'), nullable=False)
+    review_id = Column(Integer, ForeignKey(add_prefix_for_prod('reviews.id')), nullable=False)
     url = Column(String(255))
 
     reviews = relationship('Review', back_populates='review_images')

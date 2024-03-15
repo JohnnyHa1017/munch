@@ -9,8 +9,8 @@ class Review(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = Column(db.Integer, primary_key=True)
-    business_id = Column(Integer, ForeignKey('businesses.id'), nullable=False)
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    business_id = Column(Integer, ForeignKey(add_prefix_for_prod('businesses.id')), nullable=False)
+    user_id = Column(Integer, ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     review = Column(String(2000), nullable=False)
     star = Column(Integer, nullable=False)
 

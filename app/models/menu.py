@@ -9,7 +9,7 @@ class Menu(db.Model):
     __table_args__ = {'schema': SCHEMA}
 
   id = Column(db.Integer, primary_key=True)
-  business_id = Column(Integer, ForeignKey('businesses.id'), nullable=False)
+  business_id = Column(Integer, ForeignKey(add_prefix_for_prod('businesses.id')), nullable=False)
   name = Column(String(50), nullable=False)
   category = db.Column(db.Enum('Appetizer', 'Entree', 'Drink', 'Dessert', 'Special'), nullable=False)
   price = Column(Float(precision=2))

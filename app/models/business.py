@@ -9,7 +9,7 @@ class Business(db.Model):
     __table_args__ = {'schema': SCHEMA}
 
   id = Column(db.Integer, primary_key=True)
-  owner_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+  owner_id = Column(Integer, ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
   title = Column(String(50), nullable=False)
   address = Column(String(50), nullable=False)
   city = Column(String(30), nullable=False)
