@@ -1,7 +1,7 @@
 from app.models import db, Menu, environment, SCHEMA
 from sqlalchemy.sql import text
 
-def seed_menu():
+def seed_menus():
     Cheesy_Rowlet_Pizza = Menu(
         business_id=1,
         name="Cheese Rowlet Pizza",
@@ -525,7 +525,7 @@ def seed_menu():
 
     db.session.commit()
 
-def undo_menu():
+def undo_menus():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.menus RESTART IDENTITY CASCADE;")
     else:
