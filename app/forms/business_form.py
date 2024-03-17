@@ -1,4 +1,19 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField
-from wtforms.validators import DataRequired, Email, ValidationError
-from app.models import User
+from wtforms import StringField, IntegerField, FloatField
+from wtforms.validators import DataRequired, NumberRange
+from wtforms.fields.html5 import PhoneNumberField
+from app.models import Business
+
+
+class CreateBusiness(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    address = StringField('Address', validators=[DataRequired()])
+    city = StringField('City', validators=[DataRequired()])
+    state = StringField('State', validators=[DataRequired()])
+    country = StringField('Country', validators=[DataRequired()])
+    price_rating = IntegerField('Price Rating', validators=[DataRequired(), NumberRange(min=1, max=4, message='Price rating must be between 1 and 4')])
+    category = StringField('Category', validators=[DataRequired()])
+    # lat = FloatField('Latitude')
+    # lng = FloatField('Longitude')
+    phone_number = PhoneNumberField('Phone Number', validators=[DataRequired()])
+    description = StringField('Description')

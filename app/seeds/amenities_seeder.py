@@ -3,7 +3,7 @@ from sqlalchemy.sql import text
 
 def seed_amenities():
     pokemon_cafe_am = Amenity(
-        business_id = 0,
+        business_id = 1,
         reservation = True,
         delivery= False,
         pickup=False,
@@ -15,7 +15,7 @@ def seed_amenities():
         outdoor_seating= True
     )
     stardew_farmhouse_am = Amenity(
-        business_id = 1,
+        business_id = 2,
         reservation = False,
         delivery= True,
         pickup= True,
@@ -27,7 +27,7 @@ def seed_amenities():
         outdoor_seating= False
     )
     hunters_cafe_am = Amenity(
-        business_id = 2,
+        business_id = 3,
         reservation = False,
         delivery= False,
         pickup= True,
@@ -39,7 +39,7 @@ def seed_amenities():
         outdoor_seating= True
     )
     continental_hotel_am = Amenity(
-        business_id = 3,
+        business_id = 4,
         reservation = True,
         delivery= True,
         pickup= True,
@@ -51,7 +51,7 @@ def seed_amenities():
         outdoor_seating= False
     )
     baratie_am = Amenity(
-        business_id = 4,
+        business_id = 5,
         reservation = True,
         delivery= False,
         pickup= False,
@@ -63,7 +63,7 @@ def seed_amenities():
         outdoor_seating= True
     )
     cafe_leblanc_am = Amenity(
-        business_id = 5,
+        business_id = 6,
         reservation = True,
         delivery= True,
         pickup= True,
@@ -75,7 +75,7 @@ def seed_amenities():
         outdoor_seating= False
     )
     urahara_shoten_am = Amenity(
-        business_id = 6,
+        business_id = 7,
         reservation = False,
         delivery= False,
         pickup= True,
@@ -87,7 +87,7 @@ def seed_amenities():
         outdoor_seating= False
     )
     four_horsemen_izakaya_am = Amenity(
-        business_id = 7,
+        business_id = 8,
         reservation = True,
         delivery= False,
         pickup= True,
@@ -99,7 +99,7 @@ def seed_amenities():
         outdoor_seating= False
     )
     animal_crossing_deli_and_cafe_am = Amenity(
-        business_id = 8,
+        business_id = 9,
         reservation = False,
         delivery= True,
         pickup= True,
@@ -111,7 +111,7 @@ def seed_amenities():
         outdoor_seating= False
     )
     ghiblis_desserts_am = Amenity(
-        business_id = 9,
+        business_id = 10,
         reservation = False,
         delivery= False,
         pickup= True,

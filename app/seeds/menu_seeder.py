@@ -11,7 +11,7 @@ def seed_menus():
     )
 
     Piquant_Pikachu_Curry = Menu(
-        buisness_id=1,
+        business_id=1,
         name="Piquant Pikachu Curry",
         category="Entree",
         price=25.95,
@@ -19,7 +19,7 @@ def seed_menus():
     )
 
     Happy_Snorlax_Loco_Moco = Menu(
-        buisness_id=1,
+        business_id=1,
         name="Happy Snorlax Loco Moco",
         category="Entree",
         price=28.95,

@@ -35,7 +35,7 @@ def seed_businesses():
         description= 'Italian cuisine with lots of vegetarian options.'
     )
 
-    hunderts_cafe = Business(
+    hunters_cafe = Business(
         owner_id= 5,
         title= 'Hunters Cafe',
         address= '1 Chrome-1-10 Pasela Resorts AKIBA Multi Entertainment 3F',
@@ -156,7 +156,7 @@ def seed_businesses():
     )
 
 
-    db.session.add_all([])
+    db.session.add_all([pokemon_cafe, stardew_farmhouse, hunters_cafe, continental_hotel, baratie, cafe_leblanc, urahara_shoten, four_horsemen_izakaya, animal_crossing_deli_cafe, ghiblis_desserts])
     db.session.commit()
 
 
