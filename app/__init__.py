@@ -1,20 +1,44 @@
 import os
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, jsonify
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
-from .models import db, User
+from .models import db, User, Business, Amenity, Menu, Review, ReviewImage, BusinessImage
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .seeds import seed_commands
 from .config import Config
+from .routes import business_routes, amenities_routes, menu_routes, review_routes
+import json
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
 # Setup login manager
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
+
+
+app.register_blueprint(business_routes.bp)
+# app.register_blueprint(menu_routes.bp, url_prefix='/menu')
+# app.register_blueprint(amenities_routes.bp, url_prefix='/amenities')
+# app.register_blueprint(review_routes.bp, url_prefix='/review')
+
+
+@app.route('/')
+def landing():
+    all_businesses = Business.query.all()
+    all_reviews = Review.query.all()
+    all_amenities = Amenity.query.all()
+
+    review_list = [review.to_dict() for review in all_reviews]
+    business_list = [business.to_dict() for business in all_businesses]
+    amenities_list = [amenity.to_dict() for amenity in all_amenities]
+
+    data = {"Review": review_list, "Business": business_list, "Amenities": amenities_list}
+
+    return data
+
 
 
 @login.user_loader

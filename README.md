@@ -33,7 +33,7 @@
 > Create, Read, Update, Delete
 ### Creating a Business
 - As a logged-in user, I want to be able to create a new Business by providing relevant information such as name, address, category, location, etc.
-- When I'm on the `/new-business` page:
+- When I'm on any page I can click a button to redirect me to `/business/new` page to create a new business:
   - I can create and submit a new Business.
   - I can add Menu Items and Images (Optional).
   - I can specify Hours of Operation.
@@ -41,10 +41,10 @@
 
 ### Viewing a Business
 - As a logged-in or logged-out user, I want to be able to view a selection of the spots.
-- When I'm on the `/business` page:
+- When I'm on the `/businesses` page:
   - I can view all the spots.
 - As a logged-in or logged-out user, I want to be able to view a specific spot and its associated spot reviews and rating.
-- When I'm on the `/businesses/:businessId` page:
+- When I'm on the `/business/:businessId` page:
   - I can view the content of the spot, as well as the associated reviews, menu items, and amenities.
 
 ### Updating a Business
@@ -61,7 +61,7 @@
 > Create, Read, Update, Delete
 ### Create Review
 - As a logged-in user, I want to be able to create a new review on a business by providing relevant information such as star rating, description, and photos.
-- When I'm on the `/businesses/:businessId` page:
+- When I'm on the `/business/:businessId` page:
   - I can create and submit a new Review on that business.
   - I can add star rating, review description, and photos (optional).
 

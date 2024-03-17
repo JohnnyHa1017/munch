@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, FloatField
-from wtforms.validators import DataRequired, NumberRange
-from wtforms.fields.html5 import PhoneNumberField
+from wtforms.validators import DataRequired, NumberRange, Length
+# from wtforms.fields.html5 import PhoneNumberField
 from app.models import Business
 
 
@@ -15,5 +15,5 @@ class CreateBusiness(FlaskForm):
     category = StringField('Category', validators=[DataRequired()])
     # lat = FloatField('Latitude')
     # lng = FloatField('Longitude')
-    phone_number = PhoneNumberField('Phone Number', validators=[DataRequired()])
+    phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=20)])
     description = StringField('Description')
