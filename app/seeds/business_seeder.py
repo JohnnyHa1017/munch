@@ -142,7 +142,7 @@ def seed_businesses():
 
     ghiblis_desserts = Business(
         owner_id= 9,
-        title= 'Ghibli’s Desserts',
+        title= "Ghibli's Desserts",
         address= '1 Chome-1-83 Shimorenjaku',
         city= 'Mitaka',
         state= 'Tokyo',

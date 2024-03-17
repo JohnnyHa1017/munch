@@ -3,7 +3,7 @@ from sqlalchemy.sql import text
 
 def seed_menus():
     Cheesy_Rowlet_Pizza = Menu(
-        business_id=1,
+        business_id = 1,
         name="Cheese Rowlet Pizza",
         category="Appetizer",
         price=14.95,
@@ -235,7 +235,7 @@ def seed_menus():
     )
 
     Raw_Ham_Melon = Menu(
-        id=5,
+        business_id=5,
         name="Raw Ham Melon",
         category="Appetizer",
         price=8.99,
@@ -243,7 +243,7 @@ def seed_menus():
     )
 
     Absolute_Justice = Menu(
-        id=5,
+        business_id = 5,
         name="Absolute Justice",
         category="Entree",
         price=23.99,
@@ -251,7 +251,7 @@ def seed_menus():
     )
 
     Blessing_of_East_Blue = Menu(
-        id=5,
+        business_id = 5,
         name="Blessing of East Blue",
         category="Entree",
         price=20.00,
@@ -259,7 +259,7 @@ def seed_menus():
     )
 
     Mandarin_Orange_Jelly = Menu(
-        id=5,
+        business_id = 5,
         name="Mandarin Orange Jelly",
         category="Dessert",
         price=9.99,
@@ -267,7 +267,7 @@ def seed_menus():
     )
 
     Red_nosed_great_adventure_Framboise_Mousse = Menu(
-        id=5,
+        business_id = 5,
         name="Red-nosed great adventure ‘Framboise Mousse’",
         category="Dessert",
         price=12.99,
@@ -275,7 +275,7 @@ def seed_menus():
     )
 
     Leblanc_Coffee_Set = Menu(
-        id=6,
+        business_id = 6,
         name="Leblanc Coffee Set",
         category="Specials",
         price=13.99,
@@ -283,7 +283,7 @@ def seed_menus():
     )
 
     Hotdog_Coffee_Set = Menu(
-        id=6,
+        business_id = 6,
         name="Hotdog + Coffee set",
         category="Specials",
         price=4.50,
@@ -291,7 +291,7 @@ def seed_menus():
     )
 
     Omelette_Sandwich_Coffee_Set = Menu(
-        id=6,
+        business_id = 6,
         name="Omelette Sandwich + Coffee set",
         category="Specials",
         price=4.00,
@@ -299,7 +299,7 @@ def seed_menus():
     )
 
     Deluxe_Curry = Menu(
-        id=6,
+        business_id = 6,
         name="Deluxe Curry",
         category="Entree",
         price=8.00,
@@ -307,7 +307,7 @@ def seed_menus():
     )
 
     Coffee = Menu(
-        id=6,
+        business_id = 6,
         name="Coffee",
         category="Drink",
         price=3.00,
@@ -315,7 +315,7 @@ def seed_menus():
     )
 
     Kurosaki_Curry_with_Side_Salad = Menu(
-        id=7,
+        business_id = 7,
         name="Kurosaki Curry with Side Salad",
         category="Entree",
         price=14.99,
@@ -323,7 +323,7 @@ def seed_menus():
     )
 
     Kon_Stuffed_Dog = Menu(
-        id=7,
+        business_id = 7,
         name="Kon’s Stuffed Dog",
         category="Specials",
         price=5.99,
@@ -331,7 +331,7 @@ def seed_menus():
     )
 
     Kirios_Reiatsu_Imbued_Feast = Menu(
-        id=7,
+        business_id = 7,
         name="Kirio’s Reiatsu Imbued Feast",
         category="Specials",
         price=349.99,
@@ -339,7 +339,7 @@ def seed_menus():
     )
 
     Denjis_Morning_After = Menu(
-        id=8,
+        business_id = 8,
         name="Denji’s Morning After",
         category="Specials",
         price=11.99,
@@ -347,7 +347,7 @@ def seed_menus():
     )
 
     Honey_Glazed_Pochita_Bites = Menu(
-        id=8,
+        business_id = 8,
         name="Honey Glazed Pochita Bites",
         category="Appetizer",
         price=14.99,
@@ -355,7 +355,7 @@ def seed_menus():
     )
 
     Makimas_Devil_Curry_Udon = Menu(
-        id=8,
+        business_id = 8,
         name="Makima’s Devil Curry Udon",
         category="Entree",
         price=16.99,
@@ -363,7 +363,7 @@ def seed_menus():
     )
 
     Hayakawa_Gyozas = Menu(
-        id=8,
+        business_id = 8,
         name="Hayakawa Gyoza’s",
         category="Appetizer",
         price=8.99,
@@ -371,7 +371,7 @@ def seed_menus():
     )
 
     Tomato_Bagel = Menu(
-        id=9,
+        business_id = 9,
         name="Tomato Bagel",
         category="Entree",
         price=8.99,
@@ -379,7 +379,7 @@ def seed_menus():
     )
 
     Veggie_Sandwich = Menu(
-        id=9,
+        business_id = 9,
         name="Veggie Sandwich",
         category="Entree",
         price=8.99,
@@ -387,7 +387,7 @@ def seed_menus():
     )
 
     Mixed_Fruits_Sandwich = Menu(
-        id=9,
+        business_id = 9,
         name="Mixed Fruits Sandwich",
         category="Entree",
         price=9.99,
@@ -395,7 +395,7 @@ def seed_menus():
     )
 
     Pumpkin_Bagel = Menu(
-        id=9,
+        business_id = 9,
         name="Pumpkin Bagel",
         category="Entree",
         price=8.99,
@@ -403,7 +403,7 @@ def seed_menus():
     )
 
     Salmon_Bagel = Menu(
-        id=9,
+        business_id = 9,
         name="Salmon Bagel",
         category="Entree",
         price=10.99,
@@ -411,7 +411,7 @@ def seed_menus():
     )
 
     Apple_Smoothie = Menu(
-        id=9,
+        business_id = 9,
         name="Apple Smoothie",
         category="Drink",
         price=3.99,
@@ -419,7 +419,7 @@ def seed_menus():
     )
 
     Peach_Smoothie = Menu(
-        id=9,
+        business_id = 9,
         name="Peach Smoothie",
         category="Drink",
         price=3.99,
@@ -427,7 +427,7 @@ def seed_menus():
     )
 
     Coconut_Juice = Menu(
-        id=9,
+        business_id = 9,
         name="Coconut Juice",
         category="Drink",
         price=3.99,
@@ -435,7 +435,7 @@ def seed_menus():
     )
 
     Iced_Caffe_Latte = Menu(
-        id=9,
+        business_id = 9,
         name="Iced Caffe Latte",
         category="Drink",
         price=3.99,
@@ -443,7 +443,7 @@ def seed_menus():
     )
 
     Totoro_Cupcake = Menu(
-        id=10,
+        business_id = 10,
         name="Totoro Cupcake",
         category="Dessert",
         price=5.50,
@@ -451,7 +451,7 @@ def seed_menus():
     )
 
     Totoro_Hot_Chocolate = Menu(
-        id=10,
+        business_id = 10,
         name="Totoro Hot Chocolate",
         category="Dessert",
         price=6.50,
@@ -459,7 +459,7 @@ def seed_menus():
     )
 
     Cat_Bus_Eclair = Menu(
-        id=10,
+        business_id = 10,
         name="Cat Bus Eclair",
         category="Dessert",
         price=5.50,
@@ -467,7 +467,7 @@ def seed_menus():
     )
 
     Ponyo_Cheesecake = Menu(
-        id=10,
+        business_id = 10,
         name="Ponyo Cheesecake",
         category="Dessert",
         price=39.95,
@@ -475,7 +475,7 @@ def seed_menus():
     )
 
     Soot_Vanilla_Tart = Menu(
-        id=10,
+        business_id = 10,
         name="Soot Vanilla Tart",
         category="Dessert",
         price=6.50,
@@ -483,7 +483,7 @@ def seed_menus():
     )
 
     No_Face_Swiss_Roll = Menu(
-        id=10,
+        business_id = 10,
         name="No Face Swiss Roll",
         category="Dessert",
         price=6.50,
@@ -491,7 +491,7 @@ def seed_menus():
     )
 
     Jiji_Donut = Menu(
-        id=10,
+        business_id = 10,
         name="Jiji Donut",
         category="Dessert",
         price=5.50,
@@ -499,7 +499,7 @@ def seed_menus():
     )
 
     Otori_sama_Macaron = Menu(
-        id=10,
+        business_id = 10,
         name="Otori sama Macaron",
         category="Dessert",
         price=5.50,
