@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from sqlalchemy import Column,String, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 
 class BusinessImage(db.Model):
@@ -8,8 +8,8 @@ class BusinessImage(db.Model):
     if environment == "production":
         __table_args__={'schema':SCHEMA}
 
-    id = Column(db.Integer, primary_key=True)
-    business_id = Column(db.Integer, ForeignKey(add_prefix_for_prod('businesses.id')), nullable=False)
+    id = Column(Integer, primary_key=True)
+    business_id = Column(Integer, ForeignKey(add_prefix_for_prod('businesses.id')), nullable=False)
     url = Column(String(255))
     preview = Column(Boolean)
 

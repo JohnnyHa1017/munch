@@ -8,10 +8,10 @@ class Menu(db.Model):
   if environment == 'production':
     __table_args__ = {'schema': SCHEMA}
 
-  id = Column(db.Integer, primary_key=True)
+  id = Column(Integer, primary_key=True)
   business_id = Column(Integer, ForeignKey(add_prefix_for_prod('businesses.id')), nullable=False)
   name = Column(String(50), nullable=False)
-  category = db.Column(db.Enum('Appetizer', 'Entree', 'Drink', 'Dessert', 'Special'), nullable=False)
+  category = Column(db.Enum('Appetizer', 'Entree', 'Drink', 'Dessert', 'Special'), nullable=False)
   price = Column(Float(precision=2))
   description = Column(String(2000))
 

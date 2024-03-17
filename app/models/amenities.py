@@ -8,17 +8,17 @@ class Amenity(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    id = Column(db.Integer, primary_key=True)
-    business_id = Column(db.Integer, ForeignKey(add_prefix_for_prod('businesses.id')), nullable=False)
-    reservation = Column(db.Boolean, default=False)
-    delivery = Column(db.Boolean, default=False)
-    pickup = Column(db.Boolean, default=False)
-    vegetarian = Column(db.Boolean, default=False)
-    accepts_credit_card = Column(db.Boolean, default=False)
-    free_wi_fi = Column(db.Boolean, default=False)
-    street_parking = Column(db.Boolean, default=False)
-    good_for_groups = Column(db.Boolean, default=False)
-    outdoor_seating = Column(db.Boolean, default=False)
+    id = Column(Integer, primary_key=True)
+    business_id = Column(Integer, ForeignKey(add_prefix_for_prod('businesses.id')), nullable=False)
+    reservation = Column(Boolean, default=False)
+    delivery = Column(Boolean, default=False)
+    pickup = Column(Boolean, default=False)
+    vegetarian = Column(Boolean, default=False)
+    accepts_credit_card = Column(Boolean, default=False)
+    free_wi_fi = Column(Boolean, default=False)
+    street_parking = Column(Boolean, default=False)
+    good_for_groups = Column(Boolean, default=False)
+    outdoor_seating = Column(Boolean, default=False)
 
     businesses = relationship('Business', back_populates='amenities')
 

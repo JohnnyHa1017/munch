@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from sqlalchemy import Column, Integer, String, ForeignKey, Float
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 class ReviewImage(db.Model):
@@ -8,7 +8,7 @@ class ReviewImage(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    id = Column(db.Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
     review_id = Column(Integer, ForeignKey(add_prefix_for_prod('reviews.id')), nullable=False)
     url = Column(String(255))
 
