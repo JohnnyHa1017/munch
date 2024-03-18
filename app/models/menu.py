@@ -16,6 +16,7 @@ class Menu(db.Model):
     description = Column(String(2000))
 
     businesses = relationship('Business', back_populates='menus')
+    business_images = relationship('BusinessImage', back_populates='menus', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {

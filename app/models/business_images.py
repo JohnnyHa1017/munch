@@ -12,8 +12,10 @@ class BusinessImage(db.Model):
     business_id = Column(Integer, ForeignKey(add_prefix_for_prod('businesses.id')), nullable=False)
     url = Column(String(255))
     preview = Column(Boolean)
+    menu_id = Column(Integer, ForeignKey(add_prefix_for_prod('menus.id')), nullable=True)
 
     businesses = relationship('Business', back_populates='business_images')
+    menus = relationship('Menu', back_populates='business_images')
 
     def to_dict(self):
         return {
