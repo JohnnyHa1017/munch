@@ -24,10 +24,10 @@ class Business(db.Model):
   description = Column(String(2000))
 
   users = relationship('User', back_populates='businesses', cascade='all, delete')
-  menus = relationship('Menu', back_populates='businesses', cascade='all, delete')
-  amenities = relationship('Amenity', back_populates='businesses', cascade='all, delete')
-  reviews = relationship('Review', back_populates='businesses', cascade='all, delete')
-  business_images = relationship('BusinessImage', back_populates='businesses', cascade='all, delete')
+  menus = relationship('Menu', back_populates='businesses', cascade='all, delete-orphan')
+  amenities = relationship('Amenity', back_populates='businesses', cascade='all, delete-orphan')
+  reviews = relationship('Review', back_populates='businesses', cascade='all, delete-orphan')
+  business_images = relationship('BusinessImage', back_populates='businesses', cascade='all, delete-orphan')
 
   def to_dict(self):
     return {

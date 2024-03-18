@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, redirect
 from app.models import Business, db
 from app.forms.business_form import CreateBusiness
 from flask_login import login_required, current_user
@@ -33,7 +33,6 @@ def one_business(id):
 def create_business():
     form = CreateBusiness()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('current_user ==>', current_user)
     if form.validate_on_submit():
         params = { "owner_id": current_user.id}
         data = Business(**params)
@@ -41,6 +40,45 @@ def create_business():
         db.session.add(data)
         db.session.commit()
         return data.to_dict()
-    return form.errors
+    return jsonify({'error': form.errors}), 400
+
+
+#edit business
+@bp.route('/<int:id>/edit', methods=['PUT'])
+@login_required
+def update_business(id):
+    business = Business.query.get(id)
+    if not business:
+        return jsonify({'error': 'Business not found'}), 404
+    if business.owner_id != current_user.id:
+        return jsonify({'error': 'Unauthorized'}), 403
+    form = CreateBusiness()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        form.populate_obj(business)
+        db.session.commit()
+        return jsonify({'message': 'Business updated successfully'})
+    return jsonify({'error': form.errors}), 400
+
+
+# delete business
+@bp.route('/<int:id>/delete', methods=['DELETE'])
+@login_required
+def delete_business(id):
+    business = Business.query.get(id)
+    print("business ==>", business)
+    # if not business:
+    #     return jsonify({'error': 'Business not found'}), 404
+    # if business.owner_id != current_user.id:
+    #     return jsonify({'error': 'Unauthorized'}), 403
+    
+    # business_to_delete = [db.session.delete(the_business) for the_business in business]
+    if business["owner_id"]:
+        print('business.owner_id==>', business["owner_id"])
+        db.session.delete(business)
+        db.session.commit()
+    return redirect("/businesses")
+
+
 
 
