@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d1c6ca10c313
+Revision ID: 5840290509ff
 Revises: 
-Create Date: 2024-03-18 15:58:50.809219
+Create Date: 2024-03-18 16:12:25.876484
 
 """
 from alembic import op
@@ -12,7 +12,7 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA") 
 
 # revision identifiers, used by Alembic.
-revision = 'd1c6ca10c313'
+revision = '5840290509ff'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -69,8 +69,8 @@ def upgrade():
     op.create_table('menus',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('business_id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=50), nullable=False),
-    sa.Column('category', sa.Enum('Appetizer', 'Entree', 'Drink', 'Dessert', 'Special', name='category'), nullable=False),
+    sa.Column('name', sa.String(length=200), nullable=False),
+    sa.Column('category', sa.Enum('Appetizer', 'Entree', 'Drink', 'Dessert', 'Specials', name='category'), nullable=False),
     sa.Column('price', sa.Float(precision=2), nullable=True),
     sa.Column('description', sa.String(length=2000), nullable=True),
     sa.ForeignKeyConstraint(['business_id'], ['businesses.id'], ),
@@ -89,7 +89,7 @@ def upgrade():
     op.create_table('business_images',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('business_id', sa.Integer(), nullable=False),
-    sa.Column('url', sa.String(length=255), nullable=True),
+    sa.Column('url', sa.String(length=2000), nullable=True),
     sa.Column('preview', sa.Boolean(), nullable=True),
     sa.Column('menu_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['business_id'], ['businesses.id'], ),
@@ -99,7 +99,7 @@ def upgrade():
     op.create_table('review_images',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('review_id', sa.Integer(), nullable=False),
-    sa.Column('url', sa.String(length=255), nullable=True),
+    sa.Column('url', sa.String(length=2000), nullable=True),
     sa.ForeignKeyConstraint(['review_id'], ['reviews.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
