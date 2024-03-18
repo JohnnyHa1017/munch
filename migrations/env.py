@@ -66,6 +66,8 @@ def run_migrations_offline():
     )
 
     with context.begin_transaction():
+        if environment == 'production':
+            context.execute(f"SET search_path TO {SCHEMA}")
         context.run_migrations()
 
 
@@ -98,6 +100,8 @@ def run_migrations_online():
         )
 
         with context.begin_transaction():
+            if environment == 'production':
+                context.execute(f"SET search_path TO {SCHEMA}")
             context.run_migrations()
 
 
