@@ -23,7 +23,7 @@ class Business(db.Model):
   phone_number = Column(String(20), nullable=False, unique=True)
   description = Column(String(2000))
 
-  users = relationship('User', back_populates='businesses', cascade='all, delete')
+  users = relationship('User', back_populates='businesses')
   menus = relationship('Menu', back_populates='businesses', cascade='all, delete-orphan')
   amenities = relationship('Amenity', back_populates='businesses', cascade='all, delete-orphan')
   reviews = relationship('Review', back_populates='businesses', cascade='all, delete-orphan')

@@ -66,18 +66,13 @@ def update_business(id):
 @login_required
 def delete_business(id):
     business = Business.query.get(id)
-    print("business ==>", business)
-    # if not business:
-    #     return jsonify({'error': 'Business not found'}), 404
-    # if business.owner_id != current_user.id:
-    #     return jsonify({'error': 'Unauthorized'}), 403
-    
-    # business_to_delete = [db.session.delete(the_business) for the_business in business]
-    if business["owner_id"]:
-        print('business.owner_id==>', business["owner_id"])
-        db.session.delete(business)
-        db.session.commit()
-    return redirect("/businesses")
+    if not business:
+        return jsonify({'error': 'Business not found'}), 404
+    if business.owner_id != current_user.id:
+        return jsonify({'error': 'Unauthorized'}), 403
+    db.session.delete(business)
+    db.session.commit()
+    return jsonify({'message': 'Successfully Deleted'}), 200
 
 
 
