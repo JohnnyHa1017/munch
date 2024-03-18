@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 3eb85a3be806
+Revision ID: d1c6ca10c313
 Revises: 
-Create Date: 2024-03-18 15:02:20.326788
+Create Date: 2024-03-18 15:58:50.809219
 
 """
 from alembic import op
@@ -12,7 +12,7 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA") 
 
 # revision identifiers, used by Alembic.
-revision = '3eb85a3be806'
+revision = 'd1c6ca10c313'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,11 +36,11 @@ def upgrade():
     op.create_table('businesses',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
-    sa.Column('title', sa.String(length=50), nullable=False),
-    sa.Column('address', sa.String(length=50), nullable=False),
-    sa.Column('city', sa.String(length=30), nullable=False),
-    sa.Column('state', sa.String(length=20), nullable=False),
-    sa.Column('country', sa.String(length=20), nullable=False),
+    sa.Column('title', sa.String(length=100), nullable=False),
+    sa.Column('address', sa.String(length=100), nullable=False),
+    sa.Column('city', sa.String(length=100), nullable=False),
+    sa.Column('state', sa.String(length=100), nullable=False),
+    sa.Column('country', sa.String(length=100), nullable=False),
     sa.Column('price_rating', sa.Integer(), nullable=False),
     sa.Column('category', sa.String(length=255), nullable=False),
     sa.Column('lat', sa.Float(), nullable=True),
@@ -112,7 +112,6 @@ def upgrade():
         op.execute(f"ALTER Table menus SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER Table reviews SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER Table review_images SET SCHEMA {SCHEMA};")
-
 
 
 def downgrade():
