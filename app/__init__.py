@@ -9,7 +9,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .seeds import seed_commands
 from .config import Config
-from .routes import business_routes, amenities_routes, menu_routes, review_routes
+from .routes import business_routes, review_routes
 import json
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
@@ -36,11 +36,6 @@ def landing():
     data = {"Review": review_list, "Business": business_list, "Amenities": amenities_list}
 
     return data
-
-# GET reviews /reviews
-
-
-# GET amenities /amenity
 
 
 @login.user_loader
