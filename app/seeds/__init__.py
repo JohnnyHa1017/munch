@@ -45,10 +45,10 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_review_images()
+    undo_business_images()
     undo_reviews()
     undo_amenities()
     undo_menus()
-    undo_business_images()
     undo_businesses()
     undo_users()
     # Add other undo functions here
