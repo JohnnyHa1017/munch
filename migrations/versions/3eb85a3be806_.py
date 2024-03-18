@@ -104,14 +104,15 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
-    if environment == 'production':
-        op.execute(f"ALTER Table users SET SCHEMA {SCHEMA}")
-        op.execute(f"ALTER Table businesses SET SCHEMA {SCHEMA}")
-        op.execute(f"ALTER Table amenities SET SCHEMA {SCHEMA}")
-        op.execute(f"ALTER Table business_images SET SCHEMA {SCHEMA}")
-        op.execute(f"ALTER Table menus SET SCHEMA {SCHEMA}")
-        op.execute(f"ALTER Table reviews SET SCHEMA {SCHEMA}")
-        op.execute(f"ALTER Table review_images SET SCHEMA {SCHEMA}")
+    if environment == 'production' and SCHEMA:
+        op.execute(sa.text(f"ALTER Table users SET SCHEMA :schema"), schema=SCHEMA)
+        op.execute(sa.text(f"ALTER Table businesses SET SCHEMA :schema"), schema=SCHEMA)
+        op.execute(sa.text(f"ALTER Table amenities SET SCHEMA :schema"), schema=SCHEMA)
+        op.execute(sa.text(f"ALTER Table business_images SET SCHEMA :schema"), schema=SCHEMA)
+        op.execute(sa.text(f"ALTER Table menus SET SCHEMA :schema"), schema=SCHEMA)
+        op.execute(sa.text(f"ALTER Table reviews SET SCHEMA :schema"), schema=SCHEMA)
+        op.execute(sa.text(f"ALTER Table review_images SET SCHEMA :schema"), schema=SCHEMA)
+
 
 
 def downgrade():
