@@ -3,7 +3,6 @@ from wtforms import StringField, IntegerField, FloatField, BooleanField
 from wtforms.validators import DataRequired
 from app.models import Amenity
 
-
 class CreateAmenities(FlaskForm):
     is_reservation = BooleanField('Reservation')
     is_delivery = BooleanField('Delivery')
