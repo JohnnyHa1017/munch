@@ -6,6 +6,7 @@ from app.forms.amenities_form import CreateAmenities
 from app.forms.business_form import CreateBusiness
 from app.forms.review_form import CreateReview
 from flask_login import login_required, current_user
+from .aws_helpers import upload_file_to_s3, remove_file_from_s3
 import json
 
 bp = Blueprint('business_routes', __name__, url_prefix='/business')
@@ -17,70 +18,114 @@ def get_all_business():
     return business_list
 
 
+# Helper function to upload image and get its URL
+def upload_image_url(image):
+    if not image:
+        return None
+    upload_result = upload_file_to_s3(image)
+    if "url" in upload_result:
+        return upload_result["url"]
+    return None
+
+
+# Helper function to remove image from AWS S3
+def remove_image(image_url):
+    if not image_url:
+        return
+    remove_file_from_s3(image_url)
+
+
 # GET all businesses
+    # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
+
 @bp.route('/businesses')
 def all_business():
-    data = get_all_business()
-    return data
+    all_businesses = Business.query.all()
+    business_list = [business.to_dict() for business in all_businesses]
+    return jsonify(business_list)
 
 
 # GET business /:businessId
 @bp.route('/<int:id>')
 def one_business(id):
     business = Business.query.get(id)
+
     if not business:
         return jsonify({'error': 'Business not found'}), 404
     else:
         business_dict = business.to_dict()
         return business_dict
 
-# GET users business /
 
 # POST business
+    # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
+
 @bp.route('/new', methods=['GET', 'POST'])
 @login_required
 def create_business():
     form = CreateBusiness()
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
-        params = { "owner_id": current_user.id}
-        data = Business(**params)
-        form.populate_obj(data)
-        db.session.add(data)
+        image_url = upload_image_url(form.image.data)
+        business = Business(owner_id=current_user.id, image_url=image_url)
+
+        form.populate_obj(business)
+        db.session.add(business)
         db.session.commit()
-        return data.to_dict()
+
+        return jsonify(business.to_dict()), 201
     return jsonify({'error': form.errors}), 400
 
 
 # PUT business
+    # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
+
 @bp.route('/<int:id>/edit', methods=['PUT'])
 @login_required
 def update_business(id):
     business = Business.query.get(id)
+
     if not business:
         return jsonify({'error': 'Business not found'}), 404
+
     if business.owner_id != current_user.id:
         return jsonify({'error': 'Unauthorized'}), 403
+
     form = CreateBusiness()
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
+        if form.image.data and business.image_url:
+            remove_image(business.image_url)
+        business.image_url = upload_image_url(form.image.data) if form.image.data else business.image_url
+
         form.populate_obj(business)
         db.session.commit()
+
         return jsonify({'message': 'Business updated successfully'})
     return jsonify({'error': form.errors}), 400
 
 
 # DELETE business /:businessId/delete
+    # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
+
 @bp.route('/<int:id>/delete', methods=['DELETE'])
 @login_required
 def delete_business(id):
     business = Business.query.get(id)
+
     if not business:
         return jsonify({'error': 'Business not found'}), 404
+
     if business.owner_id != current_user.id:
         return jsonify({'error': 'Unauthorized'}), 403
+
+    remove_image(business.image_url)
+
     db.session.delete(business)
     db.session.commit()
+
     return jsonify({'message': 'Successfully Deleted'}), 200
 
 
@@ -94,32 +139,40 @@ def business_review(id):
     data = {"Review": review_list, "ReviewImage": review_img_list}
     return data
 
-# GET users review /:businessId/
 
 # POST review /:businessId/review/new
+    # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
+
 @bp.route('<int:id>/review/new', methods=['GET', 'POST'])
 @login_required
 def create_review(id):
     form = CreateReview()
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
-        params = { "business_id": id, "user_id": current_user.id}
+        image_url = upload_image_url(form.image.data)
+
+        params = { "business_id": id, "user_id": current_user.id, "image_url": image_url}
         data = Review(**params)
         form.populate_obj(data)
         db.session.add(data)
         db.session.commit()
+
         return data.to_dict()
     return jsonify({'error': form.errors}), 400
+
 
 # GET amenities /:businessId/amenity
 @bp.route('/<int:id>/amenity', methods=['GET'])
 def business_amenities(id):
     amenities = Amenity.query.filter(Amenity.business_id == id)
     amenities_lst = [amenity.to_dict() for amenity in amenities]
+
     if not amenities:
         return jsonify({'error': 'Amenities not found'}), 404
     else:
         return amenities_lst[0]
+
 
 # POST amenity /:businessId/amenity/new
 @bp.route('/<int:id>/amenity/new', methods=['GET','POST'])
@@ -127,35 +180,45 @@ def create_amenities(id):
     form = CreateAmenities()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+
         params = {'business_id':id}
         data = Amenity(**params)
         form.populate_obj(data)
         db.session.add(data)
         db.session.commit()
+
         return data.to_dict()
     return jsonify({'error': form.errors}), 400
+
 
 # GET menu /:businessId/menu
 @bp.route('/<int:id>/menu', methods=['GET'])
 def business_menu(id):
     menu = Menu.query.filter(Menu.business_id == id).all()
     menu_lst = [item.to_dict() for item in menu]
+
     if not menu:
         return jsonify({'error': 'Menu not found'}), 404
     else:
         return menu_lst
 
+
 # POST menu /:businessId/menu/new
+    # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
+
 @bp.route('/<int:id>/menu/new', methods=['GET', 'POST'])
 @login_required
 def create_menu(id):
     form = NewMenu()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        params = {'business_id':id}
+        image_url = upload_image_url(form.image.data)
+
+        params = {'business_id': id, "image_url": image_url}
         data = Menu(**params)
         form.populate_obj(data)
         db.session.add(data)
         db.session.commit()
+
         return data.to_dict()
     return jsonify({'error': form.errors}), 400
