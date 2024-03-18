@@ -20,9 +20,7 @@ login.login_view = 'auth.unauthorized'
 
 
 app.register_blueprint(business_routes.bp)
-# app.register_blueprint(menu_routes.bp, url_prefix='/menu')
-# app.register_blueprint(amenities_routes.bp, url_prefix='/amenities')
-# app.register_blueprint(review_routes.bp, url_prefix='/review')
+app.register_blueprint(review_routes.bp, url_prefix='/review')
 
 
 @app.route('/')
@@ -39,6 +37,10 @@ def landing():
 
     return data
 
+# GET reviews /reviews
+
+
+# GET amenities /amenity
 
 
 @login.user_loader

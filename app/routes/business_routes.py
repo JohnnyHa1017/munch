@@ -75,5 +75,13 @@ def delete_business(id):
     return jsonify({'message': 'Successfully Deleted'}), 200
 
 
+# GET review /:businessId/review
 
 
+# POST review /:businessId/review/new
+
+
+# GET amenities /:businessId/amenity
+
+
+# GET menu /:businessId/menu
