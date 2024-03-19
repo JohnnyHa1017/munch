@@ -22,6 +22,8 @@ class Business(db.Model):
   lng = Column(Float)
   phone_number = Column(String(20), nullable=False, unique=True)
   description = Column(String(2000))
+  schedule = Column(String(500), nullable=True)
+  image = Column(String(500), nullable=True)
 
   users = relationship('User', back_populates='businesses')
   menus = relationship('Menu', back_populates='businesses', cascade='all, delete-orphan')
@@ -42,5 +44,7 @@ class Business(db.Model):
       'lat': self.lat,
       'lng': self.lng,
       'phone_number': self.phone_number,
-      'description': self.description
+      'description': self.description,
+      'schedule':self.schedule,
+      'image': self.image
     }
