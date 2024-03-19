@@ -7,38 +7,33 @@ const getAllData = (data) => {
     }
 }
 
+
+// Change URL path
 export const landingPageThunk = () => async (dispatch) => {
-    const response = await fetch('/')
+    const response = await fetch('http://127.0.0.1:8000/')
     console.log('response ==>', response)
     if (!response.ok) {
         throw new Error('Failed to fetch data')
     }
-    if (response.ok) {
-        console.log('here')
-        const all_data = await response.json()    
-        console.log('all_data ==>', all_data)   
-        if (all_data.errors) {
-            return all_data.errors;
-        }
-        dispatch(getAllData(all_data))
-        return all_data
+    const all_data = await response.json()
+    console.log('all_data ==>', all_data)
+    if (all_data.errors) {
+        return all_data.errors;
     }
+    dispatch(getAllData(all_data))
+    return all_data
+
 }
 
 
-const initialState = {
-    businesses: [],
-    amenities: [],
-    reviews: [],
-}
-function businessReducer(state=initialState, action) {
+
+function businessReducer(state = {}, action) {
     switch (action.type) {
         case GET_ALL_DATA: {
-            return {...state,
-                     businesses: [action.data.businesses],
-                     amenities: [action.data.amenities],
-                     reviews: [action.data.reviews]
-                    }
+            return {
+                ...state,
+                ...action.data
+            }
         }
         default:
             return state
@@ -46,5 +41,4 @@ function businessReducer(state=initialState, action) {
 }
 
 export default businessReducer
-
 
