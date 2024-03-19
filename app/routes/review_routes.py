@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Review, db
-from app.forms.review_form import CreateReview, ImageForm
+from app.forms.review_form import CreateReview
 from .aws_helpers import upload_file_to_s3, remove_file_from_s3
 
 bp = Blueprint('review_routes', __name__)

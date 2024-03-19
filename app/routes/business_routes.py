@@ -1,10 +1,10 @@
 from flask import Blueprint, jsonify, request, redirect
 from app.models import Business, Menu, Amenity, Review, ReviewImage, db
 from app.forms.business_form import CreateBusiness
-from app.forms.menu_form import NewMenu, ImageForm
+from app.forms.menu_form import NewMenu, MenuImageForm
 from app.forms.amenities_form import CreateAmenities
-from app.forms.business_form import CreateBusiness, ScheduleForm, ImageForm
-from app.forms.review_form import CreateReview, ImageForm
+from app.forms.business_form import CreateBusiness, ScheduleForm, BusinessImageForm
+from app.forms.review_form import CreateReview, ReviewImageForm
 from flask_login import login_required, current_user
 from .aws_helpers import upload_file_to_s3, remove_file_from_s3
 import json
@@ -65,7 +65,7 @@ def one_business(id):
 def create_business():
     form = CreateBusiness()
     schedule_form = ScheduleForm()
-    image_form = ImageForm()
+    image_form = BusinessImageForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -102,7 +102,7 @@ def update_business(id):
         return jsonify({'error': 'Unauthorized'}), 403
 
     form = CreateBusiness()
-    image_form = ImageForm()
+    image_form = BusinessImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
@@ -159,7 +159,7 @@ def business_review(id):
 @login_required
 def create_review(id):
     form = CreateReview()
-    image_form = ImageForm()
+    image_form = ReviewImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
@@ -226,7 +226,7 @@ def business_menu(id):
 @login_required
 def create_menu(id):
     form = NewMenu()
-    image_form = ImageForm()
+    image_form = MenuImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         if image_form.image.data:

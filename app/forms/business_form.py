@@ -35,6 +35,7 @@ class ScheduleForm(FlaskForm):
     sunday_open = SelectField(choices=hours, validators=[DataRequired()])
     sunday_close = SelectField(choices=hours, validators=[DataRequired()])
 
-class ImageForm(FlaskForm):
+
+class BusinessImageForm(FlaskForm):
     image = FileField("Image File", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
     submit = SubmitField("Create Post")
