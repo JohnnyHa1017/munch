@@ -3,7 +3,7 @@ from app.models import Business, Menu, Amenity, Review, ReviewImage, db
 from app.forms.business_form import CreateBusiness
 from app.forms.menu_form import NewMenu
 from app.forms.amenities_form import CreateAmenities
-from app.forms.business_form import CreateBusiness
+from app.forms.business_form import CreateBusiness, ScheduleForm
 from app.forms.review_form import CreateReview
 from flask_login import login_required, current_user
 from .aws_helpers import upload_file_to_s3, remove_file_from_s3
@@ -64,11 +64,21 @@ def one_business(id):
 @login_required
 def create_business():
     form = CreateBusiness()
+    schedule_form = ScheduleForm()
+
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        image_url = upload_image_url(form.image.data)
-        business = Business(owner_id=current_user.id, image_url=image_url)
+        schedule = f'''Monday:{schedule_form.data['monday_open']} - {schedule_form.data['monday_close']},
+                    Tuesday: {schedule_form.data['tuesday_open']} - {schedule_form.data['tuesday_close']},
+                    Wednesday: {schedule_form.data['wednesday_open']} - {schedule_form.data['wednesday_close']},
+                    Thursday: {schedule_form.data['thursday_open']} - {schedule_form.data['thursday_close']},
+                    Friday: {schedule_form.data['friday_open']} - {schedule_form.data['friday_close']},
+                    Saturday: {schedule_form.data['saturday_open']} - {schedule_form.data['saturday_close']},
+                    Sunday: {schedule_form.data['sunday_open']} - {schedule_form.data['sunday_close']}
+                    '''
+        # image_url = upload_image_url(form.image.data) removed
+        business = Business(owner_id=current_user.id, schedule=json.loads(schedule)) #image_url=image_url removed
 
         form.populate_obj(business)
         db.session.add(business)
