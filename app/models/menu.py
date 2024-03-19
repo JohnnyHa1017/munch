@@ -21,6 +21,7 @@ class Menu(db.Model):
 
     def to_dict(self):
         return {
+            'id': self.id,
             'business_id': self.business_id,
             'name': self.name,
             'category': self.category,

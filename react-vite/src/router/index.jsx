@@ -4,7 +4,8 @@ import SignupFormPage from '../components/SignupFormPage';
 import LandingPage from '../components/LandingPage'
 import Layout from './Layout';
 import { RouterProvider } from "react-router-dom";
-
+import OneBusiness from '../components/Businesses/Businesses';
+import CreateNewBusiness from '../components/CreateBusiness/CreateBusiness';
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,14 @@ export const router = createBrowserRouter([
         path: "signup",
         element: <SignupFormPage />,
       },
+      {
+        path: "business/:businessId",
+        element: <OneBusiness />
+      },
+      {
+        path: "business/new",
+        element: <CreateNewBusiness />
+      }
     ],
   },
 ]);

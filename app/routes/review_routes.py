@@ -4,7 +4,7 @@ from app.models import Review, db
 from app.forms.review_form import CreateReview
 from .aws_helpers import upload_file_to_s3, remove_file_from_s3
 
-bp = Blueprint('review_routes', __name__)
+bp = Blueprint('review_routes', __name__, url_prefix='api/reviews')
 
 # Helper function to upload image and get its URL
 def upload_image_url(image):

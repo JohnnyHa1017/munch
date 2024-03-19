@@ -24,6 +24,7 @@ class Amenity(db.Model):
 
     def to_dict(self):
         return {
+            'id': self.id,
             'business_id': self.business_id,
             'reservation': self.reservation,
             'delivery': self.delivery,

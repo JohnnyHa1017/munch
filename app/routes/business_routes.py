@@ -9,7 +9,7 @@ from flask_login import login_required, current_user
 from .aws_helpers import upload_file_to_s3, remove_file_from_s3
 import json
 
-bp = Blueprint('business_routes', __name__, url_prefix='/business')
+bp = Blueprint('business_routes', __name__, url_prefix='/api/business')
 
 #helper function to get all businesses
 def get_all_business():

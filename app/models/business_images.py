@@ -19,6 +19,7 @@ class BusinessImage(db.Model):
 
     def to_dict(self):
         return {
+            'id': self.id,
             'business_id': self.business_id,
             'url': self.url,
             'preview': self.preview
