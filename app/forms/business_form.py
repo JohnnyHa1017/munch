@@ -15,7 +15,6 @@ class CreateBusiness(FlaskForm):
     category = StringField('Category', validators=[DataRequired()])
     phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=20)])
     description = StringField('Description')
-    image = FileField("Image File", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))]) #FileRequired() removed from validators
     submit = SubmitField("Create Post")
 
 class ScheduleForm(FlaskForm):
@@ -35,3 +34,7 @@ class ScheduleForm(FlaskForm):
     saturday_close = SelectField(choices=hours, validators=[DataRequired()])
     sunday_open = SelectField(choices=hours, validators=[DataRequired()])
     sunday_close = SelectField(choices=hours, validators=[DataRequired()])
+
+class ImageForm(FlaskForm):
+    image = FileField("Image File", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
+    submit = SubmitField("Create Post")

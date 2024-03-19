@@ -1,10 +1,10 @@
 from flask import Blueprint, jsonify, request, redirect
 from app.models import Business, Menu, Amenity, Review, ReviewImage, db
 from app.forms.business_form import CreateBusiness
-from app.forms.menu_form import NewMenu
+from app.forms.menu_form import NewMenu, ImageForm
 from app.forms.amenities_form import CreateAmenities
-from app.forms.business_form import CreateBusiness, ScheduleForm
-from app.forms.review_form import CreateReview
+from app.forms.business_form import CreateBusiness, ScheduleForm, ImageForm
+from app.forms.review_form import CreateReview, ImageForm
 from flask_login import login_required, current_user
 from .aws_helpers import upload_file_to_s3, remove_file_from_s3
 import json
@@ -65,20 +65,19 @@ def one_business(id):
 def create_business():
     form = CreateBusiness()
     schedule_form = ScheduleForm()
+    image_form = ImageForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        schedule = f'''Monday:{schedule_form.data['monday_open']} - {schedule_form.data['monday_close']},
-                    Tuesday: {schedule_form.data['tuesday_open']} - {schedule_form.data['tuesday_close']},
-                    Wednesday: {schedule_form.data['wednesday_open']} - {schedule_form.data['wednesday_close']},
-                    Thursday: {schedule_form.data['thursday_open']} - {schedule_form.data['thursday_close']},
-                    Friday: {schedule_form.data['friday_open']} - {schedule_form.data['friday_close']},
-                    Saturday: {schedule_form.data['saturday_open']} - {schedule_form.data['saturday_close']},
-                    Sunday: {schedule_form.data['sunday_open']} - {schedule_form.data['sunday_close']}
-                    '''
-        # image_url = upload_image_url(form.image.data) removed
-        business = Business(owner_id=current_user.id, schedule=json.loads(schedule)) #image_url=image_url removed
+        schedule = f'''Monday:{schedule_form.data['monday_open']} - {schedule_form.data['monday_close']}, Tuesday: {schedule_form.data['tuesday_open']} - {schedule_form.data['tuesday_close']}, Wednesday: {schedule_form.data['wednesday_open']} - {schedule_form.data['wednesday_close']}, Thursday: {schedule_form.data['thursday_open']} - {schedule_form.data['thursday_close']}, Friday: {schedule_form.data['friday_open']} - {schedule_form.data['friday_close']}, Saturday: {schedule_form.data['saturday_open']} - {schedule_form.data['saturday_close']}, Sunday: {schedule_form.data['sunday_open']} - {schedule_form.data['sunday_close']}'''
+
+        if image_form.image.data:
+            image_url = upload_image_url(image_form.image.data)
+            if not image_url:
+                return jsonify({'error': 'Failed to upload image'}), 500
+
+        business = Business(owner_id=current_user.id, schedule=schedule, image=image_url if image_form.image.data else None)
 
         form.populate_obj(business)
         db.session.add(business)
@@ -103,12 +102,15 @@ def update_business(id):
         return jsonify({'error': 'Unauthorized'}), 403
 
     form = CreateBusiness()
+    image_form = ImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        if form.image.data and business.image_url:
-            remove_image(business.image_url)
-        business.image_url = upload_image_url(form.image.data) if form.image.data else business.image_url
+        if image_form.validate_on_submit():
+            if image_form.image.data:
+                if business.image:
+                    remove_image(business.image)
+                business.image = upload_image_url(image_form.image.data)
 
         form.populate_obj(business)
         db.session.commit()
@@ -131,7 +133,7 @@ def delete_business(id):
     if business.owner_id != current_user.id:
         return jsonify({'error': 'Unauthorized'}), 403
 
-    remove_image(business.image_url)
+    remove_image(business.image)
 
     db.session.delete(business)
     db.session.commit()
@@ -157,12 +159,16 @@ def business_review(id):
 @login_required
 def create_review(id):
     form = CreateReview()
+    image_form = ImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        image_url = upload_image_url(form.image.data)
+        if image_form.image.data:
+            image_url = upload_image_url(image_form.image.data)
+        else:
+            image_url = None
 
-        params = { "business_id": id, "user_id": current_user.id, "image_url": image_url}
+        params = {'business_id': id, 'user_id': current_user.id, 'image': image_url}
         data = Review(**params)
         form.populate_obj(data)
         db.session.add(data)
@@ -220,11 +226,15 @@ def business_menu(id):
 @login_required
 def create_menu(id):
     form = NewMenu()
+    image_form = ImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        image_url = upload_image_url(form.image.data)
+        if image_form.image.data:
+            image_url = upload_image_url(image_form.image.data)
+        else:
+            image_url = None
 
-        params = {'business_id': id, "image_url": image_url}
+        params = {'business_id': id, 'image': image_url}
         data = Menu(**params)
         form.populate_obj(data)
         db.session.add(data)

@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Review, db
-from app.forms.review_form import CreateReview
+from app.forms.review_form import CreateReview, ImageForm
 from .aws_helpers import upload_file_to_s3, remove_file_from_s3
 
 bp = Blueprint('review_routes', __name__)
@@ -38,15 +38,20 @@ def update_review(id):
 
     form = CreateReview()
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        new_image_url = upload_image_url(request.files.get('image'))
 
-        if new_image_url:
-            if review.image_url:
+    if form.validate_on_submit():
+        new_image_url = None
+        if 'image' in request.files:
+            new_image_url = upload_image_url(request.files['image'])
+
+            if new_image_url and review.image_url:
                 remove_image(review.image_url)
-            review.image_url = new_image_url
 
         form.populate_obj(review)
+
+        if new_image_url:
+            review.image_url = new_image_url
+
         db.session.commit()
 
         return jsonify({'message': 'Review updated successfully'})

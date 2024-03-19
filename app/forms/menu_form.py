@@ -12,5 +12,8 @@ class NewMenu(FlaskForm):
     category = SelectField('Type', choices=menu_category, validators=[DataRequired()])
     price = DecimalField('Price', places=2, validators=[DataRequired()])
     description = StringField('Description')
+    submit = SubmitField("Create Post")
+
+class ImageForm(FlaskForm):
     image = FileField("Image File", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
     submit = SubmitField("Create Post")
