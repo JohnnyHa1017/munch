@@ -138,10 +138,10 @@ export const updateBusinessThunk = (business, businessId) => async (dispatch) =>
 
     if (response.ok) {
         const data = await response.json()
-        dispatch(updateBusiness(data))
+        dispatch(updateBusiness({...business, ...data}))
         return data
     }
-    
+
     if (!response.ok) {
         throw new Error('Failed to update business.')
     }

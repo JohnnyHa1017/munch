@@ -25,6 +25,7 @@ export default function OneBusiness() {
   return (
     <>
       <h1>Business Id Page</h1>
+      <p>{data[businessId].title}</p>
     </>
   )
 }
