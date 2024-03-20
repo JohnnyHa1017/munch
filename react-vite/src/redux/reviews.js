@@ -102,17 +102,21 @@ export const createReviewThunk = (businessId, newReview) => async (dispatch) => 
 
 export const updateReviewThunk = (businessId) => async (dispatch) => {
     const response = await fetch(`/api/business/${businessId}/reviews`,{
-
+        
     })
 
 
     dispatch(updateReview)
 }
 
-export const deleteReviewThunk = (businessId) => async (dispatch) => {
-    const response = await fetch(`/api/business/${businessId}/reviews`)
+export const deleteReviewThunk = (reviewId) => async (dispatch) => {
+    const response = await fetch(`/api/reviews/${reviewId}/delete`, {
+        method: 'DELETE'
+    })
 
-    dispatch(deleteReview)
+    if (response.ok) {
+        dispatch(deleteReview(reviewId))
+    }
 }
 
 

@@ -8,6 +8,7 @@ const CreateNewReview = () => {
     const { businessId } = useParams()
     console.log('businessId ==>', businessId)
     const user = useSelector((state) => state.session.user)
+    const nav = useNavigate() 
 
     const [review, setReview] = useState('')
     const [star, setStars] = useState(null)
@@ -25,18 +26,19 @@ const CreateNewReview = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setSubmitted(true)
-
+        
         const newReview = {
-            review, star
+            review, star, image
         }
         try {
-            await dispatch(CreateNewReview(businessId, newReview))
+            await dispatch(createReviewThunk(businessId, newReview))
+            nav(`/business/${businessId}`);
         } catch (error) {
             setValidations({ message: 'Cannot add review' })
             // console.error("Error creating review:", error);
         }
-    }
 
+    }
 
 
     return (
@@ -56,6 +58,12 @@ const CreateNewReview = () => {
                     rows={7}
                     cols={70}
                 />
+                {/* <label>
+                    Image
+                    <input type='file' name='image' value={image} placeholder='image'
+                        onChange={(e) => setImage(e.target.value)}
+                    ></input>
+                </label> */}
                 <label>
                     Image
                     <input type='text' name='image' value={image} placeholder='image'
@@ -80,7 +88,7 @@ const CreateNewReview = () => {
                     })}
                 </div>
                 <div className='Review-Btn-container'>
-                    <button type='submit' className='Review-Submit-btn' disabled={review.length < 10 || star < 1}>Submit Your Review</button>
+                    <button type='submit' className='Review-Submit-btn' disabled={star < 1}>Submit Your Review</button>
                 </div>
             </form>
         </>
