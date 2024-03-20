@@ -68,10 +68,11 @@ def create_business():
     image_form = BusinessImageForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']
+    data = request.get_json()
+    schedule = data.get('schedule')
 
     if form.validate_on_submit():
-        schedule = f'''Monday:{schedule_form.data['monday_open']} - {schedule_form.data['monday_close']}, Tuesday: {schedule_form.data['tuesday_open']} - {schedule_form.data['tuesday_close']}, Wednesday: {schedule_form.data['wednesday_open']} - {schedule_form.data['wednesday_close']}, Thursday: {schedule_form.data['thursday_open']} - {schedule_form.data['thursday_close']}, Friday: {schedule_form.data['friday_open']} - {schedule_form.data['friday_close']}, Saturday: {schedule_form.data['saturday_open']} - {schedule_form.data['saturday_close']}, Sunday: {schedule_form.data['sunday_open']} - {schedule_form.data['sunday_close']}'''
-
+        # schedule = f'''Monday:{schedule_form.data['monday_open']} - {schedule_form.data['monday_close']}, Tuesday: {schedule_form.data['tuesday_open']} - {schedule_form.data['tuesday_close']}, Wednesday: {schedule_form.data['wednesday_open']} - {schedule_form.data['wednesday_close']}, Thursday: {schedule_form.data['thursday_open']} - {schedule_form.data['thursday_close']}, Friday: {schedule_form.data['friday_open']} - {schedule_form.data['friday_close']}, Saturday: {schedule_form.data['saturday_open']} - {schedule_form.data['saturday_close']}, Sunday: {schedule_form.data['sunday_open']} - {schedule_form.data['sunday_close']}'''
         if image_form.image.data:
             image_url = upload_image_url(image_form.image.data)
             if not image_url:

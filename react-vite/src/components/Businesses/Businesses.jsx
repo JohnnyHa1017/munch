@@ -24,6 +24,8 @@ export default function OneBusiness() {
     <>
       <h1>Business Id Page</h1>
       <p>{data[businessId].title}</p>
+      <h2>Schedule</h2>
+      <p>{data[businessId].schedule}</p>
     </>
   )
 }
