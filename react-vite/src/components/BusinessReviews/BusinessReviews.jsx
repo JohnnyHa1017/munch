@@ -7,19 +7,21 @@ import { businessReviewThunk } from '../../redux/reviews'
 function BusinessReviews(){
     const { businessId } = useParams()
     const dispatch = useDispatch()
-    const reviews = useSelector((state)=> state.reviews)
-
-    console.log('@@@@!',reviews)
-    const reviewArray = Object.values(reviews).filter((review)=>review.businessId === parseInt(businessId)).reverse()
-
-    console.log('@@@@!ARR', reviewArray)
+    const reviews = useSelector((state)=> state.reviews.Review)
+    const reviewImages = useSelector((state)=> state.reviews.ReviewImage)
     const currUser = useSelector((state)=> state.session.user)
+
+    console.log('user ==>', currUser)
+    console.log('reviews ==>', reviews)
+    console.log('reviewImages ==>', reviewImages)
+
+
 
     useEffect(()=>{
         dispatch(businessReviewThunk(businessId))
     }, [dispatch, businessId])
 
-    if(!reviewArray.length){
+    if(!reviews){
         return <div className='NoReview'>Be the first to review</div>
     }
 

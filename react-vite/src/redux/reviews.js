@@ -12,10 +12,10 @@ const getAllReviews = (allReviews)=>{
     }
 }
 
-const getAllData = (businessId)=>{
+const getBusinessReviews = (reviews)=>{
     return{
         type: GET_BUSINESS_REVIEWS,
-        businessId
+        reviews
     }
 }
 
@@ -65,24 +65,24 @@ export const allReviewThunk = () => async (dispatch) => {
 
 
 export const businessReviewThunk = (businessId) => async (dispatch) => {
-    const response = await fetch(`/api/business/${businessId}/reviews`)
+    const response = await fetch(`/api/business/${businessId}/review`)
 
     if (!response.ok) {
         throw new Error('Failed to fetch reviews.')
     }
 
-    const all_data = await response.json()
-
-    if (all_data.errors) {
-        return all_data.errors;
+    const reviews = await response.json()
+    console.log('reviews ==>', reviews)
+    if (reviews.errors) {
+        return reviews.errors;
     }
 
-    dispatch(getAllData(all_data))
-    return all_data
+    dispatch(getBusinessReviews(reviews))
+    return reviews
 }
 
 export const createReviewThunk = (businessId, newReview) => async (dispatch) => {
-    const response = await fetch(`/api/business/${businessId}/reviews`,{
+    const response = await fetch(`/api/business/${businessId}/review/new`,{
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(newReview)
@@ -93,7 +93,7 @@ export const createReviewThunk = (businessId, newReview) => async (dispatch) => 
         dispatch(createReview(data))
         return data
 
-    }else{
+    } else{
         const error = await response.json()
         return error
     }
@@ -123,7 +123,7 @@ function reviewReducer(state={}, action){
             return { ...state, ...action.allReviews}
         }
         case GET_BUSINESS_REVIEWS:{
-            return { ...state, ...action.businessId}
+            return { ...state, ...action.reviews}
         }
         case CREATE_REVIEW:{
             return { ...state, ...action.data}
