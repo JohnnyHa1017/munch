@@ -71,7 +71,7 @@ const CreateNewBusiness = () => {
     e.preventDefault();
     setSubmitted(true);
     if (!Object.keys(validations).length) {
-      const business = dispatch(createNewBusinessThunk({
+      const business = await dispatch(createNewBusinessThunk({
         title,
         address,
         city,
@@ -87,8 +87,9 @@ const CreateNewBusiness = () => {
         previewImage
       })
       )
-       dispatch(createNewBusinessThunk(business))
-      // nav(`/business/${business.id}`);
+      dispatch(createNewBusinessThunk(business))
+      // console.log('business ==>', business)
+      nav(`/business/${business.id}`);
     }
     // setTitle('');
     // setAddress('');
@@ -183,7 +184,7 @@ const CreateNewBusiness = () => {
         <input
           list='categories'
           name='category'
-          value={ category }
+          value={category}
           onChange={(e) => setCategory(e.target.value)}
         ></input>
         <datalist id='categories'>
