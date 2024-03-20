@@ -47,6 +47,8 @@ const deleteReview = (reviewId)=>{
 export const allReviewThunk = () => async (dispatch) => {
     const response = await fetch('/api/reviews/all')
 
+    console.log('response ==>', response)
+    
     if (!response.ok) {
         throw new Error('Failed to fetch reviews.')
     }
@@ -134,6 +136,8 @@ function reviewReducer(state={}, action){
             delete newState[action.reviewId]
             return newState
         }
+        default:
+            return state
     }
 }
 

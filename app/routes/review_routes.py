@@ -28,7 +28,7 @@ def remove_image(image_url):
 # GET allReviews
 
 @bp.route('/all')
-def business_review():
+def all_reviews():
     all_reviews = Review.query.all()
     review_img = ReviewImage.query.all()
     review_list = [review.to_dict() for review in all_reviews]
@@ -56,13 +56,13 @@ def update_review(id):
         if 'image' in request.files:
             new_image_url = upload_image_url(request.files['image'])
 
-            if new_image_url and review.image_url:
-                remove_image(review.image_url)
+            if new_image_url and review.image:
+                remove_image(review.image)
 
         form.populate_obj(review)
 
         if new_image_url:
-            review.image_url = new_image_url
+            review.image = new_image_url
 
         db.session.commit()
 
@@ -84,8 +84,8 @@ def delete_review(id):
     if review.user_id != current_user.id:
         return jsonify({'error': 'Unauthorized'}), 403
 
-    if review.image_url:
-        remove_image(review.image_url)
+    if review.image:
+        remove_image(review.image)
 
     db.session.delete(review)
     db.session.commit()
