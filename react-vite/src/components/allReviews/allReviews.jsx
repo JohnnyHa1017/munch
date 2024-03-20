@@ -4,7 +4,8 @@ import { allReviewThunk } from '../../redux/reviews'
 
 function AllReviews() {
     const dispatch = useDispatch()
-    const data = useSelector((state) => state.allReviews)
+    const data = useSelector((state) => state)
+    console.log('data ==>', data)
 
     useEffect(() => {
         dispatch(allReviewThunk())

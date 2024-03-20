@@ -7,6 +7,7 @@ import { RouterProvider } from "react-router-dom";
 import OneBusiness from '../components/Businesses/Businesses';
 import CreateNewBusiness from '../components/CreateBusiness/CreateBusiness';
 import BusinessReviews from '../components/BusinessReviews/BusinessReviews'
+import AllReviews from '../components/allReviews/allReviews'
 
 export const router = createBrowserRouter([
   {
@@ -34,8 +35,8 @@ export const router = createBrowserRouter([
       },
       //testing paths
       {
-        path: 'allReviews',
-        element: <allReviews/>
+        path: 'reviews/all',
+        element: <AllReviews/>
       },
       {
         path: 'business/:businessId/reviews',
