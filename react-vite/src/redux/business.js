@@ -27,10 +27,10 @@ const createNewBusiness = (data) => {
     }
 }
 
-const updateBusiness = (data) => {
+const updateBusiness = (business) => {
     return {
         type: UPDATE_BUSINESS,
-        data
+        business
     }
 }
 
@@ -117,11 +117,10 @@ export const createNewBusinessThunk = (newBusiness) => async (dispatch) => {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(newBusiness)
     })
-    console.log('resp@@@@@@', response)
     if (response.ok) {
+
         const data = await response.json()
         dispatch(createNewBusiness(data))
-        console.log('data@@@@@@@', data)
         return data
     }else{
         const error = await response.json()
@@ -130,6 +129,23 @@ export const createNewBusinessThunk = (newBusiness) => async (dispatch) => {
 }
 
 // Update Business Thunk (Business Id)
+export const updateBusinessThunk = (business, businessId) => async (dispatch) => {
+    const response = await fetch(`/api/business/${businessId}/edit`, {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(business)
+    })
+
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(updateBusiness(data))
+        return data
+    }
+    
+    if (!response.ok) {
+        throw new Error('Failed to update business.')
+    }
+}
 
 
 // Delete Business Thunk (Business Id)
@@ -148,7 +164,10 @@ function businessReducer(state = {}, action) {
         }
         case CREATE_NEW_BUSINESS: {
             return { ...state, ...action.data }
-            }
+        }
+        case UPDATE_BUSINESS: {
+            return { ...state, ...action.business }
+        }
         default:
             return state
     }

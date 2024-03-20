@@ -5,7 +5,8 @@ import LandingPage from '../components/LandingPage'
 import Layout from './Layout';
 import { RouterProvider } from "react-router-dom";
 import OneBusiness from '../components/Businesses/Businesses';
-import CreateNewBusiness from '../components/CreateBusiness/CreateBusiness';
+import CreateBusiness from '../components/CreateBusiness/CreateBusiness';
+import UpdateBusiness from '../components/UpdateBusiness/UpdateBusiness';
 
 export const router = createBrowserRouter([
   {
@@ -29,7 +30,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "business/new",
-        element: <CreateNewBusiness />
+        element: <CreateBusiness />
+      },
+      {
+        path: "business/:id/edit",
+        element: <UpdateBusiness />
       }
     ],
   },
