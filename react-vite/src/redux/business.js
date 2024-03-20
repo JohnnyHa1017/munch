@@ -117,11 +117,11 @@ export const createNewBusinessThunk = (newBusiness) => async (dispatch) => {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(newBusiness)
     })
-    console.log('resp@@@@@@', response)
+    // console.log('resp@@@@@@', response)
     if (response.ok) {
         const data = await response.json()
         dispatch(createNewBusiness(data))
-        console.log('data@@@@@@@', data)
+        // console.log('data@@@@@@@', data)
         return data
     }else{
         const error = await response.json()

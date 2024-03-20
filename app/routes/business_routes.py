@@ -151,7 +151,6 @@ def business_review(id):
     data = {"Review": review_list, "ReviewImage": review_img_list}
     return data
 
-
 # POST review /:businessId/review/new
     # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
 
