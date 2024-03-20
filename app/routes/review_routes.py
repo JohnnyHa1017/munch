@@ -36,7 +36,7 @@ def all_reviews():
     data = {"Review": review_list, "ReviewImage": review_img_list}
     return data
 
-
+# Update review
 @bp.route('/<int:id>/update', methods=['PUT'])
 @login_required
 def update_review(id):

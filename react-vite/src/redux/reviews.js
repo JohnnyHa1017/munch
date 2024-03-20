@@ -26,10 +26,10 @@ const createReview = (newReview)=>{
     }
 }
 
-const updateReview = (data)=>{
+const updateReview = (updatedReview)=>{
     return{
         type: UPDATE_REVIEW,
-        data
+        updatedReview
     }
 
 }
@@ -100,13 +100,18 @@ export const createReviewThunk = (businessId, newReview) => async (dispatch) => 
 }
 
 
-export const updateReviewThunk = (businessId) => async (dispatch) => {
-    const response = await fetch(`/api/business/${businessId}/reviews`,{
-        
+export const updateReviewThunk = (review, reviewId) => async (dispatch) => {
+    const response = await fetch(`/api/reviews/${reviewId}/update`,{
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(review)
     })
 
-
-    dispatch(updateReview)
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(updateReview({...review, ...data}))
+        return data
+    }
 }
 
 export const deleteReviewThunk = (reviewId) => async (dispatch) => {
@@ -133,7 +138,7 @@ function reviewReducer(state={}, action){
             return { ...state, ...action.data}
         }
         case UPDATE_REVIEW:{
-            return { ...state, ...action.data}
+            return { ...state, ...action.review}
         }
         case DELETE_REVIEW:{
             const newState = { ...state }
