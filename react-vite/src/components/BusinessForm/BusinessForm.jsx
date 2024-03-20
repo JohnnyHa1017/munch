@@ -9,19 +9,21 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const user = useSelector((state) => state.session.user)
   const { businessId } = useParams()
 
+  // let checkBusiness = Object.values(business)
+
   const [title, setTitle] = useState(business?.title );
-  const [address, setAddress] = useState(business?.address || '');
-  const [city, setCity] = useState(business?.city || '');
-  const [state, setState] = useState(business?.state || '');
-  const [country, setCountry] = useState(business?.country || '');
-  const [lat, setLat] = useState(business?.lat || '');
-  const [lng, setLng] = useState(business?.lng || '');
-  const [description, setDescription] = useState(business?.description || '');
-  const [phone_number, setPhoneNumber] = useState(business?.phone_number || '');
-  const [price_rating, setPrice] = useState(business?.price_rating || '');
-  const [category, setCategory] = useState(business?.category || '');
-  const [schedule, setSchedule] = useState(business?.schedule || '');
-  const [previewImage, setPreviewImage] = useState(business?.previewImage || '');
+  const [address, setAddress] = useState(business?.address);
+  const [city, setCity] = useState(business?.city);
+  const [state, setState] = useState(business?.state);
+  const [country, setCountry] = useState(business?.country);
+  const [lat, setLat] = useState(business?.lat);
+  const [lng, setLng] = useState(business?.lng);
+  const [description, setDescription] = useState(business?.description);
+  const [phone_number, setPhoneNumber] = useState(business?.phone_number);
+  const [price_rating, setPrice] = useState(business?.price_rating);
+  const [category, setCategory] = useState(business?.category);
+  const [schedule, setSchedule] = useState(business?.schedule);
+  const [previewImage, setPreviewImage] = useState(business?.previewImage);
   const [validations, setValidations] = useState({})
   const [submitted, setSubmitted] = useState(false)
 
@@ -88,35 +90,16 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       previewImage
     }
 
-
-
-
-  //   if (Object.values(business)[0]) {
-  //     console.log('HELLO CREATE')
-  //   if (!Object.keys(validations).length) {
-  //       const createBusiness = await dispatch(createNewBusinessThunk(business))
-  //       // dispatch(createBusiness)
-  //       nav(`/business/${business.id}`);
-  //     }
-  //     } else {
-  //       console.log('HELLO UPDATE')
-  //       if (!Object.keys(validations).length) {
-  //         const updateBusiness = await dispatch(updateBusinessThunk(business, businessId))
-  //         // dispatch(updateBusiness)
-  //         nav(`/business/${business.id}`);
-  //       }
-  //   }
-  // }
-  console.log('update business', business)
   if (!Object.keys(validations).length) {
-    if (!Object.values(business)[0]) {
-      console.log('HELLO CREATE')
+    if (!businessId) {
         const createBusiness = await dispatch(createNewBusinessThunk(business))
-        // dispatch(createBusiness)
-        nav(`/business/${business.id}`);
+          console.log(createBusiness, '<--- create business here')
+          if(createBusiness && createBusiness.id){
+            nav(`/business/${createBusiness.id}`);
+          }
+
       }
     else {
-      console.log('HELLO UPDATE')
       const updateBusiness = await dispatch(updateBusinessThunk(business, businessId))
       // dispatch(updateBusiness)
       nav(`/business/${businessId}`);

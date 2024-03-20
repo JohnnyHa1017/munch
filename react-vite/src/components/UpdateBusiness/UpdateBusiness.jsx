@@ -9,16 +9,15 @@ const UpdateBusiness = () => {
   const buttonName = 'Update a Business'
   const dispatch = useDispatch();
   const { businessId } = useParams();
-
-  if (!state) {
-    return <h1>Loading...</h1>
-  }
-
   const business = state[businessId]
 
   useEffect(() => {
     dispatch(specificBusinessThunk(businessId))
   }, [businessId, dispatch])
+
+  if (!state || !state[businessId]) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <>

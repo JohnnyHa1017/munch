@@ -10,8 +10,6 @@ export default function OneBusiness() {
   const data = useSelector((state) => state.business)
   const { businessId } = useParams()
 
-  console.log('data =>', data)
-
   useEffect(() => {
     dispatch(specificBusinessThunk(businessId))
     dispatch(businessMenuThunk(businessId))
