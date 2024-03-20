@@ -133,8 +133,6 @@ def delete_business(id):
     if business.owner_id != current_user.id:
         return jsonify({'error': 'Unauthorized'}), 403
 
-    remove_image(business.image)
-
     db.session.delete(business)
     db.session.commit()
 

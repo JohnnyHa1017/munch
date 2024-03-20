@@ -4,27 +4,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {  useEffect } from "react";
 
 function DeleteBusiness() {
+    const state = useSelector(state => state.business)
+    const { businessId } = useParams()
     const dispatch = useDispatch();
     const nav = useNavigate()
-    const { businessId } = useParams()
-    const state = useSelector (state => state.business)
+
     useEffect(()=>{
         dispatch(specificBusinessThunk(businessId))
-    },[businessId, dispatch])
-
-    if(!state){
-        return <div>Loading...</div>
-    }
-
-    console.log(businessId, '<--- should be the actual id number')
-    console.log(state, '<--- business obj of the id we are trying to delete')
-    console.log(state[businessId], '<---- the object only')
-    console.log(state[businessId].id, '<---- just a number')
+    }, [businessId, dispatch])
 
     const deleteBusiness = async (e) => {
         e.preventDefault();
-        await dispatch(deleteBusinessThunk(state[businessId]))
-        // nav('/')
+        dispatch(deleteBusinessThunk(state[businessId]))
+        nav('/')
     }
 
     return(
