@@ -4,7 +4,7 @@ from app.models import Review, db, ReviewImage
 from app.forms.review_form import CreateReview
 from .aws_helpers import upload_file_to_s3, remove_file_from_s3
 
-bp = Blueprint('review_routes', __name__, url_prefix='api/reviews')
+bp = Blueprint('review_routes', __name__, url_prefix='/api/reviews')
 
 # Helper function to upload image and get its URL
 def upload_image_url(image):
@@ -24,6 +24,18 @@ def remove_image(image_url):
 
 # UPDATE REVIEW BY REVIEW ID /:reviewId/update
     # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
+
+# GET allReviews
+
+@bp.route('/all')
+def business_review():
+    all_reviews = Review.query.all()
+    review_img = ReviewImage.query.all()
+    review_list = [review.to_dict() for review in all_reviews]
+    review_img_list = [image.to_dict() for image in review_img]
+    data = {"Review": review_list, "ReviewImage": review_img_list}
+    return data
+
 
 @bp.route('/<int:id>/update', methods=['PUT'])
 @login_required
@@ -79,15 +91,3 @@ def delete_review(id):
     db.session.commit()
 
     return jsonify({'message': 'Successfully Deleted'}), 200
-
-
-# GET allReviews
-
-@bp.route('/allReviews')
-def business_review(id):
-    all_reviews = Review.query.all()
-    review_img = ReviewImage.query.all()
-    review_list = [review.to_dict() for review in all_reviews]
-    review_img_list = [image.to_dict() for image in review_img]
-    data = {"Review": review_list, "ReviewImage": review_img_list}
-    return data
