@@ -114,16 +114,19 @@ export const businessAmenitiesThunk = (businessId) => async (dispatch) => {
 export const createNewBusinessThunk = (newBusiness) => async (dispatch) => {
     const response = await fetch('/api/business/new', {
         method: "POST",
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(newBusiness)
     })
-
-    if (!response.ok) {
-        throw new Error('Failed to create a new business.')
+    console.log('resp@@@@@@', response)
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(createNewBusiness(data))
+        console.log('data@@@@@@@', data)
+        return data
+    }else{
+        const error = await response.json()
+        return error
     }
-
-    const data = await response.json()
-    dispatch(CREATE_NEW_BUSINESS(data))
-    return data
 }
 
 // Update Business Thunk (Business Id)
@@ -152,4 +155,3 @@ function businessReducer(state = {}, action) {
 }
 
 export default businessReducer
-

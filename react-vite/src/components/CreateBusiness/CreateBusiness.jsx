@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { createNewBusinessThunk } from '../../redux/business'
 
 const CreateNewBusiness = () => {
@@ -13,17 +13,18 @@ const CreateNewBusiness = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [country, setCountry] = useState('');
-  const [lat, setLat] = useState('');
-  const [lng, setLng] = useState('');
+  const [lat, setLat] = useState();
+  const [lng, setLng] = useState();
   const [description, setDescription] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [price, setPrice] = useState();
+  const [phone_number, setPhoneNumber] = useState();
+  const [price_rating, setPrice] = useState();
   const [category, setCategory] = useState('');
   const [schedule, setSchedule] = useState('');
   const [previewImage, setPreviewImage] = useState('');
   const [validations, setValidations] = useState({})
   const [submitted, setSubmitted] = useState(false)
 
+  // console.log(submitted)
   useEffect(() => {
     const errors = {}
     if (!user) {
@@ -53,18 +54,18 @@ const CreateNewBusiness = () => {
     if (!description || (description.length > 2000)) {
       errors.description = 'Description is required and must be 2000 characters or less.'
     }
-    if (!phoneNumber || (phoneNumber.length > 20)) {
-      errors.phoneNumber = "Phone Number is required and must be unique, can't be more than 20 characters."
+    if (!phone_number || (phone_number.length > 20)) {
+      errors.phone_number = "Phone Number is required and must be unique, can't be more than 20 characters."
     }
-    if (!price) {
-      errors.price = "Price Rating is required and must be an integer of 1 to 5."
+    if (!price_rating) {
+      errors.price_rating = "Price Rating is required and must be an integer of 1 to 5."
     }
     if (!category) {
       errors.category = 'Atleast one category must be selected.'
     }
 
     setValidations(errors)
-  }, [user, nav, title, address, city, state, country, lat, lng, description, phoneNumber, price, category, schedule, previewImage])
+  }, [user, nav, title, address, city, state, country, lat, lng, description, phone_number, price_rating, category])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,14 +78,17 @@ const CreateNewBusiness = () => {
         state,
         country,
         description,
-        phoneNumber,
-        price,
+        phone_number,
+        price_rating,
+        lat,
+        lng,
         category,
         schedule,
         previewImage
       })
       )
-      nav(`/business/${business.id}`);
+       dispatch(createNewBusinessThunk(business))
+      // nav(`/business/${business.id}`);
     }
     // setTitle('');
     // setAddress('');
@@ -168,7 +172,7 @@ const CreateNewBusiness = () => {
         <input
           type='text'
           name='price'
-          value={price}
+          value={price_rating}
           placeholder='Price'
           onChange={(e) => setPrice(e.target.value)}
         ></input>
@@ -235,12 +239,12 @@ const CreateNewBusiness = () => {
         <input
           type='text'
           name='phone number'
-          value={phoneNumber}
+          value={phone_number}
           placeholder='Phone Number'
           onChange={(e) => setPhoneNumber(e.target.value)}
         ></input>
       </label>
-      {validations.phoneNumber && (<p>{validations.phoneNumber}</p>)}
+      {validations.phone_number && (<p>{validations.phone_number}</p>)}
       <label>
         Description
         <input
@@ -284,7 +288,7 @@ const CreateNewBusiness = () => {
             ></input>
         </label>
         {validations. && (<p>{validations.}</p>)} */}
-      <button type='submit' disabled={Object.keys(validations).length >= 1}>Create New Business!</button>
+      <button type='submit' disabled={Object.keys(validations).length > 0}>Create New Business!</button>
     </form>
   )
 }

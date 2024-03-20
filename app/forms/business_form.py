@@ -11,6 +11,8 @@ class CreateBusiness(FlaskForm):
     city = StringField('City', validators=[DataRequired()])
     state = StringField('State', validators=[DataRequired()])
     country = StringField('Country', validators=[DataRequired()])
+    lat = IntegerField('Lat')
+    lng = IntegerField('Lng')
     price_rating = IntegerField('Price Rating', validators=[DataRequired(), NumberRange(min=1, max=4, message='Price rating must be between 1 and 4')])
     category = StringField('Category', validators=[DataRequired()])
     phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=20)])

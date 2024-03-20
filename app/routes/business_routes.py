@@ -77,7 +77,7 @@ def create_business():
             if not image_url:
                 return jsonify({'error': 'Failed to upload image'}), 500
 
-        business = Business(owner_id=current_user.id, schedule=schedule, image=image_url if image_form.image.data else None)
+        business = Business(owner_id=current_user.id, schedule=schedule, image=image_url if image_form.image.data else 'None')
 
         form.populate_obj(business)
         db.session.add(business)
