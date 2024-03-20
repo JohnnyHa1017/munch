@@ -84,8 +84,8 @@ def delete_review(id):
     if review.user_id != current_user.id:
         return jsonify({'error': 'Unauthorized'}), 403
 
-    if review.image:
-        remove_image(review.image)
+    # if review.image:
+    #     remove_image(review.image)
 
     db.session.delete(review)
     db.session.commit()

@@ -9,6 +9,7 @@ import CreateNewBusiness from '../components/CreateBusiness/CreateBusiness';
 import BusinessReviews from '../components/BusinessReviews/BusinessReviews'
 import AllReviews from '../components/allReviews/allReviews'
 import CreateReview from '../components/CreateReview/CreateReview'
+import DeleteReview from '../components/DeleteReview/DeleteReview';
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
         path: 'business/:businessId/review/new',
         element: <CreateReview />
       },
+      {
+        path: 'business/:businessId/:reviewId/delete',
+        element: <DeleteReview/>
+      }
     ],
   },
 ]);
