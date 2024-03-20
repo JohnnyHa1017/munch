@@ -18,8 +18,6 @@ export default function LandingPage() {
         dispatch(landingPageThunk())
     }, [dispatch])
 
-    console.log('data ==>', data)
-
     return (
         <>
             <h1>Landing Page!</h1>

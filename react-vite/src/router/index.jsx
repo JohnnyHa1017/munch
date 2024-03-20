@@ -7,6 +7,7 @@ import { RouterProvider } from "react-router-dom";
 import OneBusiness from '../components/Businesses/Businesses';
 import CreateBusiness from '../components/CreateBusiness/CreateBusiness';
 import UpdateBusiness from '../components/UpdateBusiness/UpdateBusiness';
+import DeleteBusiness from '../components/DeleteBusiness/DeleteBusiness';
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: "business/:businessId/edit",
         element: <UpdateBusiness />
+      },
+      {
+        path: "business/:businessId/delete",
+        element: <DeleteBusiness />
       }
     ],
   },

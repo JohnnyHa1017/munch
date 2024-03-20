@@ -149,7 +149,17 @@ export const updateBusinessThunk = (business, businessId) => async (dispatch) =>
 
 
 // Delete Business Thunk (Business Id)
-
+export const deleteBusinessThunk = (business) => async (dispatch) => {
+    const response = await fetch(`/api/business/${business.id}/delete`, {
+        method:'DELETE'
+    })
+    if (response.ok){
+        console.log('is the response ok?, yaaa')
+        const data = await response.json()
+        console.log(data, 'data in thunk')
+        dispatch(deleteBusiness(data))
+    }
+}
 
 // TODO: Maybe need a Image Handler Thunk (Johnny)
     // ! : Backend route, Query all Images
@@ -167,6 +177,11 @@ function businessReducer(state = {}, action) {
         }
         case UPDATE_BUSINESS: {
             return { ...state, ...action.business }
+        }
+        case DELETE_BUSINESS: {
+            const deleteState = {...state}
+            delete deleteState[action.businessId]
+            return deleteState
         }
         default:
             return state
