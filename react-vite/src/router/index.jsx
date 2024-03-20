@@ -8,6 +8,10 @@ import OneBusiness from '../components/Businesses/Businesses';
 import CreateBusiness from '../components/CreateBusiness/CreateBusiness';
 import UpdateBusiness from '../components/UpdateBusiness/UpdateBusiness';
 import DeleteBusiness from '../components/DeleteBusiness/DeleteBusiness';
+import BusinessReviews from '../components/BusinessReviews/BusinessReviews'
+import AllReviews from '../components/allReviews/allReviews'
+import CreateReview from '../components/CreateReview/CreateReview'
+import DeleteReview from '../components/DeleteReview/DeleteReview';
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +44,23 @@ export const router = createBrowserRouter([
       {
         path: "business/:businessId/delete",
         element: <DeleteBusiness />
+      },
+      //testing paths
+      {
+        path: 'reviews/all',
+        element: <AllReviews/>
+      },
+      {
+        path: 'business/:businessId/reviews',
+        element: <BusinessReviews/>
+      },
+      {
+        path: 'business/:businessId/review/new',
+        element: <CreateReview />
+      },
+      {
+        path: 'business/:businessId/:reviewId/delete',
+        element: <DeleteReview/>
       }
     ],
   },

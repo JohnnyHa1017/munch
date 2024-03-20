@@ -4,7 +4,7 @@ from app.forms.business_form import CreateBusiness
 from app.forms.menu_form import NewMenu, MenuImageForm
 from app.forms.amenities_form import CreateAmenities
 from app.forms.business_form import CreateBusiness, ScheduleForm, BusinessImageForm
-from app.forms.review_form import CreateReview, ReviewImageForm
+from app.forms.review_form import CreateReview
 from flask_login import login_required, current_user
 from .aws_helpers import upload_file_to_s3, remove_file_from_s3
 import json
@@ -158,12 +158,11 @@ def business_review(id):
 @login_required
 def create_review(id):
     form = CreateReview()
-    image_form = ReviewImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        if image_form.image.data:
-            image_url = upload_image_url(image_form.image.data)
+        if form.image.data:
+            image_url = upload_image_url(form.image.data)
         else:
             image_url = None
 

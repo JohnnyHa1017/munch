@@ -117,6 +117,7 @@ export const createNewBusinessThunk = (newBusiness) => async (dispatch) => {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(newBusiness)
     })
+
     if (response.ok) {
 
         const data = await response.json()

@@ -20,7 +20,7 @@ login.login_view = 'auth.unauthorized'
 
 
 app.register_blueprint(business_routes.bp)
-app.register_blueprint(review_routes.bp, url_prefix='/review')
+app.register_blueprint(review_routes.bp)
 
 
 @app.route('/api')
