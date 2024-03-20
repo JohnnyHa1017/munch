@@ -34,9 +34,14 @@ export const router = createBrowserRouter([
       },
       //testing paths
       {
-        path: 'business/allreviews',
+        path: 'allReviews',
+        element: <allReviews/>
+      },
+      {
+        path: 'business/:businessId/reviews',
         element: <BusinessReviews/>
-      }
+      },
+
     ],
   },
 ]);

@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { allReviewThunk } from '../../redux/reviews'
+import { businessReviewThunk } from '../../redux/reviews'
 // import './BusinessReview.css'
 
 function BusinessReviews(){
@@ -16,7 +16,7 @@ function BusinessReviews(){
     const currUser = useSelector((state)=> state.session.user)
 
     useEffect(()=>{
-        dispatch(allReviewThunk(businessId))
+        dispatch(businessReviewThunk(businessId))
     }, [dispatch, businessId])
 
     if(!reviewArray.length){

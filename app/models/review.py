@@ -13,7 +13,7 @@ class Review(db.Model):
     user_id = Column(Integer, ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     review = Column(String(2000), nullable=False)
     star = Column(Integer, nullable=False)
-    image = Column(String(500), nullable=True)
+    image_url = Column(String(500), nullable=True)
 
     users = relationship('User', back_populates='reviews')
     businesses = relationship('Business', back_populates='reviews')
@@ -26,5 +26,5 @@ class Review(db.Model):
         'business_id': self.business_id,
         'review': self.review,
         'star': self.star,
-        'image': self.image
+        'image_url': self.image_url
         }

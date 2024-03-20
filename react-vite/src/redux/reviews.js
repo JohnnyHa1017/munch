@@ -1,10 +1,17 @@
 // Action Creators
 export const GET_BUSINESS_REVIEWS = 'business/GET_BUSINESS_REVIEWS '
-export const CREATE_REVIEW = 'busiess/CREATE_REVIEW'
-export const UPDATE_REVIEW = 'busiess/UPDATE_REVIEW'
-export const DELETE_REVIEW = 'busiess/DELETE_REVIEW'
-
+export const CREATE_REVIEW = 'business/CREATE_REVIEW'
+export const UPDATE_REVIEW = 'business/UPDATE_REVIEW'
+export const DELETE_REVIEW = 'business/DELETE_REVIEW'
+export const ALL_REVIEW = 'review/ALL'
 // Action Types
+const getAllReviews = (allReviews)=>{
+    return{
+        type: ALL_REVIEW,
+        allReviews
+    }
+}
+
 const getAllData = (businessId)=>{
     return{
         type: GET_BUSINESS_REVIEWS,
@@ -37,8 +44,25 @@ const deleteReview = (reviewId)=>{
 
 
 // Review Thunks
+export const allReviewThunk = () => async (dispatch) => {
+    const response = await fetch('/api/reviews/all')
 
-export const allReviewThunk = (businessId) => async (dispatch) => {
+    if (!response.ok) {
+        throw new Error('Failed to fetch reviews.')
+    }
+
+    const all_data = await response.json()
+
+    if (all_data.errors) {
+        return all_data.errors;
+    }
+
+    dispatch(getAllReviews(all_data))
+    return all_data
+}
+
+
+export const businessReviewThunk = (businessId) => async (dispatch) => {
     const response = await fetch(`/api/business/${businessId}/reviews`)
 
     if (!response.ok) {
@@ -93,6 +117,9 @@ export const deleteReviewThunk = (businessId) => async (dispatch) => {
 //reducers
 function reviewReducer(state={}, action){
     switch(action.type){
+        case ALL_REVIEW:{
+            return { ...state, ...action.allReviews}
+        }
         case GET_BUSINESS_REVIEWS:{
             return { ...state, ...action.businessId}
         }
