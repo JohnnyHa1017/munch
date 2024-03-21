@@ -40,9 +40,7 @@ function MenusByBusinessId() {
                             {/* Render additional menu information here */}
                         </div>
                     ))}
-                    {menus.length === 0 && <h2>Loading ...</h2>}
                 </div>
-
             ) : (
                 <h2>Loading ...</h2> // Render a message if no images
             )}
