@@ -18,7 +18,7 @@ const createMenu = (newMenu) => {
 }
 
 
-// Landing Page Thunk
+// Thunk
 export const menuByBusinessThunk = (businessId) => async (dispatch) => {
     const response = await fetch(`/api/business/${businessId}/menu`)
     if (!response.ok) {

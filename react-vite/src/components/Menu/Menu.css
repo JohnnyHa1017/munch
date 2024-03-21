@@ -1,3 +1,7 @@
 .validation-messages {
     color: red;
 }
+
+.menu-item-img {
+    width: 50%;
+}

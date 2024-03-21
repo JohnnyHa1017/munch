@@ -169,7 +169,7 @@ function businessReducer(state = {}, action) {
             return { ...state, ...action.data }
         }
         case GET_ONE_BUSINESS: {
-            return { ...state, [ action.businessId.id ]: action.businessId }
+            return { ...state,  ...action.businessId }
         }
         case CREATE_NEW_BUSINESS: {
             return { ...state, ...action.data }
