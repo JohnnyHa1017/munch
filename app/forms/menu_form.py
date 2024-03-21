@@ -8,11 +8,10 @@ from app.models import Menu
 
 class NewMenu(FlaskForm):
     name = StringField('Menu Item', validators=[DataRequired()])
-    menu_category = [('Drink', 'Drink'), ('Appetizer', 'Appetizer'), ('Entree', 'Entree'), ('Dessert', 'Dessert'), ('Special', 'Special')]
+    menu_category = [('Drink', 'Drink'), ('Appetizer', 'Appetizer'), ('Entree', 'Entree'), ('Dessert', 'Dessert'), ('Specials', 'Specials')]
     category = SelectField('Type', choices=menu_category, validators=[DataRequired()])
     price = DecimalField('Price', places=2, validators=[DataRequired()])
     description = StringField('Description')
+    # image = FileField("Image File", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
+    image = StringField()
 
-
-class MenuImageForm(FlaskForm):
-    image = FileField("Image File", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])

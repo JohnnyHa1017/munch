@@ -13,6 +13,8 @@ import AllReviews from '../components/allReviews/allReviews'
 import CreateReview from '../components/CreateReview/CreateReview'
 import DeleteReview from '../components/DeleteReview/DeleteReview';
 import UpdateReview from '../components/UpdateReview/UpdateReview';
+import MenusByBusinessId from '../components/Menu/MenusByBusiness';
+import CreateMenu from '../components/Menu/CreateManu';
 
 export const router = createBrowserRouter([
   {
@@ -66,6 +68,14 @@ export const router = createBrowserRouter([
       {
         path: 'business/:businessId/:reviewId/update',
         element: <UpdateReview />
+      },
+      {
+        path: 'business/:businessId/menus',
+        element: <MenusByBusinessId />
+      },
+      {
+        path: 'business/:businessId/menus/new',
+        element: <CreateMenu />
       }
     ],
   },
