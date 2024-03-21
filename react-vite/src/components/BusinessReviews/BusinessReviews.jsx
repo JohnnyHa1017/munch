@@ -3,7 +3,8 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { businessReviewThunk } from '../../redux/reviews'
 import { landingPageThunk } from '../../redux/business'
-import UpdateReview from '../UpdateReview/UpdateReview'
+import { NavLink } from 'react-router-dom'
+
 import './BusinessReviews.css'
 
 function BusinessReviews() {
@@ -24,7 +25,6 @@ function BusinessReviews() {
         dispatch(businessReviewThunk(businessId))
         dispatch(landingPageThunk())
     }, [dispatch, businessId])
-
 
 
     //isOwnerofReview
@@ -52,18 +52,6 @@ function BusinessReviews() {
         return stars
     }
 
-    //currently not redirecting
-    function editReview(reviewId) {
-        if (ownReview(reviewId)) {
-            navigate(`business/${businessId}/${reviewId}/update`)
-        }
-    }
-    function deleteReview(reviewId) {
-        if (ownReview(reviewId)) {
-            navigate(`business/${businessId}/${reviewId}/delete`)
-        }
-    }
-
     return (
         <>
             {reviews && users ? (
@@ -73,8 +61,8 @@ function BusinessReviews() {
                             <h3>{users[review.user_id - 1].first_name} {users[review.user_id - 1].last_name.charAt(0)}</h3>
                             {ownReview(review.user_id) && (
                                 <div className="buttons-container">
-                                    <button onClick={() => editReview(review.id)}>Edit Review</button>
-                                    <button onClick={() => deleteReview(review.id)}>Delete Review</button>
+                                    <button> <NavLink to={`/business/${businessId}/${review.id}/update`}>Edit Review</NavLink></button>
+                                    <button> <NavLink to={`/business/${businessId}/${review.id}/delete`}>Delete Review</NavLink></button>
                                 </div>
                             )}
                         </div>
