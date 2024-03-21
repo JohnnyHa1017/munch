@@ -15,6 +15,7 @@ import DeleteReview from '../components/DeleteReview/DeleteReview';
 import UpdateReview from '../components/UpdateReview/UpdateReview';
 import MenusByBusinessId from '../components/Menu/MenusByBusiness';
 import CreateMenu from '../components/Menu/CreateMenu';
+import ManageBusiness from '../components/ManageBusiness/ManageBusiness';
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
       {
         path: 'business/:businessId/menus/new',
         element: <CreateMenu />
+      },
+      {
+        path: '/user/:userId/business',
+        element: <ManageBusiness />
       }
     ],
   },

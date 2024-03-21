@@ -98,7 +98,7 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
                                     className='Stars'
                                     onClick={() => setStars(ratingValue)}
                                     onMouseEnter={() => setHover(ratingValue)}
-                                    onMouseLeave={() => setHover(null)}
+                                    onMouseLeave={() => setHover(rating)}
                                 >
                                     {ratingValue <= (hover || star) ? '★' : '☆'}
                                 </span>

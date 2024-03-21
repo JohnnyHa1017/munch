@@ -15,12 +15,8 @@ export default function LandingPage() {
     const dispatch = useDispatch()
     const data = useSelector((state) => state.business)
 
-    const businessArray = data.Business
     const reviewsArray = data.Review
     // const amenitiesArray = data.Amen
-
-
-    console.log('DATA ---->', data)
 
     useEffect(() => {
         dispatch(landingPageThunk())
@@ -67,7 +63,7 @@ export default function LandingPage() {
                 <h2 className='recent-actity-text'>Recent Activity</h2>
                 <div className='recent-reviews'>
                     {sixreviews.map(review => (
-                        <div className='landing-business-review-container'>
+                        <NavLink to={`/business/${data?.Business[review.business_id].id}`} className='landing-business-review-container'>
                             <div className='review-user'>
                                 <p>{data.Users[review.user_id].first_name} wrote a review</p>
                             </div>
@@ -80,7 +76,7 @@ export default function LandingPage() {
                                 <img src=''></img>
                             </div>
                             <p>{review.review}</p>
-                        </div>
+                        </NavLink>
                     ))}
                 </div>
                 <div className='landing-categories'>
