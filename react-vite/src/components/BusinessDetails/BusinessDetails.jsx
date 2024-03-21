@@ -5,6 +5,7 @@ import { menuByBusinessThunk } from '../../redux/menu'
 import { useParams } from 'react-router-dom'
 import { businessReviewThunk } from "../../redux/reviews";
 import './BusinessDetails.css'
+import { GoStarFill } from "react-icons/go";
 
 // TODO: Pass in reviews
 
@@ -36,14 +37,32 @@ export default function OneBusiness() {
   return (
     <>
       {business && reviews && menus && Object.keys(business_preview_img).length > 0 ? (
-        <div>
-          <h1>Business Detail Page</h1>
-          <div className="business-detail-header-img">
-              <p className="business-detail-header-text">Business Details</p>
+        <>
+          <div className="business-detail-header-container">
+            <div className="business-detail-header-img" style={{ backgroundImage: `url(${business_preview_img.url})`, height: '360px' }}>
+              <h1 className="business-detail-header-text">{business.Business.title}</h1>
               <p className="business-detail-header-text">hello!</p>
+              <GoStarFill />
+            </div>
           </div>
 
-        </div>
+          <div className="business-detail-action-buttons-container">
+            <h2>business action buttons</h2>
+          </div>
+
+          <div className="menu-container">
+            <h2>menu</h2>
+          </div>
+
+          <div className="reviews-container">
+            <h2>reviews</h2>
+          </div>
+          
+          <div className="business-info-container">
+            <h2>business info</h2>
+          </div>
+
+        </>
       ) : (
         <h2>Loading ...</h2>
       )}

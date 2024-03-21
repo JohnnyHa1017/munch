@@ -1,16 +1,36 @@
+
+.business-detail-header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .business-detail-header-img {
-    position: relative; /* Set the container as relative */
-    width: 100%;
+    position: relative;
+    width: 95%;
     height: 360px;
-    background-size: cover; /* Adjust background image size */
-    background-position: center; /* Center the background image */
+    padding: 16px;
+    background-size: cover;
+    background-position: center
 }
 
 .business-detail-header-text {
-    position: absolute; /* Position the text absolutely within the container */
-    top: 50%; /* Vertically center the text */
-    left: 50%; /* Horizontally center the text */
-    transform: translate(-50%, -50%); /* Center the text perfectly */
     color: white;
-    border: 1px blue solid;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.business-detail-action-buttons-container {
+    border: red solid 1px;
+}
+
+.menu-container {
+    border: red solid 1px;
+}
+
+.reviews-container {
+    border: red solid 1px;
+}
+
+.business-info-container {
+    border: red solid 1px;
 }
