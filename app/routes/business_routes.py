@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request, redirect
-from app.models import Business, Menu, Amenity, Review, ReviewImage, db
+from app.models import Business, Menu, Amenity, Review, ReviewImage, BusinessImage, db
 from app.forms.business_form import CreateBusiness
-from app.forms.menu_form import NewMenu, MenuImageForm
+from app.forms.menu_form import NewMenu
 from app.forms.amenities_form import CreateAmenities
 from app.forms.business_form import CreateBusiness, ScheduleForm, BusinessImageForm
 from app.forms.review_form import CreateReview
@@ -41,20 +41,23 @@ def remove_image(image_url):
 @bp.route('/businesses')
 def all_business():
     all_businesses = Business.query.all()
+    all_business_images = BusinessImage.query.all()
     business_list = [business.to_dict() for business in all_businesses]
-    return jsonify(business_list)
+    business_images_list = [business_images.to_dict() for business_images in all_business_images]
+    return jsonify({'Business': business_list, 'Business_Images': business_images_list})
 
 
 # GET business /:businessId
 @bp.route('/<int:id>')
 def one_business(id):
     business = Business.query.get(id)
-
+    all_business_images = BusinessImage.query.all()
+    business_images_list = [business_images.to_dict() for business_images in all_business_images]
     if not business:
         return jsonify({'error': 'Business not found'}), 404
     else:
         business_dict = business.to_dict()
-        return business_dict
+        return {'Business': business_dict, 'Business_Images': business_images_list}
 
 
 # POST business
@@ -209,12 +212,14 @@ def create_amenities(id):
 @bp.route('/<int:id>/menu', methods=['GET'])
 def business_menu(id):
     menu = Menu.query.filter(Menu.business_id == id).all()
+    all_business_images = BusinessImage.query.all()
     menu_lst = [item.to_dict() for item in menu]
+    business_images_list = [business_images.to_dict() for business_images in all_business_images]
 
     if not menu:
         return jsonify({'error': 'Menu not found'}), 404
     else:
-        return menu_lst
+        return {'Menu': menu_lst, 'Business_Images': business_images_list}
 
 
 # POST menu /:businessId/menu/new
@@ -224,11 +229,10 @@ def business_menu(id):
 @login_required
 def create_menu(id):
     form = NewMenu()
-    image_form = MenuImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        if image_form.image.data:
-            image_url = upload_image_url(image_form.image.data)
+        if form.image.data:
+            image_url = upload_image_url(form.image.data)
         else:
             image_url = None
 

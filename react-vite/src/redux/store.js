@@ -8,11 +8,13 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import businessReducer from './business';
 import reviewReducer from "./reviews";
+import menuReducer from './menu'
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   business: businessReducer,
   reviews: reviewReducer,
+  menus: menuReducer
 });
 
 
