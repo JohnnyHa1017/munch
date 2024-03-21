@@ -14,7 +14,7 @@ function BusinessReviews() {
     console.log('user ==>', currUser)
     console.log('reviews ==>', reviews)
     console.log('reviewImages ==>', reviewImages)
-    console.log('name=>', reviews.User)
+
     // console.log('reviewCreate=>', reviews.createdAt)
 
     useEffect(() => {
@@ -22,7 +22,7 @@ function BusinessReviews() {
     }, [dispatch, businessId])
 
 
-
+    //to be used when query for user
     function renderName(user) {
         if (!user) return null;
         const { firstName, lastName } = user;
@@ -50,6 +50,7 @@ function BusinessReviews() {
             {reviews ? (
                 reviews.slice().reverse().map((review, index) => (
                     <div key={index}>
+                        <h4 className='Review-Name'>Firstname L-initial </h4>
                         <p>{renderStars(review.star)}</p>
                         <p>{formatDate(review.createdAt)}</p>
                         <p>{review.review}</p>
