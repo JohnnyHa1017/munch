@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Review, db, ReviewImage
+from app.models import Review, db, ReviewImage, User
 from app.forms.review_form import CreateReview
 from .aws_helpers import upload_file_to_s3, remove_file_from_s3
 
@@ -31,9 +31,11 @@ def remove_image(image_url):
 def all_reviews():
     all_reviews = Review.query.all()
     review_img = ReviewImage.query.all()
+    all_users = User.query.all()
     review_list = [review.to_dict() for review in all_reviews]
     review_img_list = [image.to_dict() for image in review_img]
-    data = {"Review": review_list, "ReviewImage": review_img_list}
+    user_list = [user.to_dict() for user in all_users]
+    data = {"Review": review_list, "ReviewImage": review_img_list, 'User':user_list}
     return data
 
 # Update review
