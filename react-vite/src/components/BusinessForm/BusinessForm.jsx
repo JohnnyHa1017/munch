@@ -28,6 +28,16 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [mondayclose, setMondayClose]= useState('')
   const [tuesdayopen, setTuesdayOpen] = useState('')
   const [tuesdayclose, setTuesdayClose] = useState('')
+  const [wednesdayopen, setWednesdayOpen] = useState('')
+  const [wednesdayclose, setWednesdayClose] = useState('')
+  const [thursdayopen, setThursdayOpen] = useState('')
+  const [thursdayclose, setThursdayClose] = useState('')
+  const [fridayopen, setFridayOpen] = useState('')
+  const [fridayclose, setFridayClose] = useState('')
+  const [saturdayopen, setSaturdayOpen] = useState('')
+  const [saturdayclose, setSaturdayClose] = useState('')
+  const [sundayopen, setSundayOpen] = useState('')
+  const [sundayclose, setSundayClose] = useState('')
   const [validations, setValidations] = useState({})
   const [submitted, setSubmitted] = useState(false)
 
@@ -81,9 +91,12 @@ const CreateNewBusiness = ({ buttonName, business }) => {
 
     let createSchedule = `Monday: ${mondayopen} - ${mondayclose},
                           Tuesday: ${tuesdayopen} - ${tuesdayclose},
-                          Wednesday:
+                          Wednesday: ${wednesdayopen} - ${wednesdayclose},
+                          Thursday: ${thursdayopen} - ${thursdayclose},
+                          Friday: ${fridayopen} - ${fridayclose},
+                          Saturday: ${saturdayopen} - ${saturdayclose},
+                          Sunday: ${sundayclose} - ${sundayclose}
                         `
-    console.log(createSchedule, 'created schedule')
 
     let business ={
       title,
@@ -289,7 +302,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           onChange={(e) => setMondayOpen(e.target.value)}
         ></input>
         <datalist id='hours'>
-          <option value='Closed'></option>
+          <option value='None'></option>
           <option value='12:00am'></option>
           <option value='1:00am'></option>
           <option value='2:00am'></option>
@@ -316,7 +329,6 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           <option value='11:00pm'></option>
         </datalist>
       </label>
-      {validations.schedule && (<p>{validations.schedule}</p>)}
       <label>
         <input
             list='hours'
@@ -326,7 +338,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
             onChange={(e) => setMondayClose(e.target.value)}
         ></input>
         <datalist id='hours'>
-          <option value='Closed'></option>
+          <option value='None'></option>
           <option value='12:00am'></option>
           <option value='1:00am'></option>
           <option value='2:00am'></option>
@@ -363,7 +375,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           onChange={(e) => setTuesdayOpen(e.target.value)}
         ></input>
         <datalist id='hours'>
-          <option value='Closed'></option>
+          <option value='None'></option>
           <option value='12:00am'></option>
           <option value='1:00am'></option>
           <option value='2:00am'></option>
@@ -390,7 +402,6 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           <option value='11:00pm'></option>
         </datalist>
       </label>
-      {validations.schedule && (<p>{validations.schedule}</p>)}
       <label>
         <input
             list='hours'
@@ -400,7 +411,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
             onChange={(e) => setTuesdayClose(e.target.value)}
         ></input>
         <datalist id='hours'>
-          <option value='Closed'></option>
+          <option value='None'></option>
           <option value='12:00am'></option>
           <option value='1:00am'></option>
           <option value='2:00am'></option>
@@ -427,16 +438,370 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           <option value='11:00pm'></option>
         </datalist>
       </label>
-      {/* <label>
+      <label>
+        Wednesday
         <input
-            type='text'
-            name=''
-            value={}
-            placeholder=''
-            onChange={(e) => (e.target.value)}
+          list='hours'
+          name='wednesdayopen'
+          value={wednesdayopen}
+          placeholder='Open'
+          onChange={(e) => setWednesdayOpen(e.target.value)}
         ></input>
+        <datalist id='hours'>
+          <option value='None'></option>
+          <option value='12:00am'></option>
+          <option value='1:00am'></option>
+          <option value='2:00am'></option>
+          <option value='3:00am'></option>
+          <option value='4:00am'></option>
+          <option value='5:00am'></option>
+          <option value='6:00am'></option>
+          <option value='7:00am'></option>
+          <option value='8:00am'></option>
+          <option value='9:00am'></option>
+          <option value='10:00am'></option>
+          <option value='11:00am'></option>
+          <option value='12:00pm'></option>
+          <option value='1:00pm'></option>
+          <option value='2:00pm'></option>
+          <option value='3:00pm'></option>
+          <option value='4:00pm'></option>
+          <option value='5:00pm'></option>
+          <option value='6:00pm'></option>
+          <option value='7:00pm'></option>
+          <option value='8:00pm'></option>
+          <option value='9:00pm'></option>
+          <option value='10:00pm'></option>
+          <option value='11:00pm'></option>
+        </datalist>
       </label>
-      {validations. && (<p>{validations.}</p>)} */}
+      <label>
+        <input
+            list='hours'
+            name='wednesdayclose'
+            value={wednesdayclose}
+            placeholder='Close'
+            onChange={(e) => setWednesdayClose(e.target.value)}
+        ></input>
+        <datalist id='hours'>
+          <option value='None'></option>
+          <option value='12:00am'></option>
+          <option value='1:00am'></option>
+          <option value='2:00am'></option>
+          <option value='3:00am'></option>
+          <option value='4:00am'></option>
+          <option value='5:00am'></option>
+          <option value='6:00am'></option>
+          <option value='7:00am'></option>
+          <option value='8:00am'></option>
+          <option value='9:00am'></option>
+          <option value='10:00am'></option>
+          <option value='11:00am'></option>
+          <option value='12:00pm'></option>
+          <option value='1:00pm'></option>
+          <option value='2:00pm'></option>
+          <option value='3:00pm'></option>
+          <option value='4:00pm'></option>
+          <option value='5:00pm'></option>
+          <option value='6:00pm'></option>
+          <option value='7:00pm'></option>
+          <option value='8:00pm'></option>
+          <option value='9:00pm'></option>
+          <option value='10:00pm'></option>
+          <option value='11:00pm'></option>
+        </datalist>
+      </label>
+      <label>
+        Thursday
+        <input
+          list='hours'
+          name='thursdayclose'
+          value={thursdayclose}
+          placeholder='Open'
+          onChange={(e) => setThursdayOpen(e.target.value)}
+        ></input>
+        <datalist id='hours'>
+          <option value='None'></option>
+          <option value='12:00am'></option>
+          <option value='1:00am'></option>
+          <option value='2:00am'></option>
+          <option value='3:00am'></option>
+          <option value='4:00am'></option>
+          <option value='5:00am'></option>
+          <option value='6:00am'></option>
+          <option value='7:00am'></option>
+          <option value='8:00am'></option>
+          <option value='9:00am'></option>
+          <option value='10:00am'></option>
+          <option value='11:00am'></option>
+          <option value='12:00pm'></option>
+          <option value='1:00pm'></option>
+          <option value='2:00pm'></option>
+          <option value='3:00pm'></option>
+          <option value='4:00pm'></option>
+          <option value='5:00pm'></option>
+          <option value='6:00pm'></option>
+          <option value='7:00pm'></option>
+          <option value='8:00pm'></option>
+          <option value='9:00pm'></option>
+          <option value='10:00pm'></option>
+          <option value='11:00pm'></option>
+        </datalist>
+      </label>
+      <label>
+        <input
+            list='hours'
+            name='thursdayclose'
+            value={thursdayclose}
+            placeholder='Close'
+            onChange={(e) => setThursdayClose(e.target.value)}
+        ></input>
+        <datalist id='hours'>
+          <option value='None'></option>
+          <option value='12:00am'></option>
+          <option value='1:00am'></option>
+          <option value='2:00am'></option>
+          <option value='3:00am'></option>
+          <option value='4:00am'></option>
+          <option value='5:00am'></option>
+          <option value='6:00am'></option>
+          <option value='7:00am'></option>
+          <option value='8:00am'></option>
+          <option value='9:00am'></option>
+          <option value='10:00am'></option>
+          <option value='11:00am'></option>
+          <option value='12:00pm'></option>
+          <option value='1:00pm'></option>
+          <option value='2:00pm'></option>
+          <option value='3:00pm'></option>
+          <option value='4:00pm'></option>
+          <option value='5:00pm'></option>
+          <option value='6:00pm'></option>
+          <option value='7:00pm'></option>
+          <option value='8:00pm'></option>
+          <option value='9:00pm'></option>
+          <option value='10:00pm'></option>
+          <option value='11:00pm'></option>
+        </datalist>
+      </label>
+      <label>
+        Friday
+        <input
+          list='hours'
+          name='fridayopen'
+          value={fridayopen}
+          placeholder='Open'
+          onChange={(e) => setFridayOpen(e.target.value)}
+        ></input>
+        <datalist id='hours'>
+          <option value='None'></option>
+          <option value='12:00am'></option>
+          <option value='1:00am'></option>
+          <option value='2:00am'></option>
+          <option value='3:00am'></option>
+          <option value='4:00am'></option>
+          <option value='5:00am'></option>
+          <option value='6:00am'></option>
+          <option value='7:00am'></option>
+          <option value='8:00am'></option>
+          <option value='9:00am'></option>
+          <option value='10:00am'></option>
+          <option value='11:00am'></option>
+          <option value='12:00pm'></option>
+          <option value='1:00pm'></option>
+          <option value='2:00pm'></option>
+          <option value='3:00pm'></option>
+          <option value='4:00pm'></option>
+          <option value='5:00pm'></option>
+          <option value='6:00pm'></option>
+          <option value='7:00pm'></option>
+          <option value='8:00pm'></option>
+          <option value='9:00pm'></option>
+          <option value='10:00pm'></option>
+          <option value='11:00pm'></option>
+        </datalist>
+      </label>
+      <label>
+        <input
+            list='hours'
+            name='fridayclose'
+            value={fridayclose}
+            placeholder='Close'
+            onChange={(e) => setFridayClose(e.target.value)}
+        ></input>
+        <datalist id='hours'>
+          <option value='None'></option>
+          <option value='12:00am'></option>
+          <option value='1:00am'></option>
+          <option value='2:00am'></option>
+          <option value='3:00am'></option>
+          <option value='4:00am'></option>
+          <option value='5:00am'></option>
+          <option value='6:00am'></option>
+          <option value='7:00am'></option>
+          <option value='8:00am'></option>
+          <option value='9:00am'></option>
+          <option value='10:00am'></option>
+          <option value='11:00am'></option>
+          <option value='12:00pm'></option>
+          <option value='1:00pm'></option>
+          <option value='2:00pm'></option>
+          <option value='3:00pm'></option>
+          <option value='4:00pm'></option>
+          <option value='5:00pm'></option>
+          <option value='6:00pm'></option>
+          <option value='7:00pm'></option>
+          <option value='8:00pm'></option>
+          <option value='9:00pm'></option>
+          <option value='10:00pm'></option>
+          <option value='11:00pm'></option>
+        </datalist>
+      </label>      <label>
+        Saturday
+        <input
+          list='hours'
+          name='saturdayopen'
+          value={saturdayopen}
+          placeholder='Open'
+          onChange={(e) => setSaturdayOpen(e.target.value)}
+        ></input>
+        <datalist id='hours'>
+          <option value='None'></option>
+          <option value='12:00am'></option>
+          <option value='1:00am'></option>
+          <option value='2:00am'></option>
+          <option value='3:00am'></option>
+          <option value='4:00am'></option>
+          <option value='5:00am'></option>
+          <option value='6:00am'></option>
+          <option value='7:00am'></option>
+          <option value='8:00am'></option>
+          <option value='9:00am'></option>
+          <option value='10:00am'></option>
+          <option value='11:00am'></option>
+          <option value='12:00pm'></option>
+          <option value='1:00pm'></option>
+          <option value='2:00pm'></option>
+          <option value='3:00pm'></option>
+          <option value='4:00pm'></option>
+          <option value='5:00pm'></option>
+          <option value='6:00pm'></option>
+          <option value='7:00pm'></option>
+          <option value='8:00pm'></option>
+          <option value='9:00pm'></option>
+          <option value='10:00pm'></option>
+          <option value='11:00pm'></option>
+        </datalist>
+      </label>
+      <label>
+        <input
+            list='hours'
+            name='saturdayclose'
+            value={saturdayclose}
+            placeholder='Close'
+            onChange={(e) => setSaturdayClose(e.target.value)}
+        ></input>
+        <datalist id='hours'>
+          <option value='None'></option>
+          <option value='12:00am'></option>
+          <option value='1:00am'></option>
+          <option value='2:00am'></option>
+          <option value='3:00am'></option>
+          <option value='4:00am'></option>
+          <option value='5:00am'></option>
+          <option value='6:00am'></option>
+          <option value='7:00am'></option>
+          <option value='8:00am'></option>
+          <option value='9:00am'></option>
+          <option value='10:00am'></option>
+          <option value='11:00am'></option>
+          <option value='12:00pm'></option>
+          <option value='1:00pm'></option>
+          <option value='2:00pm'></option>
+          <option value='3:00pm'></option>
+          <option value='4:00pm'></option>
+          <option value='5:00pm'></option>
+          <option value='6:00pm'></option>
+          <option value='7:00pm'></option>
+          <option value='8:00pm'></option>
+          <option value='9:00pm'></option>
+          <option value='10:00pm'></option>
+          <option value='11:00pm'></option>
+        </datalist>
+      </label>
+      <label>
+        Sunday
+        <input
+          list='hours'
+          name='sundayopen'
+          value={sundayopen}
+          placeholder='Open'
+          onChange={(e) => setSundayOpen(e.target.value)}
+        ></input>
+        <datalist id='hours'>
+          <option value='None'></option>
+          <option value='12:00am'></option>
+          <option value='1:00am'></option>
+          <option value='2:00am'></option>
+          <option value='3:00am'></option>
+          <option value='4:00am'></option>
+          <option value='5:00am'></option>
+          <option value='6:00am'></option>
+          <option value='7:00am'></option>
+          <option value='8:00am'></option>
+          <option value='9:00am'></option>
+          <option value='10:00am'></option>
+          <option value='11:00am'></option>
+          <option value='12:00pm'></option>
+          <option value='1:00pm'></option>
+          <option value='2:00pm'></option>
+          <option value='3:00pm'></option>
+          <option value='4:00pm'></option>
+          <option value='5:00pm'></option>
+          <option value='6:00pm'></option>
+          <option value='7:00pm'></option>
+          <option value='8:00pm'></option>
+          <option value='9:00pm'></option>
+          <option value='10:00pm'></option>
+          <option value='11:00pm'></option>
+        </datalist>
+      </label>
+      <label>
+        <input
+            list='hours'
+            name='sundayclose'
+            value={sundayclose}
+            placeholder='Close'
+            onChange={(e) => setSundayClose(e.target.value)}
+        ></input>
+        <datalist id='hours'>
+          <option value='None'></option>
+          <option value='12:00am'></option>
+          <option value='1:00am'></option>
+          <option value='2:00am'></option>
+          <option value='3:00am'></option>
+          <option value='4:00am'></option>
+          <option value='5:00am'></option>
+          <option value='6:00am'></option>
+          <option value='7:00am'></option>
+          <option value='8:00am'></option>
+          <option value='9:00am'></option>
+          <option value='10:00am'></option>
+          <option value='11:00am'></option>
+          <option value='12:00pm'></option>
+          <option value='1:00pm'></option>
+          <option value='2:00pm'></option>
+          <option value='3:00pm'></option>
+          <option value='4:00pm'></option>
+          <option value='5:00pm'></option>
+          <option value='6:00pm'></option>
+          <option value='7:00pm'></option>
+          <option value='8:00pm'></option>
+          <option value='9:00pm'></option>
+          <option value='10:00pm'></option>
+          <option value='11:00pm'></option>
+        </datalist>
+      </label>
       <button type='submit' disabled={Object.keys(validations).length > 0}>{ buttonName }</button>
     </form>
   )

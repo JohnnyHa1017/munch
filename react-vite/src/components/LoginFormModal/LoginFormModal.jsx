@@ -2,6 +2,7 @@ import { useState } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { NavLink } from 'react-router-dom';
 import "./LoginForm.css";
 
 function LoginFormModal() {
@@ -28,6 +29,12 @@ function LoginFormModal() {
     }
   };
 
+  const loginDemo = (e) => {
+    e.preventDefault()
+    return dispatch(thunkLogin({email:'demo@aa.io', password:'password'}))
+    .then(closeModal)
+  }
+
   return (
     <>
       <h1>Log In</h1>
@@ -53,6 +60,10 @@ function LoginFormModal() {
         </label>
         {errors.password && <p>{errors.password}</p>}
         <button type="submit">Log In</button>
+        <NavLink
+          onClick={loginDemo}
+          to='/'
+        > Demo User </NavLink>
       </form>
     </>
   );
