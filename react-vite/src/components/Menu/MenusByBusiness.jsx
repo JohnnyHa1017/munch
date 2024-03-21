@@ -15,12 +15,7 @@ function MenusByBusinessId() {
     let menu_images = []
     if (all_business_images) {
         menu_images = all_business_images.filter(img => img.business_id == businessId && typeof img.menu_id == 'number')
-        console.log('menu_images ==>', menu_images)
-        //    console.log('menu_images[0].url ==>', menu_images[0].url)
     }
-
-    console.log('menus ==>', menus)
-    console.log('business ==>', business)
 
     useEffect(() => {
         dispatch(menuByBusinessThunk(businessId))
@@ -29,8 +24,9 @@ function MenusByBusinessId() {
 
     return (
         <>
-            {menu_images.length > 0 ? ( // Added null check here
+            {menu_images.length > 0 && business.Business ? ( // Added null check here
                 <div>
+                    <h1>{business.Business.title}'s Menu</h1>
                     {menus.map((menu, index) => (
                         <div key={index}>
                             <h3>{menu.name}</h3>
