@@ -4,6 +4,7 @@ import { businessAmenitiesThunk, specificBusinessThunk } from '../../redux/busin
 import { menuByBusinessThunk } from '../../redux/menu'
 import { useParams } from 'react-router-dom'
 import { businessReviewThunk } from "../../redux/reviews";
+import './BusinessDetails.css'
 
 // TODO: Pass in reviews
 
@@ -37,9 +38,9 @@ export default function OneBusiness() {
       {business && reviews && menus && Object.keys(business_preview_img).length > 0 ? (
         <div>
           <h1>Business Detail Page</h1>
-          <div className="business-detail-header-img" style={{ backgroundImage: `url(${business_preview_img.url})`, height:'360px' }}>
-              <p>Business Details</p>
-              <p>hello!</p>
+          <div className="business-detail-header-img">
+              <p className="business-detail-header-text">Business Details</p>
+              <p className="business-detail-header-text">hello!</p>
           </div>
 
         </div>
