@@ -2,16 +2,28 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createMenuThunk } from '../../redux/menu'
+import { specificBusinessThunk } from '../../redux/business'
 import './Menu.css'
 
 
 function CreateMenu() {
     const dispatch = useDispatch()
     const nav = useNavigate()
-    const user = useSelector((state) => state.session.user)
     const { businessId } = useParams()
+    const user = useSelector((state) => state.session.user)
+    const businessObj = useSelector((state) => state.business)
 
-    console.log('businessId ==>', businessId)
+    console.log('businessObj[businessId] ==>', businessObj[businessId])
+
+    let businessTitle = ''
+    if (businessObj[businessId]) {
+        businessTitle = businessObj[businessId].title
+        console.log('businessTitle ==>', businessTitle)
+    }
+
+    useEffect(() => {
+        dispatch(specificBusinessThunk(businessId))
+    }, [dispatch, businessId])
 
     const [name, setName] = useState('')
     const [category, setCategory] = useState('')
@@ -22,6 +34,7 @@ function CreateMenu() {
 
     useEffect(() => {
         const errors = {}
+        // if (!user || user.id != businessObj[businessId].owner) {
         if (!user) {
             nav('/')
         }
@@ -35,7 +48,7 @@ function CreateMenu() {
             if (!price || typeof price !== 'number') {
                 errors.price = 'Price is required and must be a number'
             }
-            if (description.length < 2000) {
+            if (description.length > 2000) {
                 errors.description = 'Description must be under 2000 characters'
             }
         }
@@ -58,7 +71,7 @@ function CreateMenu() {
 
     return (
         <>
-            <h1>Create Menu!</h1>
+            <h1>Create Menu for {businessTitle}</h1>
 
             <form onSubmit={handleSubmit} className='menu-form'>
                 <label>
@@ -107,7 +120,6 @@ function CreateMenu() {
                 {validations.description && (<p className='validation-messages'>{validations.description}</p>)}
                 <button type='submit'>Create Menu</button>
             </form>
-
         </>
     )
 }
