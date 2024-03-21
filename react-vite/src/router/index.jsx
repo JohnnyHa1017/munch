@@ -13,8 +13,12 @@ import AllReviews from '../components/allReviews/allReviews'
 import CreateReview from '../components/CreateReview/CreateReview'
 import DeleteReview from '../components/DeleteReview/DeleteReview';
 import UpdateReview from '../components/UpdateReview/UpdateReview';
+<<<<<<< HEAD
 import MenusByBusinessId from '../components/Menu/MenusByBusiness';
 import CreateMenu from '../components/Menu/CreateMenu';
+=======
+import ManageBusiness from '../components/ManageBusiness/ManageBusiness';
+>>>>>>> 76540f756925531dad4714b2552b038f09f30ce0
 
 export const router = createBrowserRouter([
   {
@@ -70,12 +74,17 @@ export const router = createBrowserRouter([
         element: <UpdateReview />
       },
       {
+<<<<<<< HEAD
         path: 'business/:businessId/menus',
         element: <MenusByBusinessId />
       },
       {
         path: 'business/:businessId/menus/new',
         element: <CreateMenu />
+=======
+        path: '/user/:userId/business',
+        element: <ManageBusiness />
+>>>>>>> 76540f756925531dad4714b2552b038f09f30ce0
       }
     ],
   },
