@@ -20,10 +20,10 @@ login.login_view = 'auth.unauthorized'
 
 
 app.register_blueprint(business_routes.bp)
-app.register_blueprint(review_routes.bp, url_prefix='/review')
+app.register_blueprint(review_routes.bp)
 
 
-@app.route('/')
+@app.route('/api')
 def landing():
     all_businesses = Business.query.all()
     all_reviews = Review.query.all()

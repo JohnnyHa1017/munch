@@ -13,6 +13,7 @@ class Review(db.Model):
     user_id = Column(Integer, ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     review = Column(String(2000), nullable=False)
     star = Column(Integer, nullable=False)
+    image = Column(String(500), nullable=True)
 
     users = relationship('User', back_populates='reviews')
     businesses = relationship('Business', back_populates='reviews')
@@ -20,8 +21,10 @@ class Review(db.Model):
 
     def to_dict(self):
         return {
+        'id': self.id,
         'user_id': self.user_id,
         'business_id': self.business_id,
         'review': self.review,
-        'star': self.star
+        'star': self.star,
+        'image': self.image
         }
