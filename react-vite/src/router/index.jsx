@@ -14,7 +14,7 @@ import CreateReview from '../components/CreateReview/CreateReview'
 import DeleteReview from '../components/DeleteReview/DeleteReview';
 import UpdateReview from '../components/UpdateReview/UpdateReview';
 import MenusByBusinessId from '../components/Menu/MenusByBusiness';
-import CreateMenu from '../components/Menu/CreateManu';
+import CreateMenu from '../components/Menu/CreateMenu';
 
 export const router = createBrowserRouter([
   {

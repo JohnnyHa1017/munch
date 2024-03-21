@@ -7,9 +7,9 @@ import './Menu.css'
 
 function CreateMenu() {
     const dispatch = useDispatch()
-    const { businessId } = useParams()
-    const user = useSelector((state) => state.session.user)
     const nav = useNavigate()
+    const user = useSelector((state) => state.session.user)
+    const { businessId } = useParams()
 
     console.log('businessId ==>', businessId)
 
@@ -20,26 +20,28 @@ function CreateMenu() {
     const [validations, setValidations] = useState('')
     const [submitted, setSubmitted] = useState(false)
 
-
     useEffect(() => {
         const errors = {}
         if (!user) {
             nav('/')
         }
-        if (!name || name.length > 50) {
-            errors.name = 'Name is required and can only be under 50 characters'
+        if (submitted) {
+            if (!name || name.length > 50) {
+                errors.name = 'Name is required and can only be under 50 characters'
+            }
+            if (!category || !['Drink', 'Appetizer', 'Entree', 'Dessert', 'Specials'].includes(category)) {
+                errors.category = 'Menu category must be one of: Drink, Appetizer, Entree, Dessert, or Specials.'
+            }
+            if (!price || typeof price !== 'number') {
+                errors.price = 'Price is required and must be a number'
+            }
+            if (description.length < 2000) {
+                errors.description = 'Description must be under 2000 characters'
+            }
         }
-        if (!category || !['Drink', 'Appetizer', 'Entree', 'Dessert', 'Specials'].includes(category)) {
-            errors.category = 'Menu category must be one of: Drink, Appetizer, Entree, Dessert, or Specials.'
-        }
-        if (!price) {
-            errors.price = 'Price is required'
-        }
-        if (description.length < 2000) {
-            errors.description = 'Description must be under 2000 characters'
-        }
+
         setValidations(errors)
-    }, [user, nav, name, category, price])
+    }, [user, nav, name, category, price, submitted])
 
 
     const handleSubmit = async (e) => {
@@ -50,6 +52,7 @@ function CreateMenu() {
         }
         if (!Object.keys(validations).length) {
             await dispatch(createMenuThunk(businessId, newMenu))
+            nav(`/business/${businessId}`)
         }
     }
 
@@ -87,11 +90,22 @@ function CreateMenu() {
                         name='price'
                         value={price}
                         placeholder='Price'
-                        onChange={(e) => setPrice(parseFloat(e.target.value))}
+                        onChange={(e) => setPrice(e.target.value)}
                     ></input>
                 </label>
                 {validations.price && (<p className='validation-messages'>{validations.price}</p>)}
-
+                <label>
+                    Description
+                    <input
+                        type='text'
+                        name='description'
+                        value={description}
+                        placeholder='Description'
+                        onChange={(e) => setDescription(e.target.value)}
+                    ></input>
+                </label>
+                {validations.description && (<p className='validation-messages'>{validations.description}</p>)}
+                <button type='submit'>Create Menu</button>
             </form>
 
         </>
