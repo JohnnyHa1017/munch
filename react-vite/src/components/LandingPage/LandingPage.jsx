@@ -13,6 +13,7 @@ export default function LandingPage() {
     const dispatch = useDispatch()
 
     const data = useSelector((state) => state.business)
+    console.log(data)
 
     useEffect(() => {
         dispatch(landingPageThunk())

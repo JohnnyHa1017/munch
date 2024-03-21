@@ -21,6 +21,8 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
     const [submitted, setSubmitted] = useState(false)
     const [hover, setHover] = useState(null)
 
+    console.log(submitted)
+
     // console.log('buttonName in CreateReview =>', buttonName)
     // console.log('reviewToUpdate in CreateReview =>', reviewToUpdate)
 
@@ -33,6 +35,10 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setSubmitted(true)
+
+        const reviewObj = {
+            review, star, image
+        }
 
         if (!reviewId) {
             console.log('CREATE REVIEW')
@@ -47,8 +53,8 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
                 // console.error("Error creating review:", error);
             }
         } else {
-            console.log('UPDATE REVIEW')
-            const updateReview = await dispatch(updateReviewThunk(reviewToUpdate, reviewId))
+            const updateReview = await dispatch(updateReviewThunk(reviewObj, reviewId))
+            console.log(updateReview)
             nav(`/business/${businessId}`)
         }
     }

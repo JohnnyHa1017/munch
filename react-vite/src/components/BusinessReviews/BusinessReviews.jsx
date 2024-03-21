@@ -32,6 +32,7 @@ function BusinessReviews(){
         const options = { month: 'long', day: 'numeric', year: 'numeric' }
         return newDate.toLocaleDateString(undefined, options)
     }
+    console.log(formatDate)
 
     return(
         <>

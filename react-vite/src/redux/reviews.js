@@ -27,6 +27,7 @@ const createReview = (newReview)=>{
 }
 
 const updateReview = (updatedReview)=>{
+    console.log("updatedReview ==>", updatedReview)
     return {
         type: UPDATE_REVIEW,
         updatedReview
@@ -138,7 +139,8 @@ function reviewReducer(state={}, action){
             return { ...state, ...action.data}
         }
         case UPDATE_REVIEW:{
-            return { ...state, ...action.updatedReview}
+            
+            return { ...state, ...action.updatedReview.reviews}
         }
         case DELETE_REVIEW:{
             const newState = { ...state }

@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom'
-import { useEffect } from 'react'
 import { useModal } from '../../context/Modal'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { deleteReviewThunk } from '../../redux/reviews'
 // import './DeleteReview.css'
 

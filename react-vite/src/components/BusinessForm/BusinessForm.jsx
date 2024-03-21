@@ -32,6 +32,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [submitted, setSubmitted] = useState(false)
 
 
+
   useEffect(() => {
     const errors = {}
     if (!user) {
@@ -109,10 +110,13 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       }
     else {
       const updateBusiness = await dispatch(updateBusinessThunk(business, businessId))
+      console.log(submitted, updateBusiness)
       nav(`/business/${businessId}`);
     }
   }
 }
+
+
 
   return (
     <form
