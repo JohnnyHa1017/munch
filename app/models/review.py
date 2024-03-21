@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
+from datetime import datetime
 
 class Review(db.Model):
     __tablename__ = 'reviews'
@@ -14,6 +15,8 @@ class Review(db.Model):
     review = Column(String(2000), nullable=False)
     star = Column(Integer, nullable=False)
     image = Column(String(500), nullable=True)
+    createdAt = db.Column(db.DateTime, default=datetime.utcnow)
+    updatedAt = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     users = relationship('User', back_populates='reviews')
     businesses = relationship('Business', back_populates='reviews')
@@ -26,5 +29,7 @@ class Review(db.Model):
         'business_id': self.business_id,
         'review': self.review,
         'star': self.star,
-        'image': self.image
+        'image': self.image,
+        'createdAt': self.createdAt,
+        'updatedAt': self.updatedAt
         }

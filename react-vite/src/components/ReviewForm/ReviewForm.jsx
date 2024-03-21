@@ -16,6 +16,7 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
 
     const [review, setReview] = useState(reviewToUpdate?.review)
     const [star, setStars] = useState(reviewToUpdate?.star ?? null)
+    // const [star, setStars] = useState(null)
     const [image, setImage] = useState(reviewToUpdate?.image)
     const [validations, setValidations] = useState('')
     const [submitted, setSubmitted] = useState(false)
@@ -98,7 +99,7 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
                                     className='Stars'
                                     onClick={() => setStars(ratingValue)}
                                     onMouseEnter={() => setHover(ratingValue)}
-                                    onMouseLeave={() => setHover(null)}
+                                    onMouseLeave={() => setHover(ratingValue)}
                                 >
                                     {ratingValue <= (hover || star) ? '★' : '☆'}
                                 </span>
