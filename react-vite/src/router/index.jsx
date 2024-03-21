@@ -4,7 +4,7 @@ import SignupFormPage from '../components/SignupFormPage';
 import LandingPage from '../components/LandingPage'
 import Layout from './Layout';
 import { RouterProvider } from "react-router-dom";
-import OneBusiness from '../components/Businesses/Businesses';
+import OneBusiness from '../components/BusinessDetails/BusinessDetails';
 import CreateBusiness from '../components/CreateBusiness/CreateBusiness';
 import UpdateBusiness from '../components/UpdateBusiness/UpdateBusiness';
 import DeleteBusiness from '../components/DeleteBusiness/DeleteBusiness';
