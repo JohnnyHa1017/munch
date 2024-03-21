@@ -27,7 +27,7 @@ const createReview = (newReview)=>{
 }
 
 const updateReview = (updatedReview)=>{
-    return{
+    return {
         type: UPDATE_REVIEW,
         updatedReview
     }
@@ -48,7 +48,7 @@ export const allReviewThunk = () => async (dispatch) => {
     const response = await fetch('/api/reviews/all')
 
     console.log('response ==>', response)
-    
+
     if (!response.ok) {
         throw new Error('Failed to fetch reviews.')
     }
@@ -99,7 +99,7 @@ export const createReviewThunk = (businessId, newReview) => async (dispatch) => 
     }
 }
 
-
+// Update Review Thunk
 export const updateReviewThunk = (review, reviewId) => async (dispatch) => {
     const response = await fetch(`/api/reviews/${reviewId}/update`,{
         method: "PUT",
@@ -138,7 +138,7 @@ function reviewReducer(state={}, action){
             return { ...state, ...action.data}
         }
         case UPDATE_REVIEW:{
-            return { ...state, ...action.review}
+            return { ...state, ...action.updatedReview}
         }
         case DELETE_REVIEW:{
             const newState = { ...state }

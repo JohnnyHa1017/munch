@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { businessReviewThunk } from "../../redux/reviews";
-import CreateNewReview from "../CreateReview/CreateReview";
+import CreateNewReview from "../ReviewForm/ReviewForm";
 
 const UpdateReview = () => {
     const dispatch = useDispatch();
@@ -10,15 +10,12 @@ const UpdateReview = () => {
 
     // Fetch reviews from Redux store
     const reviews = useSelector((state) => state.reviews);
-    console.log('reviews ==>', reviews);
-
     const buttonName = 'Update a Review';
 
     // Find the review to update
     let reviewToUpdate;
     if (reviews && reviews.Review) {
         reviewToUpdate = reviews.Review.find(eachReview => eachReview.id == reviewId);
-        console.log('reviewToUpdate ==>', reviewToUpdate);
     }
 
     // Fetch reviews for the specific business
@@ -28,7 +25,7 @@ const UpdateReview = () => {
 
     if (!reviews || !reviews.Review) {
         return <h1>Loading...</h1>;
-      }
+    }
 
     return (
         <>
