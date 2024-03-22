@@ -63,16 +63,16 @@ export default function LandingPage() {
                 <h2 className='recent-actity-text'>Recent Activity</h2>
                 <div className='recent-reviews'>
                     {sixreviews.map(review => (
-                        <NavLink to={`/business/${data?.Business[review.business_id].id}`} className='landing-business-review-container'>
+                        <NavLink to={`/business/${data?.Business[review?.business_id]?.id}`} className='landing-business-review-container' key={review.id}>
                             <div className='review-user'>
                                 <p>{data.Users[review.user_id].first_name} wrote a review</p>
                             </div>
                             <hr></hr>
                             <div className='landing-business-container'>
-                                <p className='landing-business-name'>{data?.Business[review.business_id].title}</p>
-                                <p className='landing-business-rating'>Business Rating: {businessAvgRating(data?.Business[review.business_id].id)}</p>
-                                <p>Number of Reviews: {numReview(data?.Business[review.business_id].id)}</p>
-                                <p className='landing-business-price-rating'>Business Price Rating: {data?.Business[review.business_id].price_rating}</p>
+                                <p className='landing-business-name'>{data?.Business[review?.business_id]?.title}</p>
+                                <p className='landing-business-rating'>Business Rating: {businessAvgRating(data?.Business[review?.business_id]?.id)}</p>
+                                <p>Number of Reviews: {numReview(data?.Business[review?.business_id]?.id)}</p>
+                                <p className='landing-business-price-rating'>Business Price Rating: {data?.Business[review?.business_id]?.price_rating}</p>
                                 <img src=''></img>
                             </div>
                             <p>{review.review}</p>
