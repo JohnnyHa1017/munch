@@ -6,3 +6,8 @@
   justify-content: space-around;
   list-style-type: none;
 }
+
+.Landinglogo img{
+  width:350px;
+  height:200px;
+}
