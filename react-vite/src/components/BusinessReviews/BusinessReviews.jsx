@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { businessReviewThunk } from '../../redux/reviews'
@@ -8,13 +8,12 @@ import { NavLink } from 'react-router-dom'
 import './BusinessReviews.css'
 
 function BusinessReviews() {
-    const { businessId, reviewId } = useParams()
+    const { businessId } = useParams()
     const dispatch = useDispatch()
     const reviews = useSelector((state) => state.reviews.Review)
     const reviewImages = useSelector((state) => state.reviews.ReviewImage)
     const currUser = useSelector((state) => state.session.user)
     const users = useSelector((state) => state.business.Users)
-    const navigate = useNavigate();
 
     console.log('users ==>', users)
     console.log('curruser ==>', currUser)

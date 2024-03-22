@@ -1,10 +1,10 @@
 from flask import Blueprint, jsonify, request, redirect
 from app.models import Business, Menu, Amenity, Review, ReviewImage, BusinessImage, db
 from app.forms.business_form import CreateBusiness
-from app.forms.menu_form import NewMenu
+from app.forms.menu_form import NewMenu, MenuImageForm
 from app.forms.amenities_form import CreateAmenities
 from app.forms.business_form import CreateBusiness, ScheduleForm, BusinessImageForm
-from app.forms.review_form import CreateReview
+from app.forms.review_form import CreateReview, ReviewImageForm
 from flask_login import login_required, current_user
 from .aws_helpers import upload_file_to_s3, remove_file_from_s3
 import json
@@ -36,8 +36,6 @@ def remove_image(image_url):
 
 
 # GET all businesses
-    # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
-
 @bp.route('/businesses')
 def all_business():
     all_businesses = Business.query.all()
@@ -62,7 +60,6 @@ def one_business(id):
 
 # POST business
     # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
-
 @bp.route('/new', methods=['GET', 'POST'])
 @login_required
 def create_business():
@@ -75,13 +72,14 @@ def create_business():
     schedule = data.get('schedule')
 
     if form.validate_on_submit():
-        # schedule = f'''Monday:{schedule_form.data['monday_open']} - {schedule_form.data['monday_close']}, Tuesday: {schedule_form.data['tuesday_open']} - {schedule_form.data['tuesday_close']}, Wednesday: {schedule_form.data['wednesday_open']} - {schedule_form.data['wednesday_close']}, Thursday: {schedule_form.data['thursday_open']} - {schedule_form.data['thursday_close']}, Friday: {schedule_form.data['friday_open']} - {schedule_form.data['friday_close']}, Saturday: {schedule_form.data['saturday_open']} - {schedule_form.data['saturday_close']}, Sunday: {schedule_form.data['sunday_open']} - {schedule_form.data['sunday_close']}'''
         if image_form.image.data:
             image_url = upload_image_url(image_form.image.data)
             if not image_url:
                 return jsonify({'error': 'Failed to upload image'}), 500
+        else:
+            image_url = None
 
-        business = Business(owner_id=current_user.id, schedule=schedule, image=image_url if image_form.image.data else 'None')
+        business = Business(owner_id=current_user.id, schedule=schedule, image=image_url)
 
         form.populate_obj(business)
         db.session.add(business)
@@ -93,7 +91,6 @@ def create_business():
 
 # PUT business
     # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
-
 @bp.route('/<int:id>/edit', methods=['PUT'])
 @login_required
 def update_business(id):
@@ -124,8 +121,6 @@ def update_business(id):
 
 
 # DELETE business /:businessId/delete
-    # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
-
 @bp.route('/<int:id>/delete', methods=['DELETE'])
 @login_required
 def delete_business(id):
@@ -156,16 +151,18 @@ def business_review(id):
 
 # POST review /:businessId/review/new
     # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
-
 @bp.route('<int:id>/review/new', methods=['GET', 'POST'])
 @login_required
 def create_review(id):
     form = CreateReview()
+    image_form = ReviewImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        if form.image.data:
-            image_url = upload_image_url(form.image.data)
+        if image_form.image.data:
+            image_url = upload_image_url(image_form.image.data)
+            if not image_url:
+                return jsonify({'error': 'Failed to upload image'}), 500
         else:
             image_url = None
 
@@ -224,15 +221,17 @@ def business_menu(id):
 
 # POST menu /:businessId/menu/new
     # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
-
 @bp.route('/<int:id>/menu/new', methods=['GET', 'POST'])
 @login_required
 def create_menu(id):
     form = NewMenu()
+    image_form = MenuImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        if form.image.data:
-            image_url = upload_image_url(form.image.data)
+        if image_form.image.data:
+            image_url = upload_image_url(image_form.image.data)
+            if not image_url:
+                return jsonify({'error': 'Failed to upload image'}), 500
         else:
             image_url = None
 
@@ -244,3 +243,10 @@ def create_menu(id):
 
         return data.to_dict()
     return jsonify({'error': form.errors}), 400
+
+# @bp.route('/search')
+# def search_business():
+#     search_param = request.args.get('param')
+#     search_business = Business.query.filter(Business.category)
+
+#     return

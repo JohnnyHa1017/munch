@@ -21,12 +21,7 @@ def remove_image(image_url):
         return
     remove_file_from_s3(image_url)
 
-
-# UPDATE REVIEW BY REVIEW ID /:reviewId/update
-    # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
-
 # GET allReviews
-
 @bp.route('/all')
 def all_reviews():
     all_reviews = Review.query.all()
@@ -73,8 +68,6 @@ def update_review(id):
 
 
 # DELETE REVIEW BY REVIEW ID /:reviewId/delete
-    # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
-
 @bp.route('/<int:id>/delete', methods=['DELETE'])
 @login_required
 def delete_review(id):
@@ -85,9 +78,6 @@ def delete_review(id):
 
     if review.user_id != current_user.id:
         return jsonify({'error': 'Unauthorized'}), 403
-
-    # if review.image:
-    #     remove_image(review.image)
 
     db.session.delete(review)
     db.session.commit()

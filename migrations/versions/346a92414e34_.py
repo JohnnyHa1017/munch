@@ -1,16 +1,21 @@
 """empty message
 
-Revision ID: d4c282a3ecb1
-Revises: 
-Create Date: 2024-03-21 16:50:17.286904
+Revision ID: 346a92414e34
+Revises:
+Create Date: 2024-03-22 08:22:29.976990
 
 """
 from alembic import op
 import sqlalchemy as sa
 
 
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
+
+
 # revision identifiers, used by Alembic.
-revision = 'd4c282a3ecb1'
+revision = '346a92414e34'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -34,11 +39,11 @@ def upgrade():
     op.create_table('businesses',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
-    sa.Column('title', sa.String(length=100), nullable=False),
-    sa.Column('address', sa.String(length=100), nullable=False),
-    sa.Column('city', sa.String(length=100), nullable=False),
-    sa.Column('state', sa.String(length=100), nullable=False),
-    sa.Column('country', sa.String(length=100), nullable=False),
+    sa.Column('title', sa.String(length=50), nullable=False),
+    sa.Column('address', sa.String(length=50), nullable=False),
+    sa.Column('city', sa.String(length=30), nullable=False),
+    sa.Column('state', sa.String(length=20), nullable=False),
+    sa.Column('country', sa.String(length=20), nullable=False),
     sa.Column('price_rating', sa.Integer(), nullable=False),
     sa.Column('category', sa.String(length=255), nullable=False),
     sa.Column('lat', sa.Float(), nullable=True),
@@ -46,7 +51,7 @@ def upgrade():
     sa.Column('phone_number', sa.String(length=20), nullable=False),
     sa.Column('description', sa.String(length=2000), nullable=True),
     sa.Column('schedule', sa.String(length=500), nullable=True),
-    sa.Column('image', sa.String(length=500), nullable=True),
+    sa.Column('image', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('phone_number')
@@ -83,7 +88,9 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('review', sa.String(length=2000), nullable=False),
     sa.Column('star', sa.Integer(), nullable=False),
-    sa.Column('image', sa.String(length=500), nullable=True),
+    sa.Column('image', sa.String(), nullable=True),
+    sa.Column('createdAt', sa.DateTime(), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['business_id'], ['businesses.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -91,7 +98,7 @@ def upgrade():
     op.create_table('business_images',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('business_id', sa.Integer(), nullable=False),
-    sa.Column('url', sa.String(length=2000), nullable=True),
+    sa.Column('url', sa.String(length=255), nullable=True),
     sa.Column('preview', sa.Boolean(), nullable=True),
     sa.Column('menu_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['business_id'], ['businesses.id'], ),
@@ -101,11 +108,19 @@ def upgrade():
     op.create_table('review_images',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('review_id', sa.Integer(), nullable=False),
-    sa.Column('url', sa.String(length=2000), nullable=True),
+    sa.Column('url', sa.String(length=255), nullable=True),
     sa.ForeignKeyConstraint(['review_id'], ['reviews.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
+    if environment == 'production' and SCHEMA:
+        op.execute(f"ALTER Table users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER Table businesses SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER Table amenities SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER Table business_images SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER Table menus SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER Table reviews SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER Table review_images SET SCHEMA {SCHEMA};")
 
 
 def downgrade():

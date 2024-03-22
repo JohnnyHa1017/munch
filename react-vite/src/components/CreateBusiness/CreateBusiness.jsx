@@ -17,12 +17,12 @@ const CreateBusiness = () => {
     lng: '',
     category: '',
     schedule: '',
-    previewImage: ''
+    image: null
   }
 
   return (
     <>
-      <h1>Create Business</h1>
+      <h1>Create Your New Business</h1>
       <CreateNewBusiness buttonName={ buttonName } business={ business }/>
     </>
     )
