@@ -7,6 +7,7 @@ import { businessReviewThunk } from "../../redux/reviews";
 import './BusinessDetails.css'
 import { LuBean } from "react-icons/lu";
 import { BiGame, BiSolidGame, BiSolidBadgeDollar } from "react-icons/bi";
+import { IoCheckmarkCircle, IoCheckmarkCircleOutline } from "react-icons/io5";
 import BusinessReviews from "../BusinessReviews/BusinessReviews";
 import MenusByBusinessId from "../Menu/MenusByBusiness";
 
@@ -29,7 +30,19 @@ export default function OneBusiness() {
   let businessCategory = ""
   let businessSchedule = ""
   let selectedBusiness = {}
-  if (reviews.Review && business && businessId && menus) {
+  let amenities = {}
+  let isAccepts_cc = false
+  let isDelivery = false
+  let isFreeWF = false
+  let isGoodGroup = false
+  let isOutdoor = false
+  let isPickup = false
+  let isReservation = false
+  let isSP = false
+  let isVegetarian = false
+
+  if (reviews.Review && business.Amenities && businessId && menus) {
+    //get average rating
     avgStarRating = reviews.Review.reduce((acc, curr) => {
       if ('star' in curr && typeof curr.star == 'number') {
         return acc + curr.star
@@ -38,15 +51,59 @@ export default function OneBusiness() {
       }
     }, 0) / reviews.Review.length
     avgStarRating = avgStarRating.toFixed(1)
+    //get selected business
     const id = businessId
     selectedBusiness = business[id]
-
+    //select menu images
     if (selectedBusiness && menus.Business_Images) {
       priceRating = selectedBusiness.price_rating
       let businessCategoryStr = selectedBusiness.category
       businessCategory = businessCategoryStr.split(',')[0].split('"')[1]
       businessPreviewImg = menus.Business_Images.filter(img => img.business_id == businessId && img.preview == true)[0]
       businessSchedule = selectedBusiness.schedule
+    }
+    //get amenity object
+    const allAmenities = business.Amenities
+    for (let eachAm of allAmenities) {
+      if (eachAm.business_id == businessId) {
+        amenities = eachAm
+      }
+    }
+
+    for (const key in amenities) {
+      if (amenities.hasOwnProperty(key)) {
+        switch (key) {
+          case 'accepts_credit_card': //to get each key
+            isAccepts_cc = amenities[key] //assign boolean values
+            break
+          case 'delivery':
+            isDelivery = amenities[key]
+            break
+          case 'free_wi_fi':
+            isFreeWF = amenities[key]
+            break
+          case 'good_for_groups':
+            isGoodGroup = amenities[key]
+            break
+          case 'outdoor_seating':
+            isOutdoor = amenities[key]
+            break
+          case 'pickup':
+            isPickup = amenities[key]
+            break
+          case 'reservation':
+            isReservation = amenities[key]
+            break
+          case 'street_parking':
+            isSP = amenities[key]
+            break
+          case 'vegetarian':
+            isVegetarian = amenities[key]
+            break
+          default:
+            break
+        }
+      }
     }
   }
 
@@ -84,7 +141,7 @@ export default function OneBusiness() {
                       ))}
                     </div>
                   </>) : (
-                  <></>
+                  <>No reviews yet</>
                 )}
               </div>
               <p className="business-detail-header-text">
@@ -109,9 +166,48 @@ export default function OneBusiness() {
               <div className="menu-container">
                 <MenusByBusinessId />
               </div>
-              <div className="business-info-container schedule-text">
-                <h2>business amenities</h2>
-                {/* show amenities */}
+              <div className="business-info-container">
+                <h2>Schedule</h2>
+                {businessSchedule}
+                <h2>Amenities</h2>
+                <div className="business-detail-amenity-container">
+                  <div className="amenity-blocks">
+                    <p>Accepts Credit Card</p>
+                    {isAccepts_cc ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
+                  </div>
+                  <div className="amenity-blocks">
+                    <p>Delivery</p>
+                    {isDelivery ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
+                  </div>
+                  <div className="amenity-blocks">
+                    <p>Pickup</p>
+                    {isPickup ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
+                  </div>
+                  <div className="amenity-blocks">
+                    <p>Reservation</p>
+                    {isReservation ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
+                  </div>
+                  <div className="amenity-blocks">
+                    <p>Street Parking</p>
+                    {isSP ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
+                  </div>
+                  <div className="amenity-blocks">
+                    <p>Free Wi-Fi</p>
+                    {isFreeWF ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
+                  </div>
+                  <div className="amenity-blocks">
+                    <p>Good for Groups</p>
+                    {isGoodGroup ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
+                  </div>
+                  <div className="amenity-blocks">
+                    <p>Out Door Seating</p>
+                    {isOutdoor ? (<IoCheckmarkCircle />) : (<IoCheckmarkCircleOutline />)}
+                  </div>
+                  <div className="amenity-blocks">
+                    <p>Vegetarian</p>
+                    {isVegetarian ? (<IoCheckmarkCircle />) : (<IoCheckmarkCircleOutline />)}
+                  </div>
+                </div>
               </div>
               <div className="reviews-container">
                 <h1>Reviews for {selectedBusiness?.title}</h1>
