@@ -21,7 +21,7 @@ const UpdateBusiness = () => {
 
   return (
     <>
-      <h1>Update Business</h1>
+      <h1>Update Your Business</h1>
       <CreateNewBusiness buttonName={buttonName} business={ business } />
     </>
     )

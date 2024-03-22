@@ -2,41 +2,80 @@ import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { businessReviewThunk } from '../../redux/reviews'
-// import './BusinessReview.css'
+import { landingPageThunk } from '../../redux/business'
+import { NavLink } from 'react-router-dom'
 
-function BusinessReviews(){
+import './BusinessReviews.css'
+
+function BusinessReviews() {
     const { businessId } = useParams()
     const dispatch = useDispatch()
-    const reviews = useSelector((state)=> state.reviews.Review)
-    const reviewImages = useSelector((state)=> state.reviews.ReviewImage)
-    const currUser = useSelector((state)=> state.session.user)
+    const reviews = useSelector((state) => state.reviews.Review)
+    const reviewImages = useSelector((state) => state.reviews.ReviewImage)
+    const currUser = useSelector((state) => state.session.user)
+    const users = useSelector((state) => state.business.Users)
 
-    console.log('user ==>', currUser)
+    console.log('users ==>', users)
+    console.log('curruser ==>', currUser)
     console.log('reviews ==>', reviews)
     console.log('reviewImages ==>', reviewImages)
 
-
-
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(businessReviewThunk(businessId))
+        dispatch(landingPageThunk())
     }, [dispatch, businessId])
 
-    if(!reviews){
-        return <div className='NoReview'>Be the first to review</div>
+
+    //isOwnerofReview
+    function ownReview(user_id) {
+        return currUser && currUser.id === user_id
     }
 
-    //might need, format dates func
+    //format date
     function formatDate(date) {
         const newDate = new Date(date)
-        //might need to change day attribtue
         const options = { month: 'long', day: 'numeric', year: 'numeric' }
         return newDate.toLocaleDateString(undefined, options)
     }
-    console.log(formatDate)
 
-    return(
+    //render stars
+    function renderStars(starValue) {
+        const stars = [];
+        for (let i = 1; i <= 5; i++) {
+            if (i <= starValue) {
+                stars.push(<span key={i} className="star-filled">★</span>);
+            } else {
+                stars.push(<span key={i} className="star-empty">☆</span>);
+            }
+        }
+        return stars
+    }
+
+    return (
         <>
-            <h1>allReviews</h1>
+            {reviews && users ? (
+                reviews.slice().reverse().map((review, index) => (
+                    <div key={index} className="review-container">
+                        <div className="name-and-buttons">
+                            <h3>{users[review.user_id - 1].first_name} {users[review.user_id - 1].last_name.charAt(0)}</h3>
+                            {ownReview(review.user_id) && (
+                                <div className="buttons-container">
+                                    <button> <NavLink to={`/business/${businessId}/${review.id}/update`}>Edit Review</NavLink></button>
+                                    <button> <NavLink to={`/business/${businessId}/${review.id}/delete`}>Delete Review</NavLink></button>
+                                </div>
+                            )}
+                        </div>
+                        <div className="BR-Rating_Date">
+                            <p>{renderStars(review.star)}</p> <p>{formatDate(review.createdAt)}</p>
+                        </div>
+                        <p className="BR-Review_desc">{review.review}</p>
+                        <p>Image:{review.image}</p>
+                        <hr />
+                    </div>
+                ))
+            ) : (
+                <div className='BR-No_review'>Be the first to review</div>
+            )}
         </>
     )
 }

@@ -23,7 +23,7 @@ class Business(db.Model):
   phone_number = Column(String(20), nullable=False, unique=True)
   description = Column(String(2000))
   schedule = Column(String(500), nullable=True)
-  image = Column(String(500), nullable=True)
+  image = Column(String, nullable=True)
 
   users = relationship('User', back_populates='businesses')
   menus = relationship('Menu', back_populates='businesses', cascade='all, delete-orphan')

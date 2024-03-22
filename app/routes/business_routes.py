@@ -1,10 +1,10 @@
 from flask import Blueprint, jsonify, request, redirect
-from app.models import Business, Menu, Amenity, Review, ReviewImage, db
+from app.models import Business, Menu, Amenity, Review, ReviewImage, BusinessImage, db
 from app.forms.business_form import CreateBusiness
 from app.forms.menu_form import NewMenu, MenuImageForm
 from app.forms.amenities_form import CreateAmenities
 from app.forms.business_form import CreateBusiness, ScheduleForm, BusinessImageForm
-from app.forms.review_form import CreateReview
+from app.forms.review_form import CreateReview, ReviewImageForm
 from flask_login import login_required, current_user
 from .aws_helpers import upload_file_to_s3, remove_file_from_s3
 import json
@@ -36,30 +36,30 @@ def remove_image(image_url):
 
 
 # GET all businesses
-    # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
-
 @bp.route('/businesses')
 def all_business():
     all_businesses = Business.query.all()
+    all_business_images = BusinessImage.query.all()
     business_list = [business.to_dict() for business in all_businesses]
-    return jsonify(business_list)
+    business_images_list = [business_images.to_dict() for business_images in all_business_images]
+    return jsonify({'Business': business_list, 'Business_Images': business_images_list})
 
 
 # GET business /:businessId
 @bp.route('/<int:id>')
 def one_business(id):
     business = Business.query.get(id)
-
+    all_business_images = BusinessImage.query.all()
+    business_images_list = [business_images.to_dict() for business_images in all_business_images]
     if not business:
         return jsonify({'error': 'Business not found'}), 404
     else:
         business_dict = business.to_dict()
-        return business_dict
+        return {'Business': business_dict, 'Business_Images': business_images_list}
 
 
 # POST business
     # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
-
 @bp.route('/new', methods=['GET', 'POST'])
 @login_required
 def create_business():
@@ -72,13 +72,14 @@ def create_business():
     schedule = data.get('schedule')
 
     if form.validate_on_submit():
-        # schedule = f'''Monday:{schedule_form.data['monday_open']} - {schedule_form.data['monday_close']}, Tuesday: {schedule_form.data['tuesday_open']} - {schedule_form.data['tuesday_close']}, Wednesday: {schedule_form.data['wednesday_open']} - {schedule_form.data['wednesday_close']}, Thursday: {schedule_form.data['thursday_open']} - {schedule_form.data['thursday_close']}, Friday: {schedule_form.data['friday_open']} - {schedule_form.data['friday_close']}, Saturday: {schedule_form.data['saturday_open']} - {schedule_form.data['saturday_close']}, Sunday: {schedule_form.data['sunday_open']} - {schedule_form.data['sunday_close']}'''
         if image_form.image.data:
             image_url = upload_image_url(image_form.image.data)
             if not image_url:
                 return jsonify({'error': 'Failed to upload image'}), 500
+        else:
+            image_url = None
 
-        business = Business(owner_id=current_user.id, schedule=schedule, image=image_url if image_form.image.data else 'None')
+        business = Business(owner_id=current_user.id, schedule=schedule, image=image_url)
 
         form.populate_obj(business)
         db.session.add(business)
@@ -90,7 +91,6 @@ def create_business():
 
 # PUT business
     # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
-
 @bp.route('/<int:id>/edit', methods=['PUT'])
 @login_required
 def update_business(id):
@@ -121,8 +121,6 @@ def update_business(id):
 
 
 # DELETE business /:businessId/delete
-    # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
-
 @bp.route('/<int:id>/delete', methods=['DELETE'])
 @login_required
 def delete_business(id):
@@ -153,16 +151,18 @@ def business_review(id):
 
 # POST review /:businessId/review/new
     # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
-
 @bp.route('<int:id>/review/new', methods=['GET', 'POST'])
 @login_required
 def create_review(id):
     form = CreateReview()
+    image_form = ReviewImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        if form.image.data:
-            image_url = upload_image_url(form.image.data)
+        if image_form.image.data:
+            image_url = upload_image_url(image_form.image.data)
+            if not image_url:
+                return jsonify({'error': 'Failed to upload image'}), 500
         else:
             image_url = None
 
@@ -209,17 +209,18 @@ def create_amenities(id):
 @bp.route('/<int:id>/menu', methods=['GET'])
 def business_menu(id):
     menu = Menu.query.filter(Menu.business_id == id).all()
+    all_business_images = BusinessImage.query.all()
     menu_lst = [item.to_dict() for item in menu]
+    business_images_list = [business_images.to_dict() for business_images in all_business_images]
 
     if not menu:
         return jsonify({'error': 'Menu not found'}), 404
     else:
-        return menu_lst
+        return {'Menu': menu_lst, 'Business_Images': business_images_list}
 
 
 # POST menu /:businessId/menu/new
     # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
-
 @bp.route('/<int:id>/menu/new', methods=['GET', 'POST'])
 @login_required
 def create_menu(id):
@@ -229,6 +230,8 @@ def create_menu(id):
     if form.validate_on_submit():
         if image_form.image.data:
             image_url = upload_image_url(image_form.image.data)
+            if not image_url:
+                return jsonify({'error': 'Failed to upload image'}), 500
         else:
             image_url = None
 

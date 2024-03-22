@@ -17,7 +17,6 @@ class CreateBusiness(FlaskForm):
     category = StringField('Category', validators=[DataRequired()])
     phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=20)])
     description = StringField('Description')
-    submit = SubmitField("Create Post")
 
 class ScheduleForm(FlaskForm):
     hours = ['12:00am', '1:00am', '2:00am', '3:00am', '4:00am', '5:00am', '6:00am','7:00am','8:00am','9:00a','10:00am', '11:00am','12:00pm',
