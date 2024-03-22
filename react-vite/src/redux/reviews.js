@@ -73,7 +73,7 @@ export const businessReviewThunk = (businessId) => async (dispatch) => {
     }
 
     const reviews = await response.json()
-    console.log('reviews ==>', reviews)
+
     if (reviews.errors) {
         return reviews.errors;
     }
