@@ -14,10 +14,10 @@ const getAllData = (data) => {
     }
 }
 
-const getOneBusiness = (businessId) => {
+const getOneBusiness = (data) => {
     return {
         type: GET_ONE_BUSINESS,
-        businessId
+        data
     }
 }
 
@@ -28,24 +28,24 @@ const createNewBusiness = (data) => {
     }
 }
 
-const updateBusiness = (business) => {
+const updateBusiness = (data) => {
     return {
         type: UPDATE_BUSINESS,
-        business
+        data
     }
 }
 
-const deleteBusiness = (businessId) => {
+const deleteBusiness = (data) => {
     return {
         type: DELETE_BUSINESS,
-        businessId
+        data
     }
 }
 
-const createAmenity = (newAmenity) => {
+const createAmenity = (data) => {
     return {
         type: CREATE_NEW_AMENITY,
-        newAmenity
+        data
     }
 }
 
@@ -76,11 +76,17 @@ export const specificBusinessThunk = (businessId) => async (dispatch) => {
     }
 
     const one_data = await response.json()
+
+    console.log("ONE_DATA IN SPECIFIC BUSINESS THUNK", one_data)
+    // !: THIS IS AN OBJECT OF TWO OBJECTS NAMED 'Business', 'Business_Images'
+    // ?: THIS HOLDS OBJECT BUSINESS {  DETAILS  }
+    // ?: AS WELL AS OBJECT BUSINESS_IMAGES NESTING AN ARRAY OF [{  IMAGES_DETAILS  }]
+
     if (one_data.errors) {
         return one_data.errors
     }
 
-    dispatch(getOneBusiness(one_data))
+    dispatch(getOneBusiness(one_data.Business))
     return one_data
 }
 
@@ -93,6 +99,12 @@ export const businessMenuThunk = (businessId) => async (dispatch) => {
     }
 
     const menu_data = await response.json()
+
+    console.log('MENU_DATA IN BUSINESS.JS THUNKS', menu_data)
+    // !: THIS IS AN OBJECT OF TWO OBJECTS NAMED 'Business_Images', 'Menu'
+    // ??: THIS IS AN OBJECT NAMED MENU NESTING AN ARRAY OF [{  MENU_ITEMS  }]
+    // ?: AS WELL AS OBJECT BUSINESS_IMAGES NESTING AN ARRAY OF [{  IMAGES_DETAILS  }]
+
     if (menu_data.errors) {
         return menu_data.errors
     }
@@ -182,30 +194,27 @@ export const deleteBusinessThunk = (businessId) => async (dispatch) => {
     }
 }
 
-// TODO: Maybe need a Image Handler Thunk (Johnny)
-    // ! : Backend route, Query all Images
-
 function businessReducer(state = {}, action) {
     switch (action.type) {
         case GET_ALL_DATA: {
             return { ...state, ...action.data }
         }
         case GET_ONE_BUSINESS: {
-            return { ...state,  ...action.businessId }
+            return { ...state, [ action.data.id ]: action.data }
         }
         case CREATE_NEW_BUSINESS: {
             return { ...state, ...action.data }
         }
         case UPDATE_BUSINESS: {
-            return { ...state, ...action.business }
+            return { ...state, ...action.data }
         }
         case DELETE_BUSINESS: {
             const deleteState = {...state}
-            delete deleteState[action.businessId]
+            delete deleteState[action.data]
             return deleteState
         }
         case CREATE_NEW_AMENITY: {
-            return {...state,...action.newAmenity}
+            return {...state, ...action.data}
         }
         default:
             return state

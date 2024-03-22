@@ -4,22 +4,34 @@ import { useParams } from 'react-router-dom'
 import { menuByBusinessThunk } from '../../redux/menu'
 import { specificBusinessThunk } from '../../redux/business'
 
+// TODO: @TylerHan1226 WE NEED TO CHECK UP ON THIS
 
 function MenusByBusinessId() {
     const dispatch = useDispatch()
     const { businessId } = useParams()
     const menus = useSelector((state) => state.menus.Menu)
     const all_business_images = useSelector((state) => state.menus.Business_Images)
-    const business = useSelector((state) => state.business)
+    const business = useSelector((state) => state.business.Business)
+
+    // !: THIS IS NOT FILTERING FOR IMAGES NOR IS IT FILTERING ANYTHING
+    // ?: WE'RE CONSTANTLY GRABBING THE FULL ARRAY OF BUSINESS_IMAGES EVERY TIME (COUNT 78)
 
     let menu_images = []
     if (all_business_images) {
+        console.log('DO I EXIST? WHAT AM I? @MENUS BY BUSINESS.JSX', all_business_images)
+        // ?: NOTHING PRINTS - IF BLOCK NEVER HAPPENS
+
         menu_images = all_business_images.filter(img => img.business_id == businessId && typeof img.menu_id == 'number')
+
+        console.log('DO I EXIST? DO I HOLD ANYTHING, WHAT AM I?', menu_images, '@MENUS BY BUSINESS.JSX')
+        // ?: NOTHING PRINTS - IF BLOCK NEVER HAPPENS
     }
 
     useEffect(() => {
         dispatch(menuByBusinessThunk(businessId))
-        dispatch(specificBusinessThunk(businessId))
+        // TODO: WE HAD A DISPATCH SPECIFIC BUSINESS THUNK IN HERE WHICH
+        // TODO: I REALLY DONT THINK IT WAS DOING ANYTHING
+        // !: THIS WAS REMOVED AND NOTHING HAD CHANGED
     }, [dispatch, businessId])
 
     return (

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom'
 import { createNewBusinessThunk, updateBusinessThunk } from '../../redux/business'
+import './BusinessForm.css'
+
 
 const CreateNewBusiness = ({ buttonName, business }) => {
   const dispatch = useDispatch()
@@ -9,7 +11,6 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const user = useSelector((state) => state.session.user)
   const { businessId } = useParams()
 
-  // let checkBusiness = Object.values(business)
 
   const [title, setTitle] = useState(business?.title );
   const [address, setAddress] = useState(business?.address);
@@ -23,7 +24,6 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [price_rating, setPrice] = useState(business?.price_rating);
   const [category, setCategory] = useState(business?.category);
   const [previewImage, setPreviewImage] = useState(business?.previewImage);
-  // const [schedule, setSchedule] = useState(business?.schedule);
   const [mondayopen, setMondayOpen] = useState('')
   const [mondayclose, setMondayClose]= useState('')
   const [tuesdayopen, setTuesdayOpen] = useState('')
@@ -40,7 +40,6 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [sundayclose, setSundayClose] = useState('')
   const [validations, setValidations] = useState({})
   const [submitted, setSubmitted] = useState(false)
-
 
 
   useEffect(() => {
@@ -89,6 +88,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
     e.preventDefault();
     setSubmitted(true);
 
+
     let createSchedule = `Monday: ${mondayopen} - ${mondayclose},
                           Tuesday: ${tuesdayopen} - ${tuesdayclose},
                           Wednesday: ${wednesdayopen} - ${wednesdayclose},
@@ -97,6 +97,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
                           Saturday: ${saturdayopen} - ${saturdayclose},
                           Sunday: ${sundayclose} - ${sundayclose}
                         `
+
 
     let business ={
       title,
@@ -114,6 +115,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       previewImage
     }
 
+
   if (!Object.keys(validations).length) {
     if (!businessId) {
         const createBusiness = await dispatch(createNewBusinessThunk(business))
@@ -123,12 +125,10 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       }
     else {
       const updateBusiness = await dispatch(updateBusinessThunk(business, businessId))
-      console.log(submitted, updateBusiness)
       nav(`/business/${businessId}`);
     }
   }
 }
-
 
 
   return (
@@ -138,7 +138,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
     >
       <h2>Where is your business located?</h2>
       <label>
-        Business Name
+        Business Name :
         <input
           type='text'
           name='title'
@@ -149,7 +149,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       </label>
       {validations.title && (<p>{validations.title}</p>)}
       <label>
-        Address
+        Address :
         <input
           type='text'
           name='address'
@@ -160,7 +160,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       </label>
       {validations.address && (<p>{validations.address}</p>)}
       <label>
-        City
+        City :
         <input
           type='text'
           name='city'
@@ -171,7 +171,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       </label>
       {validations.city && (<p>{validations.city}</p>)}
       <label>
-        State
+        State :
         <input
           type='text'
           name='state'
@@ -182,7 +182,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       </label>
       {validations.state && (<p>{validations.state}</p>)}
       <label>
-        Country
+        Country :
         <input
           type='text'
           name='country'
@@ -193,7 +193,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       </label>
       {validations.country && (<p>{validations.country}</p>)}
       <label>
-        Price
+        Price :
         <input
           type='text'
           name='price'
@@ -204,7 +204,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       </label>
       {validations.price && (<p>{validations.price}</p>)}
       <label>
-        Category
+        Category : <br></br>
         <input
           list='categories'
           name='category'
@@ -236,8 +236,9 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         </datalist>
       </label>
       {validations.category && (<p>{validations.category}</p>)}
+<br></br>
       <label>
-        Latitude
+        Latitude :
         <input
           type='text'
           name='lat'
@@ -248,7 +249,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       </label>
       {validations.lat && (<p>{validations.lat}</p>)}
       <label>
-        Longitude
+        Longitude :
         <input
           type='text'
           name='lng'
@@ -259,7 +260,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       </label>
       {validations.lng && (<p>{validations.lng}</p>)}
       <label>
-        Phone Number
+        Phone Number :
         <input
           type='text'
           name='phone number'
@@ -270,7 +271,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       </label>
       {validations.phone_number && (<p>{validations.phone_number}</p>)}
       <label>
-        Description
+        Description :
         <input
           type='text'
           name='description'
@@ -281,7 +282,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       </label>
       {validations.description && (<p>{validations.description}</p>)}
       <label>
-        Preview Image
+        Preview Image :
         <input
           type='file'
           name='preview image'
@@ -293,7 +294,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       {validations.previewImage && (<p>{validations.previewImage}</p>)}
       <h2>Schedule</h2>
       <label>
-        Monday
+        Monday : <br></br>
         <input
           list='hours'
           name='mondayOpen'
@@ -365,8 +366,9 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           <option value='11:00pm'></option>
         </datalist>
       </label>
+<br></br>
       <label>
-        Tuesday
+        Tuesday : <br></br>
         <input
           list='hours'
           name='tuesdayOpen'
@@ -438,8 +440,9 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           <option value='11:00pm'></option>
         </datalist>
       </label>
+<br></br>
       <label>
-        Wednesday
+        Wednesday : <br></br>
         <input
           list='hours'
           name='wednesdayopen'
@@ -511,8 +514,9 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           <option value='11:00pm'></option>
         </datalist>
       </label>
+<br></br>
       <label>
-        Thursday
+        Thursday : <br></br>
         <input
           list='hours'
           name='thursdayclose'
@@ -584,8 +588,9 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           <option value='11:00pm'></option>
         </datalist>
       </label>
+<br></br>
       <label>
-        Friday
+        Friday : <br></br>
         <input
           list='hours'
           name='fridayopen'
@@ -656,8 +661,10 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           <option value='10:00pm'></option>
           <option value='11:00pm'></option>
         </datalist>
-      </label>      <label>
-        Saturday
+      </label>
+<br></br>
+      <label>
+        Saturday : <br></br>
         <input
           list='hours'
           name='saturdayopen'
@@ -729,8 +736,9 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           <option value='11:00pm'></option>
         </datalist>
       </label>
+<br></br>
       <label>
-        Sunday
+        Sunday : <br></br>
         <input
           list='hours'
           name='sundayopen'
@@ -802,7 +810,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           <option value='11:00pm'></option>
         </datalist>
       </label>
-      <button type='submit' disabled={Object.keys(validations).length > 0}>{ buttonName }</button>
+      <button id='submit-button' type='submit' disabled={Object.keys(validations).length > 0}>{ buttonName }</button>
     </form>
   )
 }
