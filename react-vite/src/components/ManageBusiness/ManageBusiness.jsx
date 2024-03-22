@@ -8,6 +8,7 @@ function ManageBusiness() {
     const dispatch = useDispatch()
     const currUser = useSelector(state => state.session.user)
     const business = useSelector(state => state.business.Business)
+    const amenities = useSelector(state => state.business.Amenities)
 
     useEffect(() => {
         dispatch(landingPageThunk())
@@ -23,6 +24,30 @@ function ManageBusiness() {
             currBusiness.push(bus)
         }
     }
+    console.log('currBusiness ==>', currBusiness)
+
+    let amenityArr = []
+    if (currBusiness && business) {
+        for (let amenity of amenities) {
+            for (let eachBusiness of currBusiness) {
+                if (amenity.business_id == eachBusiness.id) {
+                    amenityArr.push(amenity)
+                }
+            }
+        }
+        console.log('amenityArr ==>', amenityArr)
+    }
+
+    // TODO add amenity check
+    let isAmenity = false
+    function checkAmenity (businessId) {
+        for (let a of amenityArr) {
+            console.log('a ==>', a)
+            if (a.business_id == businessId) {
+                isAmenity = !isAmenity
+            }
+        }
+    }
 
     return(
         <>
@@ -36,13 +61,19 @@ function ManageBusiness() {
                     </>
                 )}
                 {currBusiness.map(bus => (
-                    <div key={bus.id}>
-                        <p className='manage-bus-title'>{bus.title}</p>
-                        <p className='manage-bus-address'>{bus.address}</p>
-                        <p className='manage-bus-city'>{bus.city}, {bus.state}</p>
-                        <button><NavLink to={`/business/${bus.id}/edit`}>Update Business</NavLink></button>
-                        <button><NavLink to={`/business/${bus.id}/delete`}>Delete Business</NavLink></button>
-                    </div>
+                    <NavLink key={bus?.id} to={`/business/${bus?.id}`}>
+                        <p className='manage-bus-title'>{bus?.title}</p>
+                        <p className='manage-bus-address'>{bus?.address}</p>
+                        <p className='manage-bus-city'>{bus?.city}, {bus?.state}</p>
+                        <button><NavLink to={`/business/${bus?.id}/edit`}>Update Business</NavLink></button>
+                        <button><NavLink to={`/business/${bus?.id}/delete`}>Delete Business</NavLink></button>
+                        {
+                            !isAmenity && checkAmenity(bus?.id) &&  (
+                            <>
+                                <button><NavLink>Amenity</NavLink></button>
+                            </>)
+                        }
+                    </NavLink>
                 ))}
             </div>
         </>

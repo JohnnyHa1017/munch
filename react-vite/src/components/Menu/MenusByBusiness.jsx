@@ -5,6 +5,7 @@ import { menuByBusinessThunk } from '../../redux/menu'
 // import { specificBusinessThunk } from '../../redux/business'
 
 // TODO: @TylerHan1226 WE NEED TO CHECK UP ON THIS
+// TODO: ADD MENU IMAGES
 
 function MenusByBusinessId() {
     const dispatch = useDispatch()
@@ -36,14 +37,14 @@ function MenusByBusinessId() {
 
     return (
         <>
-            {menu_images.length > 0 && business.Business ? ( // Added null check here
+            {menu_images.length > 0 && business ? ( // Added null check here
                 <div>
-                    <h1>{business.Business.title}s Menu</h1>
+                    <h1>{business.Business?.title}s Menu</h1>
                     {menus.map((menu, index) => (
                         <div key={index}>
-                            <h3>{menu.name}</h3>
-                            <h4>{menu.category}</h4>
-                            <p>{menu.description}</p>
+                            <h3>{menu?.name}</h3>
+                            <h4>{menu?.category}</h4>
+                            <p>{menu?.description}</p>
                             {menu_images.length > 0 && menu_images[index] ? (
                                 <img className='menu-item-img' src={menu_images[index].url} alt={`Image for ${menu.menu_name}`} />
                             ) : (

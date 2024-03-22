@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { businessAmenitiesThunk, specificBusinessThunk } from '../../redux/business'
 import { menuByBusinessThunk } from '../../redux/menu'
-import { useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { businessReviewThunk } from "../../redux/reviews";
 import './BusinessDetails.css'
 import { LuBean } from "react-icons/lu";
@@ -38,6 +38,7 @@ export default function OneBusiness() {
         return acc
       }
     }, 0) / reviews.Review.length
+    avgStarRating = avgStarRating.toFixed(1)
     const id = businessId
     selectedBusiness = business[id]
 
@@ -47,14 +48,7 @@ export default function OneBusiness() {
       businessCategory = businessCategoryStr.split(',')[0].split('"')[1]
       businessPreviewImg = menus.Business_Images.filter(img => img.business_id == businessId && img.preview == true)[0]
       businessSchedule = selectedBusiness.schedule
-    }    
-    // console.log('business ==>', business)
-    console.log('menus ==>', menus)
-    console.log('reviews ==>', reviews.Review)
-    console.log('businessPreviewImg ==>', businessPreviewImg)
-    console.log('selectedBusiness ==>', business[id])
-    console.log('avgStarRating ==>', avgStarRating)
-
+    }
   }
 
   useEffect(() => {
@@ -67,27 +61,32 @@ export default function OneBusiness() {
 
   return (
     <>
-      {business && reviews.Review ? (
+      {business ? (
         <>
           <div className="business-detail-header-container">
             <div className="business-detail-header-img" style={{ backgroundImage: `url(${businessPreviewImg.url})`, height: '360px' }}>
-              <h1 className="business-detail-header-text">{business.title}</h1>
+              <h1 className="business-detail-header-text">{selectedBusiness?.title}</h1>
               <div className="bd-star-rating-container">
-                {[...Array(Math.floor(avgStarRating))].map((_, index) => (
-                  <BiSolidGame key={index} className="bd-star" />
-                ))}
-                {avgStarRating % 1 !== 0 && <BiGame className="bd-star" />}
-                {[...Array(5 - Math.ceil(avgStarRating))].map((_, index) => (
-                  <LuBean key={index} className="bd-star" />
-                ))}
-                <h3 className="business-detail-header-text">
-                  {avgStarRating} ({reviews.Review.length} reviews)
-                </h3>
-              </div>
-              <div>
-                {[...Array(priceRating)].map((_, index) => (
-                  <BiSolidBadgeDollar key={index} className="bd-dollar-sign" />
-                ))}
+                {reviews.Review && avgStarRating > 0 ? (
+                  <>
+                    {[...Array(Math.floor(avgStarRating))].map((_, index) => (
+                      <BiSolidGame key={index} className="bd-star" />
+                    ))}
+                    {avgStarRating % 1 !== 0 && <BiGame className="bd-star" />}
+                    {[...Array(5 - Math.ceil(avgStarRating))].map((_, index) => (
+                      <LuBean key={index} className="bd-star" />
+                    ))}
+                    <h3 className="business-detail-header-text">
+                      {avgStarRating} ({reviews.Review.length} reviews)
+                    </h3>
+                    <div>
+                      {[...Array(priceRating)].map((_, index) => (
+                        <BiSolidBadgeDollar key={index} className="bd-dollar-sign" />
+                      ))}
+                    </div>
+                  </>) : (
+                  <></>
+                )}
               </div>
               <p className="business-detail-header-text">
                 {businessCategory}
@@ -97,17 +96,18 @@ export default function OneBusiness() {
               </p>
             </div>
           </div>
-
           <div className="business-detail-action-buttons-container">
-            <button>Write a review</button>
-            <button>Add a photo</button>
-            <button>Share</button>
-            <button>Save</button>
-            <button>Follow</button>
+            {/* add current user check for existing review */}
+            <button><NavLink to={`/business/${businessId}/review/new`}>Write a review</NavLink></button>
+            <button onClick={() => alert('Feature coming soon')}>Add a photo</button>
+            <button onClick={() => alert('Feature coming soon')}>Share</button>
+            <button onClick={() => alert('Feature coming soon')}>Save</button>
+            <button onClick={() => alert('Feature coming soon')}>Follow</button>
           </div>
 
           <div className="menu-container">
             <h2>menu</h2>
+            {/* show menu component => show menu price / link to the menu */}
           </div>
 
           <div className="reviews-container">
@@ -117,8 +117,8 @@ export default function OneBusiness() {
 
           <div className="business-info-container schedule-text">
             <h2>business info</h2>
+            {/* show amenities */}
           </div>
-
         </>
       ) : (
         <h2>Loading ...</h2>
