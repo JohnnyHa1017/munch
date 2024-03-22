@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { businessReviewThunk } from "../../redux/reviews";
 
 // TODO: Pass in reviews
+  // *: COMPLETED THANK YOU @MoonChopperr
 
 export default function OneBusiness() {
   const dispatch = useDispatch()
@@ -23,14 +24,36 @@ export default function OneBusiness() {
     return <div>Loading...</div>
   }
 
+  const businessImages = data.Business_Images.filter((img) => img.business_id == businessId);
   const reviewArr = reviews.Review
 
   return (
     <>
-      <h1>Business Id Page</h1>
-      <p>{data[businessId].title}</p>
+      <h1 id='business-name'>{data[businessId].title}</h1>
+      <p>Address: <br></br>
+        {data[businessId].address}</p>
+      <p>City: <br></br>
+        {data[businessId].city}</p>
+      <p>State: <br></br>
+        {data[businessId].state}</p>
+      <p> Categories: <br></br>
+      {JSON.parse(data[businessId].category).join(', ')}
+      </p>
+      <p>Phone Number: <br></br>
+        {data[businessId].phone_number}</p>
+      <p>Price Rating: <br></br>
+        {data[businessId].price_rating}</p>
+      <p>Description: <br></br>
+        {data[businessId].description}</p>
+      <h2>Check out some photos of {data[businessId].title}</h2>
+      <div>
+        {businessImages.map(image => (
+          <img key={image.id} src={image.url} alt={`Image ${image.id}`} />
+        ))}
+      </div>
       <h2>Schedule</h2>
       <p>{data[businessId].schedule}</p>
+      <h2>Amenities</h2>
       <h2>Reviews</h2>
       {reviewArr.map(review => (
         <p key={review.id}>{review.review}</p>

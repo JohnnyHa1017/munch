@@ -125,7 +125,6 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       }
     else {
       const updateBusiness = await dispatch(updateBusinessThunk(business, businessId))
-      console.log(submitted, updateBusiness)
       nav(`/business/${businessId}`);
     }
   }
