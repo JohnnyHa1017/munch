@@ -23,7 +23,9 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [phone_number, setPhoneNumber] = useState(business?.phone_number);
   const [price_rating, setPrice] = useState(business?.price_rating);
   const [category, setCategory] = useState(business?.category);
-  const [previewImage, setPreviewImage] = useState(business?.previewImage);
+  const [image, setImage] = useState(null);
+  const [imageLoading, setImageLoading] = useState(false);
+  // const [previewImage, setPreviewImage] = useState(business?.previewImage);
   const [mondayopen, setMondayOpen] = useState('')
   const [mondayclose, setMondayClose]= useState('')
   const [tuesdayopen, setTuesdayOpen] = useState('')
@@ -87,7 +89,8 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
-
+    const formData = new FormData();
+    formData.append("image", image);
 
     let createSchedule = `Monday: ${mondayopen} - ${mondayclose},
                           Tuesday: ${tuesdayopen} - ${tuesdayclose},
@@ -97,7 +100,6 @@ const CreateNewBusiness = ({ buttonName, business }) => {
                           Saturday: ${saturdayopen} - ${saturdayclose},
                           Sunday: ${sundayclose} - ${sundayclose}
                         `
-
 
     let business ={
       title,
@@ -112,29 +114,36 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       lng,
       category,
       schedule: createSchedule,
-      previewImage
-    }
+      image
+    };
 
+    await Promise.resolve(formData);
 
-  if (!Object.keys(validations).length) {
-    if (!businessId) {
-        const createBusiness = await dispatch(createNewBusinessThunk(business))
-        if(createBusiness && createBusiness.id){
+    if (!Object.keys(validations).length) {
+      if (!businessId) {
+        const createBusiness = await dispatch(createNewBusinessThunk(business));
+        if (createBusiness && createBusiness.id) {
+
+          setImageLoading(true);
           nav(`/business/${createBusiness.id}`);
         }
+      } else {
+        const updateBusiness = await dispatch(updateBusinessThunk(business, businessId));
+        if (updateBusiness) {
+
+          setImageLoading(true);
+          nav(`/business/${businessId}`);
+        }
       }
-    else {
-      const updateBusiness = await dispatch(updateBusinessThunk(business, businessId))
-      nav(`/business/${businessId}`);
     }
-  }
-}
+  };
 
 
   return (
     <form
-      className='business-form'
       onSubmit={handleSubmit}
+      encType="multipart/form-data"
+      className='business-form'
     >
       <h2>Where is your business located?</h2>
       <label>
@@ -282,16 +291,16 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       </label>
       {validations.description && (<p>{validations.description}</p>)}
       <label>
-        Preview Image :
+        Submit an Image :
         <input
           type='file'
-          name='preview image'
-          value={previewImage}
-          placeholder='Preview Image'
-          onChange={(e) => setPreviewImage(e.target.value)}
+          accept="image/*"
+          onChange={(e) => setImage(e.target.files[0])}
+          placeholder='Add an Image'
         ></input>
+          {(imageLoading)&& <p>Loading...</p>}
       </label>
-      {validations.previewImage && (<p>{validations.previewImage}</p>)}
+      {validations.image && (<p>{validations.image}</p>)}
       <h2>Schedule</h2>
       <label>
         Monday : <br></br>
@@ -519,8 +528,8 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         Thursday : <br></br>
         <input
           list='hours'
-          name='thursdayclose'
-          value={thursdayclose}
+          name='thursdayopen'
+          value={thursdayopen}
           placeholder='Open'
           onChange={(e) => setThursdayOpen(e.target.value)}
         ></input>
@@ -810,7 +819,8 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           <option value='11:00pm'></option>
         </datalist>
       </label>
-      <button id='submit-button' type='submit' disabled={Object.keys(validations).length > 0}>{ buttonName }</button>
+      <button id='submit-button' type='submit' disabled={Object.keys(validations).length > 0}>{buttonName}</button>
+      { (imageLoading) && <p>Loading...</p>}
     </form>
   )
 }

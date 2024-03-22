@@ -17,7 +17,7 @@ const CreateBusiness = () => {
     lng: '',
     category: '',
     schedule: '',
-    previewImage: ''
+    image: null
   }
 
   return (

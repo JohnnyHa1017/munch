@@ -45,16 +45,12 @@ export default function OneBusiness() {
         {data[businessId].price_rating}</p>
       <p>Description: <br></br>
         {data[businessId].description}</p>
-      <h2>Check out some photos of {data[businessId].title}</h2>
-      { /* DELETE THIS LINE */
-  // TODO: If no images I noticed we were getting a render issue
-  // TODO: We need to add a conditional here to see if theres photos or not
-      /* DELETE THIS LINE */ }
+        <h2>Check out some photos of {data[businessId].title}</h2>
+        {businessImages.length > 0 ? (
       <div>
-        {businessImages.map(image => (
+          {businessImages.map(image => (
           <img key={image.id} src={image.url} alt={`Image ${image.id}`} />
-        ))}
-      </div>
+        ))} </div> ) : ( <p>No photos available</p> )}
       <h2>Schedule</h2>
       <p>{data[businessId].schedule}</p>
       <h2>Amenities</h2>
