@@ -104,19 +104,27 @@ export default function OneBusiness() {
             <button onClick={() => alert('Feature coming soon')}>Follow</button>
           </div>
 
-          <div className="menu-container">
-            <MenusByBusinessId />
+          <div className="business-detail-context-container">
+            <div className="business-contexts">
+              <div className="menu-container">
+                <MenusByBusinessId />
+              </div>
+              <div className="business-info-container schedule-text">
+                <h2>business amenities</h2>
+                {/* show amenities */}
+              </div>
+              <div className="reviews-container">
+                <h1>Reviews for {selectedBusiness?.title}</h1>
+                <BusinessReviews />
+              </div>
+            </div>
+            <div className="business-dtl-info">
+              HI
+            </div>
           </div>
 
-          <div className="reviews-container">
-            <h1>Reviews for {selectedBusiness?.title}</h1>
-            <BusinessReviews />
-          </div>
 
-          <div className="business-info-container schedule-text">
-            <h2>business info</h2>
-            {/* show amenities */}
-          </div>
+
         </div>
       ) : (
         <h2>Loading ...</h2>
