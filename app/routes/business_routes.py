@@ -156,7 +156,6 @@ def business_review(id):
 
 # POST review /:businessId/review/new
     # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
-
 @bp.route('<int:id>/review/new', methods=['GET', 'POST'])
 @login_required
 def create_review(id):

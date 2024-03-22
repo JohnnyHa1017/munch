@@ -46,6 +46,10 @@ export default function OneBusiness() {
       <p>Description: <br></br>
         {data[businessId].description}</p>
       <h2>Check out some photos of {data[businessId].title}</h2>
+      { /* DELETE THIS LINE */
+  // TODO: If no images I noticed we were getting a render issue
+  // TODO: We need to add a conditional here to see if theres photos or not
+      /* DELETE THIS LINE */ }
       <div>
         {businessImages.map(image => (
           <img key={image.id} src={image.url} alt={`Image ${image.id}`} />

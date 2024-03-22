@@ -51,9 +51,8 @@
   // TODO: EXTREMELY URGENT - @ANYONE
   // !: BUSINESS/BUSINESSES IS NOT LOADING ANY OF OUR DATA
     // @MoonChopperr if you could address this this if youre free
-      // : I believe we would use landingPageThunk to render this
-        // : Differs from landingpage because this is strictly businesses
-          // : Also landingpage should have a limit on num businesses populated
+      // : Differs from landingpage because this is strictly businesses
+        // : Also landingpage should have a limit on num businesses populated
         // : Use same Image filter from components/BusinessDetails/BusinessDetails.jsx
           // : Additional Logic of `img.preview === true` for one picture display icon
 
