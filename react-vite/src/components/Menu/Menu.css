@@ -2,6 +2,23 @@
     color: red;
 }
 
+.menu-page-container {
+    border: red 1px solid;
+    display: grid;
+
+}
+
+.menu-page-all-items-container {
+    border: blue 1px solid;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 100px));
+}
+
 .menu-item-img {
     width: 50%;
+}
+
+.menu-item-container {
+    border: green 1px solid;
+    /* width: 30%; */
 }
