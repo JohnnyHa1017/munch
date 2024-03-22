@@ -243,3 +243,10 @@ def create_menu(id):
 
         return data.to_dict()
     return jsonify({'error': form.errors}), 400
+
+# @bp.route('/search')
+# def search_business():
+#     search_param = request.args.get('param')
+#     search_business = Business.query.filter(Business.category)
+
+#     return

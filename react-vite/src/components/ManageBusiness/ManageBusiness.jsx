@@ -3,28 +3,32 @@ import { useEffect } from 'react';
 import { landingPageThunk } from '../../redux/business'
 import { NavLink } from 'react-router-dom';
 import './ManageBusiness.css'
+import { menuByBusinessThunk } from '../../redux/menu';
 
 function ManageBusiness() {
     const dispatch = useDispatch()
     const currUser = useSelector(state => state.session.user)
     const business = useSelector(state => state.business.Business)
     const amenities = useSelector(state => state.business.Amenities)
+    const menus = useSelector(state => console.log(state.menus.Menu))
 
+    const currBusiness = []
     useEffect(() => {
         dispatch(landingPageThunk())
+        // for(let bus of currBusiness){ //pulls menus from all business in currentbusiness arr
+        //     dispatch(menuByBusinessThunk(bus.id))
+        // }
     },[dispatch])
 
     if(!currUser || !business){
         return <div>Loading...</div>
     }
 
-    const currBusiness = []
-    for(let bus of business){
-        if(bus.owner_id == currUser.id){
+    for(let bus of business){ //adding business into the currBus arr
+        if(bus?.owner_id == currUser?.id){
             currBusiness.push(bus)
         }
     }
-    console.log('currBusiness ==>', currBusiness)
 
     let amenityArr = []
     if (currBusiness && business) {
@@ -35,18 +39,24 @@ function ManageBusiness() {
                 }
             }
         }
-        console.log('amenityArr ==>', amenityArr)
     }
 
-    // TODO add amenity check
-    let isAmenity = false
     function checkAmenity (businessId) {
         for (let a of amenityArr) {
-            console.log('a ==>', a)
             if (a.business_id == businessId) {
-                isAmenity = !isAmenity
+                return true
             }
         }
+        return false
+    }
+
+    function checkMenu(businessId){
+        // for(let m of menus){
+        //     if(m.business_id == businessId){
+        //         return true
+        //     }
+        // }
+        return false
     }
 
     return(
@@ -67,12 +77,12 @@ function ManageBusiness() {
                         <p className='manage-bus-city'>{bus?.city}, {bus?.state}</p>
                         <button><NavLink to={`/business/${bus?.id}/edit`}>Update Business</NavLink></button>
                         <button><NavLink to={`/business/${bus?.id}/delete`}>Delete Business</NavLink></button>
-                        {
-                            !isAmenity && checkAmenity(bus?.id) &&  (
-                            <>
-                                <button><NavLink>Amenity</NavLink></button>
-                            </>)
-                        }
+                        {!checkAmenity(bus.id) && (
+                            <button><NavLink to={`/business/${bus.id}/amenities`}>Add Amenities</NavLink></button>
+                        )}
+                        {!checkMenu(bus.id) && (
+                            <button><NavLink to={`/business/${bus.id}/menus/new`}>Add Menu</NavLink></button>
+                        )}
                     </NavLink>
                 ))}
             </div>
