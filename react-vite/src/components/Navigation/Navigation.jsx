@@ -3,6 +3,7 @@ import ProfileButton from "./ProfileButton";
 import { useSelector } from 'react-redux';
 import "./Navigation.css";
 import landinglogo from '../../images/landinglogo.png'
+import SearchBar from "../SearchBar/SearchBar";
 
 function Navigation() {
   const user = useSelector(state => state.session.user)
@@ -14,6 +15,9 @@ function Navigation() {
           <img src={landinglogo} alt='landinglogo'/>
         </NavLink>
 
+      </li>
+      <li>
+        <SearchBar/>
       </li>
       {user && (
         <>
