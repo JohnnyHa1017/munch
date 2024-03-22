@@ -9,13 +9,13 @@ const SearchBar = () => {
     return (
         <form className='input-wrapper'>
             <FaSearch id='search-icon' />
-            <input
+            <input className='search-input'
                 type='text'
                 placeholder='Type to search...'
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
             />
-            <button type='submit'>Search</button>
+            <button className='fasfaSearch' onClick={() => alert('Feature coming soon')} type='submit'><FaSearch /></button>
         </form>
     )
 }

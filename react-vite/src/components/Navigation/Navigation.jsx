@@ -8,23 +8,24 @@ import SearchBar from "../SearchBar/SearchBar";
 function Navigation() {
   const user = useSelector(state => state.session.user)
 
+
   return (
     <ul className='nav-bar-ul'>
-      <li>
+      <li className='LandingLogo-container'>
         <NavLink to="/" className='Landinglogo'>
           <img src={landinglogo} alt='landinglogo'/>
         </NavLink>
-
       </li>
+
       <li>
         <SearchBar/>
       </li>
       {user && (
         <>
-          <li>
+          <li className="Nav-create">
             <NavLink to='/business/new'>Create a New Business</NavLink>
           </li>
-          <li>
+          <li className='Nav-manage'>
             <NavLink to={`/user/${user.id}/business`}>Manage Your Business</NavLink>
           </li>
         </>
