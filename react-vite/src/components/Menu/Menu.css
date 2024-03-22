@@ -2,23 +2,53 @@
     color: red;
 }
 
-.menu-page-container {
+/* .menu-page-container {
     border: red 1px solid;
-    display: grid;
+} */
 
+.detail-page-back-button {
+    display: block;
+    background-color: rgb(26,121,255, 0.25);
+    margin: 0 0 0 8px;
+    padding: 4px 16px;
+    border: 2px black;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.detail-page-back-button-text {
+    color: white;
+    text-decoration: none;
+}
+.detail-page-back-button-text:hover {
+    color: rgb(175, 17, 17);
 }
 
 .menu-page-all-items-container {
-    border: blue 1px solid;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 100px));
-}
-
-.menu-item-img {
-    width: 50%;
+    /* border: blue 1px solid; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .menu-item-container {
-    border: green 1px solid;
-    /* width: 30%; */
+    border: 1px solid grey;
+    border-radius: 10px 10px;
+    margin: 8px 0 8px 0;
+    padding: 12px;
+    width: 30%;
+}
+
+.menu-detail-text {
+    color: grey;
+    text-decoration: none;
+}
+
+.menu-detail-text-black {
+    color: black;
+}
+
+.menu-item-img {
+    width: 60%;
 }

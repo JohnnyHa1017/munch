@@ -21,8 +21,6 @@ export default function OneBusiness() {
   const { businessId } = useParams()
 
 
-
-
   //get average start rating
   let avgStarRating = 1
   let priceRating = 1

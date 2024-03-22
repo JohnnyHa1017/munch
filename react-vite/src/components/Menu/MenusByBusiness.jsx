@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { menuByBusinessThunk } from '../../redux/menu'
 import { specificBusinessThunk } from '../../redux/business'
 
@@ -17,10 +17,11 @@ function MenusByBusinessId() {
     let menu_images = []
     if (menus) {
         for (let img of menuImages) {
-            if (img.business_id == businessId) {
+            if (img.business_id == businessId && img.menu_id) {
                 menu_images.push(img)
             }
         }
+        console.log('menu_images ==>', menu_images)
     }
 
     useEffect(() => {
@@ -32,21 +33,20 @@ function MenusByBusinessId() {
         <>
             {menu_images.length > 0 && business && menus ? ( // Added null check here
                 <div className='menu-page-container'>
-                    <h1>{business?.title}'s Menu</h1>
+                    <NavLink to={`/business/${businessId}`}><h1 className='menu-detail-text-black'>{business?.title}'s Menu</h1></NavLink>
                     <div className='menu-page-all-items-container'>
-                        {menus.map((menu, index) => (
-                            <div className='menu-item-container' key={index}>
-                                <h3>{menu?.name}</h3>
-                                <h4>{menu?.category}</h4>
-                                <p>{menu?.description}</p>
-                                {menu_images.length > 0 && menu_images[index] ? (
-                                    <img className='menu-item-img' src={menu_images[index].url} alt={`Image for ${menu.menu_name}`} />
-                                ) : (
-                                    <p>No image available</p>
-                                )}
-                                {/* Render additional menu information here */}
-                            </div>
-                        ))}
+                        {menus.map((menu, index) => {
+                            const matchedImage = menu_images.find(image => image.menu_id === menu.id);
+                            return (
+                                <div className='menu-item-container' key={index}>
+                                    <h2>{menu?.name}</h2>
+                                    <h4>{menu?.category}</h4>
+                                    <p>{menu?.description}</p>
+                                    <p className='menu-detail-text'>{menu?.price} $</p>
+                                    <img className='menu-item-img' src={matchedImage?.url} alt={`Image for ${menu.menu_name}`} />
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
             ) : (
