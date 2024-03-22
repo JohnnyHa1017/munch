@@ -4,6 +4,7 @@ export const GET_ONE_BUSINESS = 'business/GET_ONE_BUSINESS'
 export const CREATE_NEW_BUSINESS = 'business/CREATE_NEW_BUSINESS'
 export const UPDATE_BUSINESS = 'business/UPDATE_BUSINESS'
 export const DELETE_BUSINESS = 'business/DELETE_BUSINESS'
+export const CREATE_NEW_AMENITY = 'business/CREATE_AMENITY'
 
 // Action Types
 const getAllData = (data) => {
@@ -38,6 +39,13 @@ const deleteBusiness = (businessId) => {
     return {
         type: DELETE_BUSINESS,
         businessId
+    }
+}
+
+const createAmenity = (newAmenity) => {
+    return {
+        type: CREATE_NEW_AMENITY,
+        newAmenity
     }
 }
 
@@ -108,6 +116,20 @@ export const businessAmenitiesThunk = (businessId) => async (dispatch) => {
 
     dispatch(getAllData(amenity_data))
     return amenity_data
+}
+
+// Create Business Amenities Thunk
+export const createNewAmenitiesThunk = (businessId, newAmenity) => async (dispatch) => {
+    const response = await fetch(`/api/business/${businessId}/amenity/new`, {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newAmenity)
+    })
+    if(response.ok){
+        const data = await response.json()
+        dispatch(createAmenity(data))
+        return data
+    }
 }
 
 // Create New Business Thunk
@@ -181,6 +203,9 @@ function businessReducer(state = {}, action) {
             const deleteState = {...state}
             delete deleteState[action.businessId]
             return deleteState
+        }
+        case CREATE_NEW_AMENITY: {
+            return {...state,...action.newAmenity}
         }
         default:
             return state

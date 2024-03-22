@@ -16,6 +16,7 @@ import UpdateReview from '../components/UpdateReview/UpdateReview';
 import MenusByBusinessId from '../components/Menu/MenusByBusiness';
 import CreateMenu from '../components/Menu/CreateMenu';
 import ManageBusiness from '../components/ManageBusiness/ManageBusiness';
+import CreateAmenity from '../components/CreateAmenities/CreateAmenities';
 
 export const router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ export const router = createBrowserRouter([
       {
         path: '/user/:userId/business',
         element: <ManageBusiness />
+      },
+      {
+        path: '/business/:businessId/amenities',
+        element: <CreateAmenity />
       }
     ],
   },
