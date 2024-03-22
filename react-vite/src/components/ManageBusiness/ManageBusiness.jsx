@@ -36,7 +36,7 @@ function ManageBusiness() {
                     </>
                 )}
                 {currBusiness.map(bus => (
-                    <div>
+                    <div key={bus.id}>
                         <p className='manage-bus-title'>{bus.title}</p>
                         <p className='manage-bus-address'>{bus.address}</p>
                         <p className='manage-bus-city'>{bus.city}, {bus.state}</p>

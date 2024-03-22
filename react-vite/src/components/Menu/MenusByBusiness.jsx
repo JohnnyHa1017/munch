@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { menuByBusinessThunk } from '../../redux/menu'
-import { specificBusinessThunk } from '../../redux/business'
+// import { specificBusinessThunk } from '../../redux/business'
 
 // TODO: @TylerHan1226 WE NEED TO CHECK UP ON THIS
 
@@ -38,7 +38,7 @@ function MenusByBusinessId() {
         <>
             {menu_images.length > 0 && business.Business ? ( // Added null check here
                 <div>
-                    <h1>{business.Business.title}'s Menu</h1>
+                    <h1>{business.Business.title}s Menu</h1>
                     {menus.map((menu, index) => (
                         <div key={index}>
                             <h3>{menu.name}</h3>

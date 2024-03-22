@@ -8,6 +8,7 @@ function CreateAmenity () {
     const nav = useNavigate()
     const { businessId } = useParams()
     const business = useSelector(state => state.business)
+    console.log(business)
 
     useEffect(()=> {
         dispatch(specificBusinessThunk(businessId))
@@ -24,6 +25,7 @@ function CreateAmenity () {
     const [good_for_groups, setGoodForGroups] = useState(false)
     const [outdoor_seating, setOutdoorSeating] = useState(false)
     const [submitted, setSubmitted] = useState(false)
+    console.log(submitted)
 
     const handleSubmit = async (e) => {
         e.preventDefault()

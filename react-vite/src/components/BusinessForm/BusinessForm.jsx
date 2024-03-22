@@ -39,6 +39,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [sundayclose, setSundayClose] = useState('')
   const [validations, setValidations] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  console.log(submitted)
 
 useEffect(() => {
   const errors = {}

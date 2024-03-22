@@ -39,7 +39,7 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
         formData.append("image", image);
         setImageLoading(true);
         setSubmitted(true)
-        
+
         await Promise.resolve(formData);
 
         const reviewObj = {
@@ -105,7 +105,7 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
                                     className='Stars'
                                     onClick={() => setStars(ratingValue)}
                                     onMouseEnter={() => setHover(ratingValue)}
-                                    onMouseLeave={() => setHover(rating)}
+                                    onMouseLeave={() => setHover(null)}
                                 >
                                     {ratingValue <= (hover || star) ? '★' : '☆'}
                                 </span>
