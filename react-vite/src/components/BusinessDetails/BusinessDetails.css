@@ -16,11 +16,14 @@
 
 .business-detail-header-text {
     color: white;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.25);
+    padding: 4px;
+    width: fit-content;
 }
 
 .business-detail-action-buttons-container {
     border: red solid 1px;
+    padding: 16px;
 }
 
 .menu-container {
@@ -33,4 +36,32 @@
 
 .business-info-container {
     border: red solid 1px;
+}
+
+.bd-star-rating-container {
+    padding: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.bd-star {
+    margin: 12px 4px 12px 0;
+    padding: 4px;
+    font-size: 28px;
+    color: white;
+    border-radius: 6px;
+    background-color: #ec5c13;
+}
+
+.bd-dollar-sign {
+    /* margin: 12px 4px 12px 0; */
+    /* padding: 4px; */
+    font-size: 24px;
+    color: white;
+    border-radius: 6px;
+}
+
+.schedule-text {
+    width: 30%;
 }
