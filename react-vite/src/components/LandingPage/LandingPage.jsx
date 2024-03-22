@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom';
 // import { LoginFormModal } from '../LoginFormModal'
 // import { OpenModalButton } from '../OpenModalButton'
 // import { ProfileButton } from '../Navigation'
+import ImageCarousel from "../Carousel/Carousel";
 import './LandingPage.css'
 
 export default function LandingPage() {
@@ -55,11 +56,9 @@ export default function LandingPage() {
 
     return (
         <>
+            <ImageCarousel/>
             <h1>Landing Page!</h1>
             <div className='recent-activity-container'>
-                <div>
-                    <p>image carousel here</p>
-                </div>
                 <h2 className='recent-actity-text'>Recent Activity</h2>
                 <div className='recent-reviews'>
                     {sixreviews.map(review => (
