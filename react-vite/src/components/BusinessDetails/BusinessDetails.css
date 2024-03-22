@@ -1,4 +1,10 @@
 
+.business-detail-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .business-detail-header-container {
     display: flex;
     flex-direction: column;
@@ -22,21 +28,33 @@
 }
 
 .business-detail-action-buttons-container {
-    border: red solid 1px;
+    /* border: red solid 1px; */
     padding: 16px;
 }
 
 .menu-container {
-    border: red solid 1px;
+    /* border-top: grey solid 1px; */
+    padding: 12px;
+    width: 85%;
+    height: 360px;
+    overflow: auto;
 }
 
 .reviews-container {
-    border: red solid 1px;
+    padding: 12px;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.business-info-container {
+/* .reviews-container {
     border: red solid 1px;
-}
+} */
+
+/* .business-info-container {
+    border: red solid 1px;
+} */
 
 .bd-star-rating-container {
     padding: 4px;

@@ -8,6 +8,7 @@ import './BusinessDetails.css'
 import { LuBean } from "react-icons/lu";
 import { BiGame, BiSolidGame, BiSolidBadgeDollar } from "react-icons/bi";
 import BusinessReviews from "../BusinessReviews/BusinessReviews";
+import MenusByBusinessId from "../Menu/MenusByBusiness";
 
 
 // TODO get current time and make Open/Closed dynamic
@@ -60,7 +61,7 @@ export default function OneBusiness() {
   return (
     <>
       {business ? (
-        <>
+        <div className="business-detail-page-container">
           <div className="business-detail-header-container">
             <div className="business-detail-header-img" style={{ backgroundImage: `url(${businessPreviewImg.url})`, height: '360px' }}>
               <h1 className="business-detail-header-text">{selectedBusiness?.title}</h1>
@@ -104,12 +105,11 @@ export default function OneBusiness() {
           </div>
 
           <div className="menu-container">
-            <h2>menu</h2>
-            {/* show menu component => show menu price / link to the menu */}
+            <MenusByBusinessId />
           </div>
 
           <div className="reviews-container">
-            <h2>reviews</h2>
+            <h1>Reviews for {selectedBusiness?.title}</h1>
             <BusinessReviews />
           </div>
 
@@ -117,7 +117,7 @@ export default function OneBusiness() {
             <h2>business info</h2>
             {/* show amenities */}
           </div>
-        </>
+        </div>
       ) : (
         <h2>Loading ...</h2>
       )}
