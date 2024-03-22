@@ -1,0 +1,41 @@
+.login-form{
+    display: flex;
+    flex-direction: column;
+    padding: 0 100px;
+}
+
+.login-label{
+    display: flex;
+    padding: 10px;
+    width: 350px;
+}
+
+.login-input{
+    width: 100%;
+    height: 20px;
+}
+.login-btn{
+    align-self: center;
+    width: 95%;
+    height: 35px;
+    margin: 10px;
+    background-color: rgb(175, 17, 17);
+    color: white;
+    border: 1px solid rgb(175, 17, 17);
+    box-shadow: 3px 3px 3px grey;
+}
+.login-btn:hover{
+    background-color: rgb(26,121,255);
+    border: 1px solid rgb(26,121,255);
+}
+
+.demo-login-btn{
+    text-align: center;
+    padding: 10px 0;
+    text-decoration: none;
+    color: rgb(175, 17, 17)
+}
+
+.demo-login-btn:hover{
+    color: rgb(26,121,255);
+}
