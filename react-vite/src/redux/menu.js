@@ -2,21 +2,19 @@
 export const GET_MENU_BY_BUSINESS = 'menu/GET_MENU_BY_BUSINESS'
 export const CREATE_MENU = 'menu/CREATE_MENU'
 
-
 // Action Types
-const getMenuByBusiness = (menus) => {
+const getMenuByBusiness = (data) => {
     return {
         type: GET_MENU_BY_BUSINESS,
-        menus
+        data
     }
 }
-const createMenu = (newMenu) => {
+const createMenu = (data) => {
     return {
         type: CREATE_MENU,
-        newMenu
+        data
     }
 }
-
 
 // Thunk
 export const menuByBusinessThunk = (businessId) => async (dispatch) => {
@@ -52,10 +50,10 @@ export const createMenuThunk = (businessId, newMenu) => async (dispatch) => {
 function menuReducer(state={}, action) {
     switch(action.type){
         case GET_MENU_BY_BUSINESS: {
-            return {...state, ...action.menus}
+            return {...state, ...action.data}
         }
         case CREATE_MENU: {
-            return {...state, ...action.newMenu}
+            return {...state, ...action.data}
         }
         default:
             return state

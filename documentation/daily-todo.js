@@ -53,7 +53,6 @@
 * ! ABOVE HAS BEEN COMPLETED OR LOW PRIORITY ! *
 *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 
-
   // TODO: EXTREMELY URGENT - @ANYONE
   // !: BUSINESS/BUSINESSES IS NOT LOADING ANY OF OUR DATA
     // @MoonChopperr if you could address this this if youre free
@@ -78,7 +77,9 @@
 
     // !: FIX MENU - @TylerHan1226
       // *: I ended up fixing other issues but unsure if Menu is working or not now
-        // : TIMESTAMP: 3:15AM - LAST NOTED
+        // : TIMESTAMP: 7:30AM - LAST NOTED
+        // : EDIT : I JUST CHECKED IT, MENU IS WORKING, WE ARE PULLING
+        // : OBJECT MENU [{ MENU_DETAILS_ASSOCIATED_TO_BUSINESS }]
         // ?: Needs Follow Up
 
       // !: BUSINESS/:BUSINESSID
@@ -86,10 +87,13 @@
         // *: NEED TO RENDER BUSINESS MENU INFORMATION PLEASE - @TylerHan1226
           * //: NEED TO RENDER BUSINESS IMAGES PLEASE
           * //: NEED TO RENDER BUSINESS INFORMATION PLEASE
+
     // !: Something is causing render issues until we manually refresh
+    // ?: react-vite/src/components/BusinessDetails/BusinessDetails.jsx
+      // ?: lines 50 - 63
       * TODO: Probably the Image Filter Array, I'm like 99% Sure of it
+    // *: ON BUSINESSES WITH NO IMAGES IT IS NOT PULLING UP AT ALL
       // *: IN OUR CASE, NEW BUSINESSES WILL CREATE BUT WE CAN'T PULL THEM UP ON SITE
-      // *: ON BUSINESSES WITH NO IMAGES IT IS NOT PULLING UP AT ALL
 
 
 **/

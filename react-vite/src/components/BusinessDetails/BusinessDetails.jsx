@@ -45,12 +45,23 @@ export default function OneBusiness() {
         {data[businessId].price_rating}</p>
       <p>Description: <br></br>
         {data[businessId].description}</p>
-        <h2>Check out some photos of {data[businessId].title}</h2>
+      <h2>Check out some photos of {data[businessId].title}</h2>
+
+      {
+        // TODO: WHOEVER HAS THE TIME TO DEBUG THIS
+        // TODO: THATD BE MUCH APPRECIATED
+        // TODO: PROBABLY EASIER TO DEFINE A COMPONENT FOR THIS LIKE @MoonChopperr
+        // TODO: DID WITH HIS REVIEW WHERE IT'LL NEST THE BUSINESS IMAGES ELSEWHERE
+        // TODO: THEN THIS IS JUST A RENDERING OF IMAGES RATHER
+      }
+
         {businessImages.length > 0 ? (
-      <div>
+        <div>
           {businessImages.map(image => (
           <img key={image.id} src={image.url} alt={`Image ${image.id}`} />
-        ))} </div> ) : ( <p>No photos available</p> )}
+          ))}
+        </div>) : (<p>No photos available</p>)}
+
       <h2>Schedule</h2>
       <p>{data[businessId].schedule}</p>
       <h2>Amenities</h2>
