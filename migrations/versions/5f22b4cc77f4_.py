@@ -38,11 +38,20 @@ def upgrade():
     op.create_table('businesses',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
+
+    sa.Column('title', sa.String(length=100), nullable=False),
+    sa.Column('address', sa.String(length=100), nullable=False),
+    sa.Column('city', sa.String(length=100), nullable=False),
+    sa.Column('state', sa.String(length=100), nullable=False),
+    sa.Column('country', sa.String(length=100), nullable=False),
+
+
     sa.Column('title', sa.String(length=50), nullable=False),
     sa.Column('address', sa.String(length=50), nullable=False),
     sa.Column('city', sa.String(length=50), nullable=False),
     sa.Column('state', sa.String(length=50), nullable=False),
     sa.Column('country', sa.String(length=50), nullable=False),
+
     sa.Column('price_rating', sa.Integer(), nullable=False),
     sa.Column('category', sa.String(length=255), nullable=False),
     sa.Column('lat', sa.Float(), nullable=True),
