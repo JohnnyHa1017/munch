@@ -117,7 +117,7 @@ function CreateMenu() {
                     ></input>
                 </label>
                 {validations.description && (<p className='validation-messages'>{validations.description}</p>)}
-                <button type='submit'>Create Menu</button>
+                <button className='amen-create-btn' type='submit'>Create Menu</button>
             </form>
         </div>
     )
