@@ -10,6 +10,13 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const user = useSelector((state) => state.session.user)
   const { businessId } = useParams()
 
+  let exisiting_price_rating =''
+  if(business?.price_rating){
+    for(let i = 0; i <business?.price_rating; i++){
+      exisiting_price_rating += '$'
+    }
+  }
+
   const [title, setTitle] = useState(business?.title );
   const [address, setAddress] = useState(business?.address);
   const [city, setCity] = useState(business?.city);
@@ -19,7 +26,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [lng, setLng] = useState(business?.lng);
   const [description, setDescription] = useState(business?.description);
   const [phone_number, setPhoneNumber] = useState(business?.phone_number);
-  const [price_rating, setPrice] = useState(business?.price_rating);
+  const [price_rating, setPrice] = useState(exisiting_price_rating);
   const [category, setCategory] = useState(business?.category);
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
@@ -58,31 +65,27 @@ const CreateNewBusiness = ({ buttonName, business }) => {
     if (!address || (address.length > 50)) {
       errors.address = 'Address is required and can only be under 50 characters.'
     }
-    if (!city || city.length > 30) {
-      errors.city = 'City is required and can only be under 30 characters.'
+    if (!city || city.length > 50) {
+      errors.city = 'City is required and can only be under 50 characters.'
     }
-    if (!state || (state.length > 20)) {
-      errors.state = 'State is required and can only be under 20 characters.'
+    if (!state || (state.length > 50)) {
+      errors.state = 'State is required and can only be under 50 characters.'
     }
-    if (!country || (country.length > 20)) {
-      errors.country = 'Country is required and can only be under 20 characters.'
+    if (!country || (country.length > 50)) {
+      errors.country = 'Country is required and can only be under 50 characters.'
     }
-    const numValidation = '1234567890.'
+
     if (!lat || (lat >= 90) || (lat <= -90)) {
-      errors.lat = 'Latitude must be between -90 and 90.'
+      errors.lat = 'Latitude must be a number between -90 and 90.'
     }
-    for(let char of lat){
-      if(!numValidation.includes(char)){
-        errors.lat_int = 'Latitude can only contain numbers.'
-      }
+    if(isNaN(lat)){
+      errors.lat_int = 'Latitude can only contain numbers.'
     }
     if (!lng || (lng >= 180) || (lng <= -180)) {
       errors.lng = 'Longitude must be between -180 and 180.'
     }
-    for(let char of lng){
-      if(!numValidation.includes(char)){
-        errors.lng_int = 'Longitude can only contain numbers.'
-      }
+    if(isNaN(lng)){
+      errors.lng_int = 'Longitude can only contain numbers.'
     }
     if (!description || (description.length > 2000)) {
       errors.description = 'Description is required and must be 2000 characters or less.'
@@ -102,7 +105,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
     if (!price_rating) {
       errors.price_rating = "Price Rating is required."
     }
-    if(price_rating !== '$' || price_rating !== '$$' || price_rating !== '$$$' || price_rating !== '$$$$'){
+    if(price_rating !== '$' && price_rating !== '$$' && price_rating !== '$$$' && price_rating !== '$$$$'){
       errors.price_range = 'Price rating must be between $ and $$$$.'
     }
     if (!category) {
