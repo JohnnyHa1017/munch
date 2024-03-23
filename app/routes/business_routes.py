@@ -142,10 +142,11 @@ def delete_business(id):
 @bp.route('/<int:id>/review')
 def business_review(id):
     all_reviews = Review.query.filter_by(business_id=id).all()
-    review_img = ReviewImage.query.filter_by(review_id=id).all()
+    review_img = ReviewImage.query.all()
     review_list = [review.to_dict() for review in all_reviews]
     review_img_list = [image.to_dict() for image in review_img]
     data = {"Review": review_list, "ReviewImage": review_img_list}
+
     return data
 
 
@@ -189,13 +190,24 @@ def business_amenities(id):
 
 
 # POST amenity /:businessId/amenity/new
-@bp.route('/<int:id>/amenity/new', methods=['GET','POST'])
+@bp.route('/<int:id>/amenity/new', methods=['POST'])
 def create_amenities(id):
     form = CreateAmenities()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
 
-        params = {'business_id':id}
+        params = {
+            'business_id':id,
+            'reservation':form.reservation.data,
+            'delivery':form.delivery.data,
+            'pickup':form.pickup.data,
+            'vegetarian':form.vegetarian.data,
+            'accepts_credit_card':form.accepts_credit_card.data,
+            'free_wi_fi':form.free_wi_fi,
+            'street_parking':form.street_parking.data,
+            'good_for_groups':form.good_for_groups.data,
+            'outdoor_seating':form.outdoor_seating.data
+        }
         data = Amenity(**params)
         form.populate_obj(data)
         db.session.add(data)
@@ -243,3 +255,10 @@ def create_menu(id):
 
         return data.to_dict()
     return jsonify({'error': form.errors}), 400
+
+# GET all menus /menus
+@bp.route('/menus', methods=['GET'])
+def get_all_menus():
+    all_menus = Menu.query.all()
+    menu_list = [menu.to_dict() for menu in all_menus]
+    return menu_list
