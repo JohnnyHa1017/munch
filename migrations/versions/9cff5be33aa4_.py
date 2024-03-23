@@ -1,20 +1,19 @@
 """empty message
 
-Revision ID: 5f22b4cc77f4
-Revises:
-Create Date: 2024-03-23 12:46:35.083112
+Revision ID: 9cff5be33aa4
+Revises: 
+Create Date: 2024-03-23 16:56:07.537584
 
 """
 from alembic import op
 import sqlalchemy as sa
 
-
 import os
 environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get("SCHEMA") 
+SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '5f22b4cc77f4'
+revision = '9cff5be33aa4'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -38,20 +37,11 @@ def upgrade():
     op.create_table('businesses',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
-
-    sa.Column('title', sa.String(length=100), nullable=False),
-    sa.Column('address', sa.String(length=100), nullable=False),
-    sa.Column('city', sa.String(length=100), nullable=False),
-    sa.Column('state', sa.String(length=100), nullable=False),
-    sa.Column('country', sa.String(length=100), nullable=False),
-
-
     sa.Column('title', sa.String(length=50), nullable=False),
     sa.Column('address', sa.String(length=50), nullable=False),
     sa.Column('city', sa.String(length=50), nullable=False),
     sa.Column('state', sa.String(length=50), nullable=False),
     sa.Column('country', sa.String(length=50), nullable=False),
-
     sa.Column('price_rating', sa.Integer(), nullable=False),
     sa.Column('category', sa.String(length=255), nullable=False),
     sa.Column('lat', sa.Float(), nullable=True),
