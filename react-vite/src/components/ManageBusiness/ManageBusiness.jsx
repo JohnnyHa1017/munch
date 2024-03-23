@@ -1,34 +1,50 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { landingPageThunk } from '../../redux/business'
+import { getBusinessImagesThunk, landingPageThunk } from '../../redux/business'
 import { NavLink } from 'react-router-dom';
 import './ManageBusiness.css'
-import { menuByBusinessThunk } from '../../redux/menu';
+import { getAllMenusThunk } from '../../redux/menu';
 
 function ManageBusiness() {
     const dispatch = useDispatch()
     const currUser = useSelector(state => state.session.user)
     const business = useSelector(state => state.business.Business)
+    const busImgs = useSelector(state => state.business.Business_Images)
     const amenities = useSelector(state => state.business.Amenities)
-    const menus = useSelector(state => console.log(state.menus.Menu))
+    const menus = useSelector(state => state.menus)
 
-    const currBusiness = []
+    // console.log('CURRENT USER', currUser)
+    // console.log('BUSINESS', business)
+    // console.log('AMENITIES', amenities)
+    // console.log('MENUS ------->', menus)
+    // console.log('BUSIMAGES', busImgs)
+
     useEffect(() => {
         dispatch(landingPageThunk())
-        // for(let bus of currBusiness){ //pulls menus from all business in currentbusiness arr
-        //     dispatch(menuByBusinessThunk(bus.id))
-        // }
+        dispatch(getAllMenusThunk())
+        dispatch(getBusinessImagesThunk())
     },[dispatch])
 
-    if(!currUser || !business){
+    if(!currUser || !business || !amenities || !menus || !busImgs){
         return <div>Loading...</div>
     }
 
+    const currBusiness = []
     for(let bus of business){ //adding business into the currBus arr
         if(bus?.owner_id == currUser?.id){
             currBusiness.push(bus)
         }
     }
+
+    function getImgs(businessId) {
+        let imgs= busImgs.filter(img => img.business_id == businessId);
+        const length = imgs.length
+        if(length){
+            return imgs[Math.floor(Math.random() * length)].url
+        }
+        return null
+    }
+
 
     let amenityArr = []
     if (currBusiness && business) {
@@ -49,20 +65,24 @@ function ManageBusiness() {
         }
         return false
     }
+    const menuArr = Object.keys(menus).map( key => ({
+        id: key,
+        ...menus[key]
+    }))
 
     function checkMenu(businessId){
-        // for(let m of menus){
-        //     if(m.business_id == businessId){
-        //         return true
-        //     }
-        // }
+        for(let m of menuArr){
+            if(m.business_id == businessId){
+                return true
+            }
+        }
         return false
     }
 
     return(
         <>
             <h1>Hello {currUser.first_name}</h1>
-            <NavLink to={`/`}>See all your reviews!</NavLink>
+            <h2>Your Businesses</h2>
             <div className='manage-businesses-container'>
                 {!currBusiness && (
                     <>
@@ -71,19 +91,31 @@ function ManageBusiness() {
                     </>
                 )}
                 {currBusiness.map(bus => (
-                    <NavLink key={bus?.id} to={`/business/${bus?.id}`}>
-                        <p className='manage-bus-title'>{bus?.title}</p>
-                        <p className='manage-bus-address'>{bus?.address}</p>
-                        <p className='manage-bus-city'>{bus?.city}, {bus?.state}</p>
-                        <button><NavLink to={`/business/${bus?.id}/edit`}>Update Business</NavLink></button>
-                        <button><NavLink to={`/business/${bus?.id}/delete`}>Delete Business</NavLink></button>
+                    <div className='manage-onebusiness-container'>
+                        <NavLink className='manage-nav-container'key={bus?.id} to={`/business/${bus?.id}`}>
+                            <div className='nav-bus-container'>
+                                <div className='manage-address-container'>
+                                    <p className='manage-bus-title'>{bus?.title}</p>
+                                    <p className='manage-bus-address'>{bus?.address}</p>
+                                    <p className='manage-bus-city'>{bus?.city}, {bus?.state}</p>
+                                    {checkMenu(bus.id) && (
+                                        <NavLink className='manage-see-menu' to={`/business/${bus.id}/menus`}>See Menu</NavLink>
+                                    )}
+                                </div>
+                            {getImgs(bus.id) && (
+                                <img className='manage-bus-img 'src={getImgs(bus.id)} alt={`Image for ${bus.title}`} />
+                                )}
+                            </div>
+                        </NavLink>
+                        <button className='manage-btns'><NavLink to={`/business/${bus?.id}/edit`} className='manage-btn-text'>Update Business</NavLink></button>
+                        <button className='manage-btns manage-delete'><NavLink to={`/business/${bus?.id}/delete`} className='manage-btn-text'>Delete Business</NavLink></button>
                         {!checkAmenity(bus.id) && (
-                            <button><NavLink to={`/business/${bus.id}/amenities`}>Add Amenities</NavLink></button>
+                            <button className='manage-btns'><NavLink to={`/business/${bus.id}/amenities`} className='manage-btn-text'>Add Amenities</NavLink></button>
                         )}
                         {!checkMenu(bus.id) && (
-                            <button><NavLink to={`/business/${bus.id}/menus/new`}>Add Menu</NavLink></button>
+                            <button className='manage-btns'><NavLink to={`/business/${bus.id}/menus/new`} className='manage-btn-text'>Add Menu</NavLink></button>
                         )}
-                    </NavLink>
+                    </div>
                 ))}
             </div>
         </>
