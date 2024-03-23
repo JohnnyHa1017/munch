@@ -194,6 +194,17 @@ export const deleteBusinessThunk = (businessId) => async (dispatch) => {
     }
 }
 
+// Get Business Images Thunk
+export const getBusinessImagesThunk = () => async(dispatch) => {
+    const response = await fetch(`/api/business/businesses`)
+    if(!response.ok){
+        throw new Error('Failed to fetch all business and business images')
+    }
+    const data = await response.json()
+    dispatch(getAllData(data))
+    return data
+}
+
 function businessReducer(state = {}, action) {
     switch (action.type) {
         case GET_ALL_DATA: {
