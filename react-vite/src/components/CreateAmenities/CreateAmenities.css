@@ -1,0 +1,49 @@
+.create-amen-form-container{
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-amen-description{
+    margin: 0px;
+    padding: 0px;
+}
+
+.create-amen-form{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.amenities-label-container{
+    padding: 10px;
+}
+.amenities-label-container:hover .amen-icons{
+    color:rgb(26,121,255);
+}
+
+.amenities-label-container.checked .amen-icons{
+    color:rgb(26,121,255);
+}
+
+.amen-create-btn{
+    display: block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: 2px black ;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+}
+.amen-create-btn:hover{
+    background-color: rgb(175, 17, 17);
+    text-decoration: underline;
+}
+
+.amen-icons{
+    padding-right: 8px;
+    color: grey;
+}

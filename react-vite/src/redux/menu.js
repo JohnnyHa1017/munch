@@ -1,8 +1,16 @@
 // Action Creators
+export const GET_ALL_MENU = 'menu/GET_ALL_MENU'
 export const GET_MENU_BY_BUSINESS = 'menu/GET_MENU_BY_BUSINESS'
 export const CREATE_MENU = 'menu/CREATE_MENU'
 
+
 // Action Types
+const getAllMenu = (data) => {
+    return {
+        type: GET_ALL_MENU,
+        data
+    }
+}
 const getMenuByBusiness = (data) => {
     return {
         type: GET_MENU_BY_BUSINESS,
@@ -16,7 +24,19 @@ const createMenu = (data) => {
     }
 }
 
+
 // Thunk
+export const getAllMenusThunk = () => async (dispatch) => {
+    const response = await fetch('/api/business/menus')
+    if (!response.ok) {
+        throw new Error('Failed to fetch all menus')
+    }
+    const allMenus = await response.json()
+    if (allMenus.errors) {
+        return allMenus.errors
+    }
+    dispatch(getAllMenu(allMenus))
+}
 export const menuByBusinessThunk = (businessId) => async (dispatch) => {
     const response = await fetch(`/api/business/${businessId}/menu`)
     if (!response.ok) {
@@ -46,6 +66,7 @@ export const createMenuThunk = (businessId, newMenu) => async (dispatch) => {
     return newMenuRes
 }
 
+
 //reducers
 function menuReducer(state={}, action) {
     switch(action.type){
@@ -53,6 +74,9 @@ function menuReducer(state={}, action) {
             return {...state, ...action.data}
         }
         case CREATE_MENU: {
+            return {...state, ...action.data}
+        }
+        case GET_ALL_MENU: {
             return {...state, ...action.data}
         }
         default:

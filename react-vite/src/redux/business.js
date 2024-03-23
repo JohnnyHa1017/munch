@@ -139,7 +139,7 @@ export const createNewAmenitiesThunk = (businessId, newAmenity) => async (dispat
     })
     if(response.ok){
         const data = await response.json()
-        dispatch(createAmenity(data))
+        dispatch(createAmenity(data.amenity))
         return data
     }
 }
@@ -192,6 +192,17 @@ export const deleteBusinessThunk = (businessId) => async (dispatch) => {
         const data = await response.json()
         dispatch(deleteBusiness(data))
     }
+}
+
+// Get Business Images Thunk
+export const getBusinessImagesThunk = () => async(dispatch) => {
+    const response = await fetch(`/api/business/businesses`)
+    if(!response.ok){
+        throw new Error('Failed to fetch all business and business images')
+    }
+    const data = await response.json()
+    dispatch(getAllData(data))
+    return data
 }
 
 function businessReducer(state = {}, action) {

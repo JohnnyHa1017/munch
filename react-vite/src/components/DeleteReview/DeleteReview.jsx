@@ -1,11 +1,12 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useModal } from '../../context/Modal'
 import { useDispatch } from 'react-redux'
 import { deleteReviewThunk } from '../../redux/reviews'
 // import './DeleteReview.css'
 
 const DeleteReview = ()=>{
-    const { reviewId } = useParams()
+    const { reviewId, businessId } = useParams()
+    const nav = useNavigate()
     // console.log('reviewId===>', reviewId)
     const dispatch = useDispatch()
     const { closeModal } = useModal()
@@ -14,6 +15,7 @@ const DeleteReview = ()=>{
         e.preventDefault()
         dispatch(deleteReviewThunk(reviewId))
         closeModal()
+        nav(`/business/${businessId}`)
     }
 
     return (
