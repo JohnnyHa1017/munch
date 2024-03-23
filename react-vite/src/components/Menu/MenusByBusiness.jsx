@@ -50,7 +50,7 @@ function MenusByBusinessId() {
                     </div>
                 </div>
             ) : (
-                <h2>Loading ...</h2> // Render a message if no images
+                <p>no menu yet</p> // Render a message if no images
             )}
         </>
     )

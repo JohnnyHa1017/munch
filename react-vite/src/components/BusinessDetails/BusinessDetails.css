@@ -45,10 +45,27 @@
     width: 75%
 }
 
-.business-dtl-info {
+.business-dtl-info-container {
     border: 1px green solid;
     flex-grow: 1;
     margin: 12px 0 12px 0;
+
+}
+
+.business-dtl-order-box {
+    border: 1px grey solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.business-dtl-info-box {
+    border: 1px grey solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .menu-container {
@@ -112,7 +129,7 @@
     font-size: 28px;
     color: white;
     border-radius: 6px;
-    background-color: #ec5c13;
+    background-color: rgb(175, 17, 17);
 }
 
 .bd-dollar-sign {

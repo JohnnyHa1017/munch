@@ -24,7 +24,7 @@ export default function OneBusiness() {
 
 
   //get average start rating
-  let avgStarRating = 1
+  let avgStarRating = 0
   let priceRating = 1
   let businessPreviewImg = {}
   let businessCategory = ""
@@ -41,7 +41,27 @@ export default function OneBusiness() {
   let isSP = false
   let isVegetarian = false
 
-  if (reviews.Review && business.Amenities && businessId && menus) {
+  if (business && businessId) {
+    //get selected business
+    const id = businessId
+    selectedBusiness = business[id]
+    //select menu images
+    if (selectedBusiness) {
+      priceRating = selectedBusiness.price_rating
+      //get category
+      let businessCategoryStr = selectedBusiness.category
+      if (businessCategoryStr.includes('"')) {
+        let categories = businessCategoryStr.split(',').filter(category => category.includes('"')).map(category => category.split('"')[1]);
+        businessCategory = categories.join(" & ");
+      } else {
+        businessCategory = businessCategoryStr;
+      }
+      //get schedule
+      businessSchedule = selectedBusiness.schedule
+    }
+  }
+
+  if (reviews.Review) {
     //get average rating
     avgStarRating = reviews.Review.reduce((acc, curr) => {
       if ('star' in curr && typeof curr.star == 'number') {
@@ -51,17 +71,9 @@ export default function OneBusiness() {
       }
     }, 0) / reviews.Review.length
     avgStarRating = avgStarRating.toFixed(1)
-    //get selected business
-    const id = businessId
-    selectedBusiness = business[id]
-    //select menu images
-    if (selectedBusiness && menus.Business_Images) {
-      priceRating = selectedBusiness.price_rating
-      let businessCategoryStr = selectedBusiness.category
-      businessCategory = businessCategoryStr.split(',')[0].split('"')[1]
-      businessPreviewImg = menus.Business_Images.filter(img => img.business_id == businessId && img.preview == true)[0]
-      businessSchedule = selectedBusiness.schedule
-    }
+  }
+
+  if (business.Amenities) {
     //get amenity object
     const allAmenities = business.Amenities
     for (let eachAm of allAmenities) {
@@ -69,7 +81,6 @@ export default function OneBusiness() {
         amenities = eachAm
       }
     }
-
     for (const key in amenities) {
       if (amenities.hasOwnProperty(key)) {
         switch (key) {
@@ -107,6 +118,10 @@ export default function OneBusiness() {
     }
   }
 
+  if (menus.Business_Images) {
+    businessPreviewImg = menus.Business_Images.filter(img => img.business_id == businessId && img.preview == true)[0]
+  }
+
   useEffect(() => {
     dispatch(specificBusinessThunk(businessId))
     dispatch(menuByBusinessThunk(businessId))
@@ -141,7 +156,14 @@ export default function OneBusiness() {
                       ))}
                     </div>
                   </>) : (
-                  <>No reviews yet</>
+                  <>
+                    <BiGame className="bd-star" />
+                    <BiGame className="bd-star" />
+                    <BiGame className="bd-star" />
+                    <BiGame className="bd-star" />
+                    <BiGame className="bd-star" />
+                    <p>no review</p>
+                  </>
                 )}
               </div>
               <p className="business-detail-header-text">
@@ -211,11 +233,19 @@ export default function OneBusiness() {
               </div>
               <div className="reviews-container">
                 <h1>Reviews for {selectedBusiness?.title}</h1>
-                <BusinessReviews />
+                {/* <BusinessReviews /> */}
               </div>
             </div>
-            <div className="business-dtl-info">
-              HI
+            <div className="business-dtl-info-container">
+              <div className="business-dtl-order-box">
+                    <h2>Order Online</h2>
+                    <button>ORDER NOW</button>
+              </div>
+              <div className="business-dtl-info-box">
+                    <h3>Phone Number: </h3>
+                    <h3>Address: </h3>
+                    <button>Suggest an edit</button>
+              </div>
             </div>
           </div>
 
