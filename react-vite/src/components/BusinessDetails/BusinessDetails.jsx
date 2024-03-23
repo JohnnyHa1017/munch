@@ -2,14 +2,17 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { businessAmenitiesThunk, specificBusinessThunk } from '../../redux/business'
 import { menuByBusinessThunk } from '../../redux/menu'
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink, Route, useParams } from 'react-router-dom'
 import { businessReviewThunk } from "../../redux/reviews";
 import './BusinessDetails.css'
-import { LuBean } from "react-icons/lu";
-import { BiGame, BiSolidGame, BiSolidBadgeDollar } from "react-icons/bi";
-import { IoCheckmarkCircle, IoCheckmarkCircleOutline } from "react-icons/io5";
 import BusinessReviews from "../BusinessReviews/BusinessReviews";
 import MenusByBusinessId from "../Menu/MenusByBusiness";
+import default_business_background from '../../images/default_business_background.jpg'
+import { PiBowlFoodFill } from "react-icons/pi";
+import { LuBean } from "react-icons/lu";
+import { BiGame, BiSolidGame, BiSolidBadgeDollar } from "react-icons/bi";
+import { IoCheckmarkCircle, IoCheckmarkCircleOutline, IoEarth } from "react-icons/io5";
+import { FaPhoneVolume, FaRegKeyboard } from "react-icons/fa";
 
 
 // TODO get current time and make Open/Closed dynamic
@@ -20,13 +23,18 @@ export default function OneBusiness() {
   const business = useSelector(state => state.business)
   const reviews = useSelector(state => state.reviews)
   const menus = useSelector(state => state.menus)
+  const currUser = useSelector(state => state.session)
   const { businessId } = useParams()
 
 
   //get average start rating
   let avgStarRating = 0
   let priceRating = 1
+  let hasWrittenReview = false
+  let hasUserLoggedIn = false
+  let isOwner = false
   let businessPreviewImg = {}
+  let businessPreviewImgUrl = ''
   let businessCategory = ""
   let businessSchedule = ""
   let selectedBusiness = {}
@@ -40,6 +48,7 @@ export default function OneBusiness() {
   let isReservation = false
   let isSP = false
   let isVegetarian = false
+
 
   if (business && businessId) {
     //get selected business
@@ -71,6 +80,26 @@ export default function OneBusiness() {
       }
     }, 0) / reviews.Review.length
     avgStarRating = avgStarRating.toFixed(1)
+  }
+
+  //check user review
+  if (reviews.Review && currUser.user) {
+    for (let eachReview of reviews.Review) {
+      if (eachReview.user_id == currUser.user.id) {
+        hasWrittenReview = true
+      }
+    }
+  }
+  //check user
+  if (!currUser.user) {
+    hasWrittenReview = true
+  } else {
+    hasUserLoggedIn = true
+  }
+  if (currUser.user && selectedBusiness) {
+    if (currUser.user.id == selectedBusiness.owner_id) {
+      isOwner = true
+    }
   }
 
   if (business.Amenities) {
@@ -117,9 +146,16 @@ export default function OneBusiness() {
       }
     }
   }
-
+  //business background image
   if (menus.Business_Images) {
     businessPreviewImg = menus.Business_Images.filter(img => img.business_id == businessId && img.preview == true)[0]
+    businessPreviewImgUrl = businessPreviewImg.url
+  } else {
+    businessPreviewImgUrl = default_business_background
+  }
+
+  const throwAlter = () => {
+    alert('Feature coming soon')
   }
 
   useEffect(() => {
@@ -135,7 +171,8 @@ export default function OneBusiness() {
       {business ? (
         <div className="business-detail-page-container">
           <div className="business-detail-header-container">
-            <div className="business-detail-header-img" style={{ backgroundImage: `url(${businessPreviewImg.url})`, height: '360px' }}>
+            <div className="business-detail-header-img" style={{ backgroundImage: `url(${businessPreviewImgUrl})`, height: '360px' }}>
+              {/* <div className="business-detail-header-img" style={{ backgroundImage: `url(../../images/default_business_background.jpg)`, height: '360px' }}> */}
               <h1 className="business-detail-header-text">{selectedBusiness?.title}</h1>
               <div className="bd-star-rating-container">
                 {reviews.Review && avgStarRating > 0 ? (
@@ -150,11 +187,6 @@ export default function OneBusiness() {
                     <h3 className="business-detail-header-text">
                       {avgStarRating} ({reviews.Review.length} reviews)
                     </h3>
-                    <div>
-                      {[...Array(priceRating)].map((_, index) => (
-                        <BiSolidBadgeDollar key={index} className="bd-dollar-sign" />
-                      ))}
-                    </div>
                   </>) : (
                   <>
                     <BiGame className="bd-star" />
@@ -169,20 +201,28 @@ export default function OneBusiness() {
               <p className="business-detail-header-text">
                 {businessCategory}
               </p>
+              <div>
+                {[...Array(priceRating)].map((_, index) => (
+                  <BiSolidBadgeDollar key={index} className="bd-dollar-sign" />
+                ))}
+              </div>
               <p className="business-detail-header-text schedule-text">
                 {businessSchedule}
               </p>
             </div>
           </div>
-          <div className="business-detail-action-buttons-container">
-            {/* add current user check for existing review */}
-            <button><NavLink to={`/business/${businessId}/review/new`}>Write a review</NavLink></button>
-            <button onClick={() => alert('Feature coming soon')}>Add a photo</button>
-            <button onClick={() => alert('Feature coming soon')}>Share</button>
-            <button onClick={() => alert('Feature coming soon')}>Save</button>
-            <button onClick={() => alert('Feature coming soon')}>Follow</button>
-          </div>
-
+          {hasUserLoggedIn &&
+            <div className="business-detail-action-buttons-container">
+              {/* add current user check for existing review */}
+              {!hasWrittenReview &&
+                <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/review/new`}><FaRegKeyboard />Write a review</NavLink></button>
+              }
+              <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/menus`}><PiBowlFoodFill />View Menu</NavLink></button>
+              <button className="bd-blue-action-buttons" onClick={throwAlter}>Follow</button>
+              <button className="bd-blue-action-buttons" onClick={throwAlter}>Share</button>
+              <button className="bd-blue-action-buttons" onClick={throwAlter}>Save</button>
+            </div>
+          }
           <div className="business-detail-context-container">
             <div className="business-contexts">
               <div className="menu-container">
@@ -233,24 +273,40 @@ export default function OneBusiness() {
               </div>
               <div className="reviews-container">
                 <h1>Reviews for {selectedBusiness?.title}</h1>
-                {/* <BusinessReviews /> */}
+                <BusinessReviews />
               </div>
             </div>
             <div className="business-dtl-info-container">
-              <div className="business-dtl-order-box">
-                    <h2>Order Online</h2>
-                    <button>ORDER NOW</button>
+              <div className="business-dtl-info-box">
+                <h2>Order Online</h2>
+                <button className="bd-red-action-buttons" onClick={throwAlter}>ORDER NOW</button>
               </div>
               <div className="business-dtl-info-box">
-                    <h3>Phone Number: </h3>
-                    <h3>Address: </h3>
-                    <button>Suggest an edit</button>
+                <div className="business-dtl-info">
+                  <p className="business-dtl-info-box-text">
+                    {selectedBusiness?.phone_number}
+                  </p>
+                  <FaPhoneVolume className="business-dtl-info-logo" />
+                </div>
+                <div className="business-dtl-info">
+                  <p className="business-dtl-info-box-text">
+                    {selectedBusiness?.address}, {selectedBusiness?.city}, {selectedBusiness?.state}, {selectedBusiness?.country}
+                  </p>
+                  <IoEarth className="business-dtl-info-logo" />
+                </div>
+                <button className="bd-red-action-buttons" onClick={throwAlter}>Suggest an edit</button>
               </div>
+              {isOwner &&
+                <div className="business-dtl-info-box">
+                  <h3>Owner box</h3>
+                  <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/menus/new`}>Add Menu</NavLink></button>
+                  <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/amenities`}>Add Amenity</NavLink></button>
+                  <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/edit`}>Edit My Business</NavLink></button>
+                  <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/delete`}>Delete My Business</NavLink></button>
+                </div>
+              }
             </div>
           </div>
-
-
-
         </div>
       ) : (
         <h2>Loading ...</h2>
