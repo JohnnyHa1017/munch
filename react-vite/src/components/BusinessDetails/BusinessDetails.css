@@ -52,17 +52,16 @@
 }
 
 .menu-container {
-    /* border-top: grey solid 1px; */
+    border-top: grey solid 1px;
     padding: 12px;
     width: 85%;
     height: 360px;
     overflow: auto;
-    border: red solid 1px;
     margin: 12px 0 12px 0;
 }
 
 .reviews-container {
-    border: red solid 1px;
+    border-top: grey solid 1px;
     padding: 12px;
     width: 85%;
     display: flex;
@@ -72,7 +71,7 @@
 }
 
 .business-info-container {
-    border: red solid 1px;
+    border-top: grey solid 1px;
     margin: 12px 0 12px 0;
     padding: 12px;
     width: 85%;

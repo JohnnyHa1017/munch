@@ -201,11 +201,11 @@ export default function OneBusiness() {
                   </div>
                   <div className="amenity-blocks">
                     <p>Out Door Seating</p>
-                    {isOutdoor ? (<IoCheckmarkCircle />) : (<IoCheckmarkCircleOutline />)}
+                    {isOutdoor ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
                   </div>
                   <div className="amenity-blocks">
                     <p>Vegetarian</p>
-                    {isVegetarian ? (<IoCheckmarkCircle />) : (<IoCheckmarkCircleOutline />)}
+                    {isVegetarian ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
                   </div>
                 </div>
               </div>
