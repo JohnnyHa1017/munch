@@ -4,7 +4,7 @@ import SignupFormPage from '../components/SignupFormPage';
 import LandingPage from '../components/LandingPage'
 import Layout from './Layout';
 import { RouterProvider } from "react-router-dom";
-import OneBusiness from '../components/Businesses/Businesses';
+import OneBusiness from '../components/BusinessDetails/BusinessDetails';
 import CreateBusiness from '../components/CreateBusiness/CreateBusiness';
 import UpdateBusiness from '../components/UpdateBusiness/UpdateBusiness';
 import DeleteBusiness from '../components/DeleteBusiness/DeleteBusiness';
@@ -13,6 +13,10 @@ import AllReviews from '../components/allReviews/allReviews'
 import CreateReview from '../components/CreateReview/CreateReview'
 import DeleteReview from '../components/DeleteReview/DeleteReview';
 import UpdateReview from '../components/UpdateReview/UpdateReview';
+import MenusByBusinessId from '../components/Menu/MenusByBusiness';
+import CreateMenu from '../components/Menu/CreateMenu';
+import ManageBusiness from '../components/ManageBusiness/ManageBusiness';
+import CreateAmenity from '../components/CreateAmenities/CreateAmenities';
 
 export const router = createBrowserRouter([
   {
@@ -66,6 +70,22 @@ export const router = createBrowserRouter([
       {
         path: 'business/:businessId/:reviewId/update',
         element: <UpdateReview />
+      },
+      {
+        path: 'business/:businessId/menus',
+        element: <MenusByBusinessId />
+      },
+      {
+        path: 'business/:businessId/menus/new',
+        element: <CreateMenu />
+      },
+      {
+        path: '/user/:userId/business',
+        element: <ManageBusiness />
+      },
+      {
+        path: '/business/:businessId/amenities',
+        element: <CreateAmenity />
       }
     ],
   },

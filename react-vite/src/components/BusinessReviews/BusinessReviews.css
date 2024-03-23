@@ -1,0 +1,29 @@
+.review-container {
+    margin-bottom: 20px;
+}
+
+.name-and-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons-container button {
+    margin-left: 10px;
+}
+
+.BR-Rating_Date {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+/* .BR-Review_desc{
+
+} */
+
+/* .BR-no_review{
+
+} */

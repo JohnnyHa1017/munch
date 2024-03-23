@@ -1,0 +1,94 @@
+.validation-messages {
+    color: red;
+}
+
+/* .menu-page-container {
+    border: red 1px solid;
+} */
+
+.detail-page-back-button {
+    display: block;
+    background-color: rgb(26, 121, 255, 0.25);
+    margin: 0 0 0 8px;
+    padding: 4px 16px;
+    border: 2px black;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.detail-page-back-button-text {
+    color: white;
+    text-decoration: none;
+}
+
+.detail-page-back-button-text:hover {
+    color: rgb(175, 17, 17);
+}
+
+.menu-page-all-items-container {
+    /* border: blue 1px solid; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.menu-item-container {
+    border: 1px solid grey;
+    border-radius: 10px 10px;
+    margin: 8px 0 8px 0;
+    padding: 12px;
+    width: 30%;
+}
+
+.menu-detail-text {
+    color: grey;
+    text-decoration: none;
+}
+
+.menu-detail-text-black {
+    color: black;
+}
+
+.menu-item-img {
+    width: 60%;
+}
+
+.create-menu-form-container {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-menu-form {
+    font-family: "Spectral SC", serif;
+    font-weight: 200;
+    font-style: normal;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative;
+}
+
+.create-menu-form label {
+    display: inline;
+    margin-bottom: 1px;
+    padding: 5px;
+}
+
+.create-menu-form input[type="text"],
+.create-menu-form input[type="file"],
+.create-menu-form input[type="categories"],
+.create-menu-form textarea {
+    font-family: "IM Fell DW Pica SC", serif;
+    font-weight: 400;
+    font-style: normal;
+    width: 95%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+}

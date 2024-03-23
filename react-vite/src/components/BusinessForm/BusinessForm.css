@@ -1,0 +1,99 @@
+/* Importing Font Style */
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica+SC&family=Spectral+SC:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+h1 {
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  text-decoration: underline;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Styling for the overall form */
+.business-form {
+  font-family: "Spectral SC", serif;
+  font-weight: 200;
+  font-style: normal;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  position: relative;
+}
+
+/* Styling for section headings, form labels, input fields, and submit button */
+.create-form-h3 {
+  font-family: "Spectral SC", serif;
+  font-weight: 300;
+  font-style: normal;
+  text-decoration: underline;
+  margin-bottom: 10px;
+}
+
+.create-form-description{
+  font-family: Baskerville;
+  font-size: 15px;
+  color: rgb(78, 77, 77);
+  margin-top: 2px;
+}
+
+.business-form label {
+  display: inline;
+  margin-bottom: 1px;
+  padding: 5px;
+}
+
+.business-form input[type="text"],
+.business-form input[type="file"],
+.business-form input[type="categories"],
+.business-form textarea {
+  font-family: "IM Fell DW Pica SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  width: 95%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+.create-description-textarea{
+  height: 100px;
+}
+
+.business-form #submit-button {
+  font-family: "Spectral SC", serif;
+  margin-top: 10px;
+}
+
+.business-form button[type="submit"] {
+  display: block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: 2px black ;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Hover effect on the submit button */
+.business-form button[type="submit"]:hover {
+  background-color: rgb(175, 17, 17);
+  text-decoration: underline;
+}
+
+.validation-err-text{
+  color: rgb(175, 17, 17);
+  font-size: 15px;
+  font-family: Baskerville;
+  margin-top: 5px;
+}
+.create-form-line{
+  margin-top: 25px;
+}
+
+.optional-tag{
+  font-size: 10px;
+}

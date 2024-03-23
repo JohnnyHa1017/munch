@@ -28,12 +28,14 @@ def landing():
     all_businesses = Business.query.all()
     all_reviews = Review.query.all()
     all_amenities = Amenity.query.all()
+    all_users = User.query.all()
 
     review_list = [review.to_dict() for review in all_reviews]
     business_list = [business.to_dict() for business in all_businesses]
     amenities_list = [amenity.to_dict() for amenity in all_amenities]
+    users_list = [user.to_dict() for user in all_users]
 
-    data = {"Review": review_list, "Business": business_list, "Amenities": amenities_list}
+    data = {"Review": review_list, "Business": business_list, "Amenities": amenities_list, 'Users':users_list}
 
     return data
 

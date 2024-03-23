@@ -22,5 +22,6 @@ class BusinessImage(db.Model):
             'id': self.id,
             'business_id': self.business_id,
             'url': self.url,
-            'preview': self.preview
+            'preview': self.preview,
+            'menu_id': self.menu_id
         }

@@ -9,6 +9,9 @@ from app.models import Review
 class CreateReview(FlaskForm):
     review = StringField('Review', validators=[DataRequired()])
     star = IntegerField('Star', validators=[DataRequired(), NumberRange(min=0, max=5, message='Star rating must be between 1 and 5')])
-    # image = FileField("Image File", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
-    image = StringField('Image String')
+    # image = StringField('Image String')
+
+class ReviewImageForm(FlaskForm):
+    image = FileField("Image File", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
+    submit = SubmitField("Create Post")
 
