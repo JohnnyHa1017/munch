@@ -35,6 +35,9 @@ export default function LandingPage() {
         return <div>Loading...</div>
     }
 
+    console.log('6reviews@@@@', reviewsArray)
+
+    // 6 reviews on landing
     const sixreviews = []
     for (let i = 0; i < 6; i++) {
         sixreviews.push(reviewsArray[i])
