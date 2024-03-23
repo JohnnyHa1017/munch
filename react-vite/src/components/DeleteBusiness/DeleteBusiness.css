@@ -1,0 +1,39 @@
+.delete-business-modal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 10px;
+}
+
+.delete-form-container{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.remove-business-title{
+    text-wrap: wrap;
+}
+
+.delete-modal-btn{
+    height: 45px;
+    width: 300px;
+    margin: 15px;
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+}
+.delete-modal-btn:hover{
+    background-color: grey;
+    border: 1px solid grey;
+}
+
+.confirm-delete-btn{
+    background-color: rgb(175, 17, 17);
+    border: 1px solid rgb(175, 17, 17);
+    color: white;
+}
+.confirm-delete-btn:hover{
+    background-color: rgb(231, 29, 29);
+    border: 1px solid rgb(231, 29, 29);
+}

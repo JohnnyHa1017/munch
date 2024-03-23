@@ -189,13 +189,24 @@ def business_amenities(id):
 
 
 # POST amenity /:businessId/amenity/new
-@bp.route('/<int:id>/amenity/new', methods=['GET','POST'])
+@bp.route('/<int:id>/amenity/new', methods=['POST'])
 def create_amenities(id):
     form = CreateAmenities()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
 
-        params = {'business_id':id}
+        params = {
+            'business_id':id,
+            'reservation':form.reservation.data,
+            'delivery':form.delivery.data,
+            'pickup':form.pickup.data,
+            'vegetarian':form.vegetarian.data,
+            'accepts_credit_card':form.accepts_credit_card.data,
+            'free_wi_fi':form.free_wi_fi,
+            'street_parking':form.street_parking.data,
+            'good_for_groups':form.good_for_groups.data,
+            'outdoor_seating':form.outdoor_seating.data
+        }
         data = Amenity(**params)
         form.populate_obj(data)
         db.session.add(data)

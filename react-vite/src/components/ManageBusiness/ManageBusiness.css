@@ -1,8 +1,15 @@
+.your-business-text{
+    margin-left: 10%;
+}
+.manage-bus-description{
+    margin-left: 10%;
+}
+
 .manage-onebusiness-container{
     border: 1px solid grey;
     border-radius: 5px 5px;
     padding: 10px;
-    margin: 5%;
+    margin: 0 10% 30px 10%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,6 +59,8 @@
 .manage-delete{
     background-color: rgb(175, 17, 17);
     border: 1px solid rgb(175, 17, 17);
+    color: white;
+    list-style: none;
 }
 .manage-delete:hover{
     background-color: rgb(231, 29, 29);
