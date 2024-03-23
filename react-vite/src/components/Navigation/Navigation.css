@@ -1,13 +1,25 @@
 .profile-dropdown {
   position: absolute;
 }
-.nav-bar-ul{
+
+.nav-bar-ul {
   display: flex;
   justify-content: space-around;
   list-style-type: none;
+  align-items: center;
 }
 
-.Landinglogo img{
-  width:350px;
-  height:200px;
+.Landinglogo img {
+  width: 200px;
+  height: 80px;
+}
+
+.Nav-create {
+  text-decoration: none;
+  
+}
+
+.Nav-manage {
+  text-decoration: none;
+
 }

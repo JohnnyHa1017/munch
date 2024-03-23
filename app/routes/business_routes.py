@@ -142,10 +142,11 @@ def delete_business(id):
 @bp.route('/<int:id>/review')
 def business_review(id):
     all_reviews = Review.query.filter_by(business_id=id).all()
-    review_img = ReviewImage.query.filter_by(review_id=id).all()
+    review_img = ReviewImage.query.all()
     review_list = [review.to_dict() for review in all_reviews]
     review_img_list = [image.to_dict() for image in review_img]
     data = {"Review": review_list, "ReviewImage": review_img_list}
+
     return data
 
 

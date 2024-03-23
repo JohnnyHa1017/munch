@@ -1,43 +1,95 @@
-
-.recent-reviews{
+.recent-reviews {
     display: flex;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     justify-content: space-evenly;
+    /* text-decoration: none; */
 }
 
-.landing-business-review-container{
-    border: 1px solid grey;
+.landing-business-review-container {
+    border: 1px solid rgb(219, 219, 219);
     border-radius: 5px 5px;
     width: 25%;
     margin: 10px;
     padding: 20px;
     text-decoration: none;
+    color: inherit;
 }
 
-.landing-business-name{
+.landing-business-name {
     font-weight: bold;
 }
 
-.recent-actity-text{
+.recent-actity-text {
     text-align: center;
 }
 
-.landing-categories{
+.landing-categories {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.landing-category-container{
+
+.landing-category-container {
+    display: grid;
+    grid-template-columns: repeat(4, 2fr);
+    grid-gap: 20px;
+}
+
+.landing-category {
+    border: 1px solid rgb(219, 219, 219);
+    margin: 10px;
+    padding: 10px;
+    height: 220px;
+    width: 300px;
+    text-align: center;
+    border-radius: 3px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.landing-category:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
     width: 100%;
 }
-.landing-category{
-    border: 1px solid grey;
-    margin-bottom: 10px;
-    padding: 5px;
-    height: 50px;
-    width: 20%;
-    text-align: center;
+
+.price-rating-dot {
+    font-size: 1.5rem
+}
+
+.landing-category:visited,
+.landing-business-review-container:visited {
+    color: inherit;
+}
+
+.landing-hr {
+    color: rgb(219, 219, 219);
+}
+
+/* .review-description{
+
+} */
+
+.review-image {
+    height: 50%;
+    width: 50%;
+}
+
+.timeago {
+    font-size: 12px;
+}
+
+.hr {
+    border-color: rgb(219, 219, 219);
 }
