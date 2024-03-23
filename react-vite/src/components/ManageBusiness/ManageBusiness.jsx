@@ -1,9 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getBusinessImagesThunk, landingPageThunk } from '../../redux/business'
 import { NavLink } from 'react-router-dom';
-import './ManageBusiness.css'
 import { getAllMenusThunk } from '../../redux/menu';
+import DeleteBusiness from '../DeleteBusiness/DeleteBusiness';
+import './ManageBusiness.css'
+import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+
 
 function ManageBusiness() {
     const dispatch = useDispatch()
@@ -13,17 +16,16 @@ function ManageBusiness() {
     const amenities = useSelector(state => state.business.Amenities)
     const menus = useSelector(state => state.menus)
 
-    // console.log('CURRENT USER', currUser)
-    // console.log('BUSINESS', business)
-    // console.log('AMENITIES', amenities)
-    // console.log('MENUS ------->', menus)
-    // console.log('BUSIMAGES', busImgs)
+    const [deleteBus, setDeleteBus] = useState(false)
+    const reRenderOnDelete = () => {
+        setDeleteBus(!deleteBus)
+    }
 
     useEffect(() => {
         dispatch(landingPageThunk())
         dispatch(getAllMenusThunk())
         dispatch(getBusinessImagesThunk())
-    },[dispatch])
+    },[dispatch, deleteBus])
 
     if(!currUser || !business || !amenities || !menus || !busImgs){
         return <div>Loading...</div>
@@ -82,7 +84,7 @@ function ManageBusiness() {
     return(
         <>
             <h1>Hello {currUser.first_name}</h1>
-            <h2>Your Businesses</h2>
+            <h2 className='your-business-text'>Your Businesses</h2>
             <div className='manage-businesses-container'>
                 {!currBusiness && (
                     <>
@@ -90,8 +92,11 @@ function ManageBusiness() {
                         <button><NavLink>Create a business!</NavLink></button>
                     </>
                 )}
+                {currBusiness.length > 0 && (
+                    <p className='manage-bus-description'>{`You have ${currBusiness.length} businesses on Munch`}</p>
+                )}
                 {currBusiness.map(bus => (
-                    <div className='manage-onebusiness-container'>
+                    <div key={bus.id} className='manage-onebusiness-container'>
                         <NavLink className='manage-nav-container'key={bus?.id} to={`/business/${bus?.id}`}>
                             <div className='nav-bus-container'>
                                 <div className='manage-address-container'>
@@ -108,7 +113,13 @@ function ManageBusiness() {
                             </div>
                         </NavLink>
                         <button className='manage-btns'><NavLink to={`/business/${bus?.id}/edit`} className='manage-btn-text'>Update Business</NavLink></button>
-                        <button className='manage-btns manage-delete'><NavLink to={`/business/${bus?.id}/delete`} className='manage-btn-text'>Delete Business</NavLink></button>
+                        {/* <button className='manage-btns manage-delete'><NavLink to={`/business/${bus?.id}/delete`} className='manage-btn-text'>Delete Business</NavLink></button> */}
+                        <button className='manage-btns manage-delete'>
+                            <OpenModalMenuItem
+                                itemText='Delete Business'
+                                modalComponent={<DeleteBusiness businessId={bus.id} reRenderOnDelete={reRenderOnDelete}/>}
+                            />
+                        </button>
                         {!checkAmenity(bus.id) && (
                             <button className='manage-btns'><NavLink to={`/business/${bus.id}/amenities`} className='manage-btn-text'>Add Amenities</NavLink></button>
                         )}
