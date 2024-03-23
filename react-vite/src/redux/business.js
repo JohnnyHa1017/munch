@@ -139,7 +139,7 @@ export const createNewAmenitiesThunk = (businessId, newAmenity) => async (dispat
     })
     if(response.ok){
         const data = await response.json()
-        dispatch(createAmenity(data))
+        dispatch(createAmenity(data.amenity))
         return data
     }
 }
