@@ -127,6 +127,8 @@ export default function LandingPage() {
                 </div>
             </div>
 
+            <div className='all-business-container'></div>
+
             <div className='recent-activity-container'>
                 <h2 className='recent-actity-text'>Recent Activity</h2>
                 <div className='recent-reviews'>

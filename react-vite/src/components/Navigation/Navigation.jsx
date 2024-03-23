@@ -22,11 +22,11 @@ function Navigation() {
       </li>
       {user && (
         <>
-          <li className="Nav-create">
-            <NavLink to='/business/new'>Create a New Business</NavLink>
+          <li >
+            <NavLink to='/business/new' className="Nav-create">Create a New Business</NavLink>
           </li>
-          <li className='Nav-manage'>
-            <NavLink to={`/user/${user.id}/business`}>Manage Your Business</NavLink>
+          <li >
+            <NavLink to={`/user/${user.id}/business`} className='Nav-manage'>Manage Your Business</NavLink>
           </li>
         </>
         )

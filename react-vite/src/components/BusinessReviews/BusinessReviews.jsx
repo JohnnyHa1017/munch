@@ -15,8 +15,8 @@ function BusinessReviews() {
     const currUser = useSelector((state) => state.session.user)
     const users = useSelector((state) => state.business.Users)
 
-    console.log('users ==>', users)
-    console.log('curruser ==>', currUser)
+    // console.log('users ==>', users)
+    // console.log('curruser ==>', currUser)
     console.log('reviews ==>', reviews)
     console.log('reviewImages ==>', reviewImages)
 
@@ -24,6 +24,7 @@ function BusinessReviews() {
         dispatch(businessReviewThunk(businessId))
         dispatch(landingPageThunk())
     }, [dispatch, businessId])
+
 
 
     //isOwnerofReview
@@ -69,7 +70,10 @@ function BusinessReviews() {
                             <p>{renderStars(review.star)}</p> <p>{formatDate(review.createdAt)}</p>
                         </div>
                         <p className="BR-Review_desc">{review.review}</p>
-                        <p>Image:{review.image}</p>
+                        {reviewImages?.find((image) => image.review_id === review.id) && (
+                            // <p> {reviewImages.find((image) => image.review_id === review.id).url}</p>
+                            <img src={reviewImages.find((image) => image.review_id === review.id).url} alt="Review Image" />
+                        )}
                         <hr />
                     </div>
                 ))
