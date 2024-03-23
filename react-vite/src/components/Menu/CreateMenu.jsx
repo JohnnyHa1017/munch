@@ -70,12 +70,11 @@ function CreateMenu() {
     }
 
     return (
-        <>
+        <div className='create-menu-form-container'>
             <h1>Create Menu for {businessTitle}</h1>
-
-            <form onSubmit={handleSubmit} className='menu-form'>
-                <label>
-                    Menu Item Name
+            <form onSubmit={handleSubmit} className='create-menu-form'>
+                <label className='create-menu-label-container'>
+                    <h3>Menu Item Name</h3>
                     <input
                         type='text'
                         name='name'
@@ -85,8 +84,8 @@ function CreateMenu() {
                     ></input>
                 </label>
                 {validations.name && (<p className='validation-messages'>{validations.name}</p>)}
-                <label>
-                    Menu Item Category
+                <label className='create-menu-label-container'>
+                    <h3>Menu Item Category</h3>
                     <select onChange={(e) => setCategory(e.target.value)}>
                         <option value='Appetizer' >Appetizer</option>
                         <option value='Drink' >Drink</option>
@@ -96,8 +95,8 @@ function CreateMenu() {
                     </select>
                 </label>
                 {validations.category && (<p className='validation-messages'>{validations.category}</p>)}
-                <label>
-                    Price
+                <label className='create-menu-label-container'>
+                    <h3>Price</h3>
                     <input
                         type='text'
                         name='price'
@@ -107,8 +106,8 @@ function CreateMenu() {
                     ></input>
                 </label>
                 {validations.price && (<p className='validation-messages'>{validations.price}</p>)}
-                <label>
-                    Description
+                <label className='create-menu-label-container'>
+                    <h3>Description</h3>
                     <input
                         type='text'
                         name='description'
@@ -120,7 +119,7 @@ function CreateMenu() {
                 {validations.description && (<p className='validation-messages'>{validations.description}</p>)}
                 <button type='submit'>Create Menu</button>
             </form>
-        </>
+        </div>
     )
 }
 
