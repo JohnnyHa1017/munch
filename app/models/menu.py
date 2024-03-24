@@ -10,7 +10,7 @@ class Menu(db.Model):
 
     id = Column(Integer, primary_key=True)
     business_id = Column(Integer, ForeignKey(add_prefix_for_prod('businesses.id')), nullable=False)
-    name = Column(String(50), nullable=False)
+    name = Column(String(100), nullable=False)
     category = Column(db.Enum('Appetizer', 'Entree', 'Drink', 'Dessert', 'Specials', name='category'), nullable=False)
     price = Column(Float(precision=2))
     description = Column(String(2000))
