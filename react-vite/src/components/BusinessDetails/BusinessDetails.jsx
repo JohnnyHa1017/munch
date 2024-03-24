@@ -15,6 +15,7 @@ import { PiBowlFoodFill } from "react-icons/pi";
 import { LuBean } from "react-icons/lu";
 import { MdOutlineRateReview } from "react-icons/md";
 import { BiGame, BiSolidGame, BiSolidBadgeDollar } from "react-icons/bi";
+import { HiLocationMarker } from "react-icons/hi";
 import { IoCheckmarkCircle, IoCheckmarkCircleOutline, IoEarth } from "react-icons/io5";
 import { FaPhoneVolume, FaRegKeyboard } from "react-icons/fa";
 
@@ -32,8 +33,7 @@ export default function OneBusiness() {
   const reRenderOnDelete = () => {
     setDeleteBus(!deleteBus)
   }
-
-
+  
   //get average start rating
   let avgStarRating = 0
   let priceRating = 1
@@ -178,6 +178,9 @@ export default function OneBusiness() {
     <>
       {business ? (
         <div className="business-detail-page-container">
+          <div>
+            <h1 class='sticky' style={{position: 'sticky', top: '0'}}>BIG ASS STICKY</h1>
+          </div>
           <div className="business-detail-header-container">
             <div className="business-detail-header-img" style={{ backgroundImage: `url(${businessPreviewImgUrl})`, height: '360px' }}>
               {/* <div className="business-detail-header-img" style={{ backgroundImage: `url(../../images/default_business_background.jpg)`, height: '360px' }}> */}
@@ -221,6 +224,11 @@ export default function OneBusiness() {
           </div>
           {hasUserLoggedIn &&
             <div className="business-detail-action-buttons-container">
+              <button className="bd-red-action-buttons">
+                <NavLink className='red-button-text' to={`/business/${businessId}/menus`}>
+                  <PiBowlFoodFill />View Full Menu
+                </NavLink>
+              </button>
               {!hasWrittenReview &&
                 <button className="bd-red-action-buttons">
                   <NavLink className='red-button-text' to={`/business/${businessId}/review/new`}>
@@ -228,11 +236,6 @@ export default function OneBusiness() {
                   </NavLink>
                 </button>
               }
-              <button className="bd-red-action-buttons">
-                <NavLink className='red-button-text' to={`/business/${businessId}/menus`}>
-                  <PiBowlFoodFill />View Menu
-                </NavLink>
-              </button>
               <button className="bd-red-action-buttons">
                 <NavLink className='red-button-text' to={`/business/${businessId}/reviews`}>
                   <MdOutlineRateReview />View All Reviews
@@ -300,6 +303,7 @@ export default function OneBusiness() {
                 <BusinessReviews />
               </div>
             </div>
+            
             <div className="business-dtl-info-container">
               <div className="business-dtl-info-box">
                 <h2>Order Online</h2>
@@ -314,7 +318,13 @@ export default function OneBusiness() {
                 </div>
                 <div className="business-dtl-info">
                   <p className="business-dtl-info-box-text">
-                    {selectedBusiness?.address}, {selectedBusiness?.city}, {selectedBusiness?.state}, {selectedBusiness?.country}
+                    {selectedBusiness?.address}, {selectedBusiness?.city}, {selectedBusiness?.state}
+                  </p>
+                  <HiLocationMarker className="business-dtl-info-logo" />
+                </div>
+                <div className="business-dtl-info">
+                  <p className="business-dtl-info-box-text">
+                    {selectedBusiness?.country}
                   </p>
                   <IoEarth className="business-dtl-info-logo" />
                 </div>

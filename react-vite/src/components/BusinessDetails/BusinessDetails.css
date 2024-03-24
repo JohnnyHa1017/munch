@@ -1,5 +1,6 @@
 
 .business-detail-page-container {
+    border: yellow solid 1px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,7 +22,7 @@
 
 .business-detail-header-text {
     color: black;
-    background-color: rgb(26,121,255, 0.15);
+    background-color: rgb(255,255,255, 0.25);
     border-radius: 4px 4px;
     padding: 4px;
     width: fit-content;
@@ -62,27 +63,39 @@
 }
 
 .business-detail-context-container {
+    /* border: 1px blue solid; */
     display: flex;
     flex-direction: row;
     width: 95%;
+    padding: 4px;
+
 }
 
 .business-contexts {
+    /* border: 1px green solid; */
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 85%
+    width: 70%;
+    overflow-y: auto;
 }
 
 .business-dtl-info-container {
+    /* border: 1px red solid; */
     flex-grow: 1;
-    margin: 12px 0 12px 0;
 }
+
+.sticky {
+    /* border: 1px red solid; */
+    position: sticky;
+    top: 0;
+}
+
 
 .business-dtl-info-box {
     background-color: rgb(26,121,255, 0.1);
     border-radius: 16px 16px;
-    padding: 16px;
+    padding: 28px;
     display: flex;
     flex-direction: column;
     align-items: center;
