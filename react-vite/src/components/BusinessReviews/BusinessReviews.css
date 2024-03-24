@@ -18,12 +18,33 @@
     gap: 10px;
 }
 
+.review-CRUD-btn {
+    text-decoration: none;
+    color: white;
 
+}
 
-/* .BR-Review_desc{
+.review-CRUD-del-btn {
+    text-decoration: none;
+    color: white
+}
 
-} */
+.Business-review-btns {
+    background-color: rgb(26, 121, 255);
+    border-radius: 5px;
+    border-color: rgb(26, 121, 255);
+}
 
-/* .BR-no_review{
+.Business-review-del-btns {
+    background-color: rgb(175, 17, 17);
+    border-radius: 5px;
+    border-color: rgb(175, 17, 17);
+}
 
-} */
+.Business-review-btns:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.Business-review-del-btns:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}

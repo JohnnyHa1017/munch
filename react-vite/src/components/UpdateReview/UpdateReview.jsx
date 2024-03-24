@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { businessReviewThunk } from "../../redux/reviews";
 import CreateNewReview from "../ReviewForm/ReviewForm";
-
+import './UpdateReview.css'
 const UpdateReview = () => {
     const dispatch = useDispatch();
     const { reviewId, businessId } = useParams();
@@ -31,7 +31,9 @@ const UpdateReview = () => {
         <>
             <h1>Update Review</h1>
             {/* Pass the review prop to CreateNewReview component */}
+            <div className='update-form-container'>
             <CreateNewReview reviewToUpdate={reviewToUpdate} buttonName={buttonName} />
+            </div>
         </>
     );
 };

@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useModal } from '../../context/Modal'
 import { useDispatch } from 'react-redux'
 import { deleteReviewThunk } from '../../redux/reviews'
-// import './DeleteReview.css'
+import './DeleteReview.css'
 
 const DeleteReview = ()=>{
     const { reviewId, businessId } = useParams()
@@ -17,15 +17,22 @@ const DeleteReview = ()=>{
         closeModal()
         nav(`/business/${businessId}`)
     }
+    // Go back in the history
+    const onKeep = () => {
+        nav(-1)
+    }
 
     return (
         <>
-            <button className = "DeleteReview-btn" onClick={onDelete}>
+        <div className='Delete-buttons-container'>
+            <h3>Are You Sure ?</h3>
+        <button className = "DeleteReview-btn" onClick={onDelete}>
                 Yes (Delete Review)
             </button>
-            <button className = 'Dont-DeleteReview-btn' onClick={closeModal}>
-                No (Keep Review)
+            <button className = 'Dont-DeleteReview-btn' onClick={onKeep}>
+                No (Go Back)
             </button>
+        </div>
         </>
     )
 }

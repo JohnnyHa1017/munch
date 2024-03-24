@@ -56,25 +56,27 @@ function BusinessReviews() {
         <>
             {reviews && users ? (
                 reviews.slice().reverse().map((review, index) => (
-                    <div key={index} className="review-container">
-                        <div className="name-and-buttons">
-                            <h3>{users[review.user_id - 1].first_name} {users[review.user_id - 1].last_name.charAt(0)}</h3>
-                            {ownReview(review.user_id) && (
-                                <div className="buttons-container">
-                                    <button> <NavLink to={`/business/${businessId}/${review.id}/update`}>Edit Review</NavLink></button>
-                                    <button> <NavLink to={`/business/${businessId}/${review.id}/delete`}>Delete Review</NavLink></button>
-                                </div>
+                    <div >
+                        <div className='review-container' key={index}>
+                            <div className="name-and-buttons">
+                                <h3>{users[review.user_id - 1].first_name} {users[review.user_id - 1].last_name.charAt(0)}</h3>
+                                {ownReview(review.user_id) && (
+                                    <div className="buttons-container">
+                                        <button className='Business-review-btns' > <NavLink to={`/business/${businessId}/${review.id}/update`} className='review-CRUD-btn'>Edit Review</NavLink></button>
+                                        <button className='Business-review-del-btns' > <NavLink to={`/business/${businessId}/${review.id}/delete`} className='review-CRUD-del-btn'>Delete Review</NavLink></button>
+                                    </div>
+                                )}
+                            </div>
+                            <div className="BR-Rating_Date">
+                                <p>{renderStars(review.star)}</p> <p>{formatDate(review.createdAt)}</p>
+                            </div>
+                            <p className="BR-Review_desc">{review.review}</p>
+                            {reviewImages?.find((image) => image.review_id === review.id) && (
+                                // <p> {reviewImages.find((image) => image.review_id === review.id).url}</p>
+                                <img src={reviewImages.find((image) => image.review_id === review.id).url} alt="Review Image" />
                             )}
+                            <hr />
                         </div>
-                        <div className="BR-Rating_Date">
-                            <p>{renderStars(review.star)}</p> <p>{formatDate(review.createdAt)}</p>
-                        </div>
-                        <p className="BR-Review_desc">{review.review}</p>
-                        {reviewImages?.find((image) => image.review_id === review.id) && (
-                            // <p> {reviewImages.find((image) => image.review_id === review.id).url}</p>
-                            <img src={reviewImages.find((image) => image.review_id === review.id).url} alt="Review Image" />
-                        )}
-                        <hr />
                     </div>
                 ))
             ) : (
