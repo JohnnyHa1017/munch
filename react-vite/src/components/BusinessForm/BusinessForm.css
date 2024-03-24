@@ -49,7 +49,17 @@ h1 {
 .business-form input[type="file"],
 .business-form input[type="categories"],
 .business-form textarea {
-  font-family: "IM Fell DW Pica SC", serif;
+  font-family: Baskerville;
+  font-weight: 400;
+  font-style: normal;
+  width: 95%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+.business-form-select{
+  font-family: Baskerville;
   font-weight: 400;
   font-style: normal;
   width: 95%;

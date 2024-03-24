@@ -47,6 +47,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [validations, setValidations] = useState({})
   const [submitted, setSubmitted] = useState(false)
   console.log(submitted)
+  console.log(setImage)
   let isValidated = false
 
   useEffect(() => {
@@ -148,7 +149,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       lng,
       category,
       schedule: createSchedule,
-      image
+      // image
     };
     console.log(business, '<------- BUSINESS OBJECT')
 
@@ -282,20 +283,18 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       <p className='create-form-description'>What is the approximate cost per person for your business?</p>
       <label>
         Price :
-        <input
-          list='price-categories'
-          type='categories'
-          name='price'
+        <select
+          className='business-form-select'
           value={price_rating}
           placeholder="$"
           onChange={(e) => setPrice(e.target.value)}
-        ></input>
-        <datalist id='price-categories'>
-          <option value='$'></option>
-          <option value='$$'></option>
-          <option value='$$$'></option>
-          <option value='$$$$'></option>
-        </datalist>
+        >
+          <option value='' disabled selected hidden>Please select a price rating</option>
+          <option value='$'>$</option>
+          <option value='$$'>$$</option>
+          <option value='$$$'>$$$</option>
+          <option value='$$$$'>$$$$</option>
+        </select>
       </label>
       {validations.price_rating && (<p className='validation-err-text'>{validations.price_rating}</p>)}
       {validations.price_range && (<p className='validation-err-text'>{validations.price_range}</p>)}
@@ -304,37 +303,33 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       <p className='create-form-description'>Add a category to your business to help Munch users search for your business.</p>
       <label>
         Category : <br></br>
-        <input
-          list='categories'
-          type='categories'
-          name='category'
+        <select
+          className='business-form-select'
           value={category}
-          placeholder="Category"
           onChange={(e) => setCategory(e.target.value)}
         >
-        </input>
-        <datalist id='categories' >
-          <option value='Asian Fusion'></option>
-          <option value='Bar'></option>
-          <option value='Brunch'></option>
-          <option value='Cafe'></option>
-          <option value='Casual'></option>
-          <option value='Cocktail Bar'></option>
-          <option value='Deli'></option>
-          <option value='Dessert'></option>
-          <option value='Dinner'></option>
-          <option value='Fast Food'></option>
-          <option value='Fine Dining'></option>
-          <option value='German'></option>
-          <option value='Indian'></option>
-          <option value='Italian'></option>
-          <option value='Japanese'></option>
-          <option value='Mexican'></option>
-          <option value='Palestinian'></option>
-          <option value='Pub'></option>
-          <option value='Seafood'></option>
-          <option value='Tapas'></option>
-        </datalist>
+          <option value='' disabled selected hidden>Please select a category</option>
+          <option value='Asian Fusion'>Asian Fusion</option>
+          <option value='Bar'>Bar</option>
+          <option value='Brunch'>Brunch</option>
+          <option value='Cafe'>Cafe</option>
+          <option value='Casual'>Casual</option>
+          <option value='Cocktail Bar'>Cocktail Bar</option>
+          <option value='Deli'>Deli</option>
+          <option value='Dessert'>Dessert</option>
+          <option value='Dinner'>Dinner</option>
+          <option value='Fast Food'>Fast Food</option>
+          <option value='Fine Dining'>Fine Dining</option>
+          <option value='German'>German</option>
+          <option value='Indian'>Indian</option>
+          <option value='Italian'>Italian</option>
+          <option value='Japanese'>Japanese</option>
+          <option value='Mexican'>Mexican</option>
+          <option value='Palestinian'>Palestinian</option>
+          <option value='Pub'>Pub</option>
+          <option value='Seafood'>Seafood</option>
+          <option value='Tapas'>Tapas</option>
+        </select>
       </label>
       {validations.category && (<p className='validation-err-text'>{validations.category}</p>)}
       <br></br>
@@ -351,7 +346,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         ></textarea>
       </label>
       {validations.description && (<p className='validation-err-text'>{validations.description}</p>)}
-      <hr className='create-form-line'></hr>
+      {/* <hr className='create-form-line'></hr>
       <h3 className="create-form-h3">Add your images</h3>
       <label>
         Submit an Image :
@@ -363,7 +358,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         ></input>
         {(imageLoading) && <p>Loading...</p>}
       </label>
-      {validations.image && (<p className='validation-err-text'>{validations.image}</p>)}
+      {validations.image && (<p className='validation-err-text'>{validations.image}</p>)} */}
       {/* <h2>Schedule</h2>
       <label>
         Monday : <br></br>

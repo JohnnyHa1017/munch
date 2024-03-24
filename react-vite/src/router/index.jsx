@@ -86,6 +86,10 @@ export const router = createBrowserRouter([
       {
         path: '/business/:businessId/amenities',
         element: <CreateAmenity />
+      },
+      {
+        path:'*',
+        element: <h1>Page not found</h1>
       }
     ],
   },
