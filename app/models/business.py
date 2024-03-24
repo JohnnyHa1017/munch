@@ -20,7 +20,7 @@ class Business(db.Model):
   category = Column(String(255), nullable=False)
   lat = Column(Float)
   lng = Column(Float)
-  phone_number = Column(String(25), nullable=False, unique=True)
+  phone_number = Column(String(25), nullable=False)
   description = Column(String(2000))
   schedule = Column(String(500), nullable=True)
   image = Column(String(500), nullable=True)
