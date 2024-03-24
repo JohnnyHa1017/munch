@@ -33,7 +33,7 @@ function MenusByBusinessId() {
         <>
             {business && menus ? ( // Added null check here
                 <div className='menu-page-container'>
-                    <NavLink to={`/business/${businessId}`}><h1 className='menu-detail-text-black'>{business?.title}'s Menu</h1></NavLink>
+                    <NavLink to={`/business/${businessId}`}><h1 className='menu-detail-text-black'>{business?.title}&apos;s Menu</h1></NavLink>
                     <div className='menu-page-all-items-container'>
                         {menus.map((menu, index) => {
                             const matchedImage = menu_images?.find(image => image.menu_id === menu.id);

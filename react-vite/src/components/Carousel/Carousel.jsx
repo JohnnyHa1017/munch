@@ -9,6 +9,7 @@ import Op from '../../images/OP.png'
 import stardew from '../../images/stardew.jpeg'
 import './Carousel.css'
 
+console.log(React)
 function ImageCarousel() {
     return (
         <>

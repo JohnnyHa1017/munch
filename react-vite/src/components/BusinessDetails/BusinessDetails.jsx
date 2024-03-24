@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { businessAmenitiesThunk, specificBusinessThunk } from '../../redux/business'
 import { menuByBusinessThunk } from '../../redux/menu'
-import { NavLink, Route, useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { businessReviewThunk } from "../../redux/reviews";
 import './BusinessDetails.css'
 import BusinessReviews from "../BusinessReviews/BusinessReviews";
@@ -111,7 +111,7 @@ export default function OneBusiness() {
       }
     }
     for (const key in amenities) {
-      if (amenities.hasOwnProperty(key)) {
+      if (amenities.hasOwnProperty.call(key)) {
         switch (key) {
           case 'accepts_credit_card': //to get each key
             isAccepts_cc = amenities[key] //assign boolean values
