@@ -27,7 +27,7 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
         if (!user) {
             nav('/')
         }
-    },)
+    }, [user, submitted])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -36,12 +36,18 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
         setImageLoading(true);
         setSubmitted(true)
 
+
+        if (review.length<=15 || star <1){
+            setValidations({
+                ...validations,
+            })
+            return
+        }
         await Promise.resolve(formData);
 
         const reviewObj = {
             review, star, image
         }
-
         if (!reviewId) {
             console.log('CREATE REVIEW')
             const newReview = {
@@ -99,29 +105,31 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
                         rows={7}
                         cols={70}
                     />
-                    {(review.length <= 15) && (
+                    {(submitted && review.length <= 15) && (
                         <p style={{ color: 'red' }}>Your review must be greater than 15 characters</p>
                     )}
-                    {(star < 1) && (
+                    {(submitted && star < 1) && (
                         <p style={{ color: 'red' }}>You must select a star rating</p>
                     )}
-                    <label>
+                    {/* <label>
                         <div>
 
                         </div>
 
+                        add an image btn/aws
                         <input
                             type='file'
                             accept="image/*"
                             onChange={(e) => setImage(e.target.files[0])}
                             placeholder='Add a Review Image'
-                        ></input>
-                    </label>
-                    {submitted && validations.image && (<p style={{ color: 'red' }}>{validations.image}</p>)}
+                        ></input> */}
+                    {/* <button onClick={() => alert('Feature coming soon')}>Choose File</button> */}
+                    {/* </label> */}
+                    {/* {submitted && validations.image && (<p style={{ color: 'red' }}>{validations.image}</p>)} */}
 
                     <div className='Review-Btn-container'>
-                        <button type='submit' className='Review-Submit-btn' disabled={star < 1 || review.length <= 15}>{buttonName}</button>
-                        {(imageLoading) && <p>Loading...</p>}
+                        <button type='submit' className='Review-Submit-btn' >{buttonName}</button>
+                        {/* {(imageLoading) && <p>Loading...</p>} */}
                     </div>
                 </form>
             </div>
