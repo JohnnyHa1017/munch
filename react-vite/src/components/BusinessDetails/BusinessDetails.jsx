@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { businessAmenitiesThunk, specificBusinessThunk } from '../../redux/business'
 import { menuByBusinessThunk } from '../../redux/menu'
@@ -13,6 +13,8 @@ import { LuBean } from "react-icons/lu";
 import { BiGame, BiSolidGame, BiSolidBadgeDollar } from "react-icons/bi";
 import { IoCheckmarkCircle, IoCheckmarkCircleOutline, IoEarth } from "react-icons/io5";
 import { FaPhoneVolume, FaRegKeyboard } from "react-icons/fa";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import DeleteBusiness from "../DeleteBusiness/DeleteBusiness";
 
 
 // TODO get current time and make Open/Closed dynamic
@@ -26,6 +28,11 @@ export default function OneBusiness() {
   const currUser = useSelector(state => state.session)
   const { businessId } = useParams()
 
+  const [deleteBus, setDeleteBus] = useState(false)
+  const reRenderOnDelete = () => {
+    setDeleteBus(!deleteBus)
+  }
+
 
   //get average start rating
   let avgStarRating = 0
@@ -38,17 +45,6 @@ export default function OneBusiness() {
   let businessCategory = ""
   let businessSchedule = ""
   let selectedBusiness = {}
-  let amenities = {}
-  let isAccepts_cc = false
-  let isDelivery = false
-  let isFreeWF = false
-  let isGoodGroup = false
-  let isOutdoor = false
-  let isPickup = false
-  let isReservation = false
-  let isSP = false
-  let isVegetarian = false
-
 
   if (business && businessId) {
     //get selected business
@@ -102,6 +98,17 @@ export default function OneBusiness() {
     }
   }
 
+  let amenities = {}
+  let isAccepts_cc = false
+  let isDelivery = false
+  let isFreeWF = false
+  let isGoodGroup = false
+  let isOutdoor = false
+  let isPickup = false
+  let isReservation = false
+  let isSP = false
+  let isVegetarian = false
+
   if (business.Amenities) {
     //get amenity object
     const allAmenities = business.Amenities
@@ -110,8 +117,9 @@ export default function OneBusiness() {
         amenities = eachAm
       }
     }
+    console.log('amenities ==>', amenities)
     for (const key in amenities) {
-      if (amenities.hasOwnProperty.call(key)) {
+      if (amenities.hasOwnProperty(key)) {
         switch (key) {
           case 'accepts_credit_card': //to get each key
             isAccepts_cc = amenities[key] //assign boolean values
@@ -145,6 +153,7 @@ export default function OneBusiness() {
         }
       }
     }
+    console.log('isPickup ==>', isPickup)
   }
   //business background image
   if (menus?.Business_Images) {
@@ -213,7 +222,6 @@ export default function OneBusiness() {
           </div>
           {hasUserLoggedIn &&
             <div className="business-detail-action-buttons-container">
-              {/* add current user check for existing review */}
               {!hasWrittenReview &&
                 <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/review/new`}><FaRegKeyboard />Write a review</NavLink></button>
               }
@@ -225,12 +233,16 @@ export default function OneBusiness() {
           }
           <div className="business-detail-context-container">
             <div className="business-contexts">
-              <div className="menu-container">
-                <MenusByBusinessId />
-              </div>
+              {Object.keys(menus).length > 1 &&
+                <div className="menu-container">
+                  <MenusByBusinessId />
+                </div>}
               <div className="business-info-container">
-                <h2>Schedule</h2>
-                {businessSchedule}
+                {businessSchedule &&
+                  <>
+                    <h2>Schedule</h2>
+                    {businessSchedule}
+                  </>}
                 <h2>Amenities</h2>
                 <div className="business-detail-amenity-container">
                   <div className="amenity-blocks">
@@ -302,7 +314,13 @@ export default function OneBusiness() {
                   <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/menus/new`}>Add Menu</NavLink></button>
                   <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/amenities`}>Add Amenity</NavLink></button>
                   <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/edit`}>Edit My Business</NavLink></button>
-                  <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/delete`}>Delete My Business</NavLink></button>
+                  {/* <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/delete`}>Delete My Business</NavLink></button> */}
+                  <button className="bd-red-action-buttons">
+                    <OpenModalMenuItem
+                      itemText='Delete Business'
+                      modalComponent={<DeleteBusiness businessId={businessId} reRenderOnDelete={reRenderOnDelete} />}
+                    />
+                  </button>
                 </div>
               }
             </div>

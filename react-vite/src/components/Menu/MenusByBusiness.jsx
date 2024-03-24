@@ -15,7 +15,7 @@ function MenusByBusinessId() {
     const business = useSelector((state) => state.business[businessId])
 
     let menu_images = []
-    if (menus) {
+    if (menuImages) {
         for (let img of menuImages) {
             if (img.business_id == businessId && img.menu_id) {
                 menu_images.push(img)
@@ -31,7 +31,7 @@ function MenusByBusinessId() {
 
     return (
         <>
-            {business && menus ? ( // Added null check here
+            {business && menuImages ? ( // Added null check here
                 <div className='menu-page-container'>
                     <NavLink to={`/business/${businessId}`}><h1 className='menu-detail-text-black'>{business?.title}&apos;s Menu</h1></NavLink>
                     <div className='menu-page-all-items-container'>
