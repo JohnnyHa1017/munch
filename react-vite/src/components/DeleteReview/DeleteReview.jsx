@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import { useModal } from '../../context/Modal'
 import { useDispatch } from 'react-redux'
 import { deleteReviewThunk } from '../../redux/reviews'
+
 import './DeleteReview.css'
 
 const DeleteReview = ()=>{
@@ -9,14 +9,12 @@ const DeleteReview = ()=>{
     const nav = useNavigate()
     // console.log('reviewId===>', reviewId)
     const dispatch = useDispatch()
-    const { closeModal } = useModal()
-
     const onDelete = (e) => {
         e.preventDefault()
         dispatch(deleteReviewThunk(reviewId))
-        closeModal()
         nav(`/business/${businessId}`)
     }
+
     // Go back in the history
     const onKeep = () => {
         nav(-1)
