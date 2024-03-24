@@ -172,7 +172,7 @@ export default function OneBusiness() {
     dispatch(menuByBusinessThunk(businessId))
     dispatch(businessAmenitiesThunk(businessId))
     dispatch(businessReviewThunk(businessId))
-  }, [businessId, dispatch, menus])
+  }, [businessId, dispatch])
 
 
   return (
