@@ -24,18 +24,18 @@ function SignupFormModal() {
           "Confirm Password field must be the same as the Password field",
       });
     }
-    // if(!first_name){
-    //   return setErrors({
-    //     first_name:
-    //       'Must enter your first name'
-    //   })
-    // }
-    // if(!last_name){
-    //   return setErrors({
-    //     last_name:
-    //       'Must enter your last name'
-    //   })
-    // }
+    if(!first_name){
+      return setErrors({
+        first_name:
+          'Must enter your first name'
+      })
+    }
+    if(!last_name){
+      return setErrors({
+        last_name:
+          'Must enter your last name'
+      })
+    }
 
     const serverResponse = await dispatch(
       thunkSignup({
@@ -69,6 +69,7 @@ function SignupFormModal() {
             required
           />
         </label>
+        {errors.first_name && <p>{errors.first_name}</p>}
         <label className='login-label'>
           <input
             className="signup-input"
