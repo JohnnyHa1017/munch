@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 8ef57d67f0b8
+Revision ID: 1337383873fd
 Revises: 
-Create Date: 2024-03-23 19:04:32.715548
+Create Date: 2024-03-23 20:33:13.554001
 
 """
 from alembic import op
@@ -10,11 +10,11 @@ import sqlalchemy as sa
 
 import os
 environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get("SCHEMA")
+SCHEMA = os.environ.get("SCHEMA") 
 
 
 # revision identifiers, used by Alembic.
-revision = '8ef57d67f0b8'
+revision = '1337383873fd'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,19 +36,19 @@ def upgrade():
     op.create_table('businesses',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
-    sa.Column('title', sa.String(length=50), nullable=False),
-    sa.Column('address', sa.String(length=50), nullable=False),
-    sa.Column('city', sa.String(length=50), nullable=False),
-    sa.Column('state', sa.String(length=50), nullable=False),
-    sa.Column('country', sa.String(length=50), nullable=False),
+    sa.Column('title', sa.String(length=255), nullable=False),
+    sa.Column('address', sa.String(length=255), nullable=False),
+    sa.Column('city', sa.String(length=255), nullable=False),
+    sa.Column('state', sa.String(length=255), nullable=False),
+    sa.Column('country', sa.String(length=255), nullable=False),
     sa.Column('price_rating', sa.Integer(), nullable=False),
     sa.Column('category', sa.String(length=255), nullable=False),
     sa.Column('lat', sa.Float(), nullable=True),
     sa.Column('lng', sa.Float(), nullable=True),
-    sa.Column('phone_number', sa.String(length=20), nullable=False),
+    sa.Column('phone_number', sa.String(length=25), nullable=False),
     sa.Column('description', sa.String(length=2000), nullable=True),
     sa.Column('schedule', sa.String(length=500), nullable=True),
-    sa.Column('image', sa.String(), nullable=True),
+    sa.Column('image', sa.String(length=500), nullable=True),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('phone_number')
@@ -71,7 +71,7 @@ def upgrade():
     op.create_table('menus',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('business_id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=50), nullable=False),
+    sa.Column('name', sa.String(length=100), nullable=False),
     sa.Column('category', sa.Enum('Appetizer', 'Entree', 'Drink', 'Dessert', 'Specials', name='category'), nullable=False),
     sa.Column('price', sa.Float(precision=2), nullable=True),
     sa.Column('description', sa.String(length=2000), nullable=True),
