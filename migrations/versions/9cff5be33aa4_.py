@@ -1,20 +1,19 @@
 """empty message
 
-Revision ID: 5f22b4cc77f4
-Revises:
-Create Date: 2024-03-23 12:46:35.083112
+Revision ID: 9cff5be33aa4
+Revises: 
+Create Date: 2024-03-23 16:56:07.537584
 
 """
 from alembic import op
 import sqlalchemy as sa
-
 
 import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '5f22b4cc77f4'
+revision = '9cff5be33aa4'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -97,7 +96,7 @@ def upgrade():
     op.create_table('business_images',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('business_id', sa.Integer(), nullable=False),
-    sa.Column('url', sa.String(length=255), nullable=True),
+    sa.Column('url', sa.String(length=2000), nullable=True),
     sa.Column('preview', sa.Boolean(), nullable=True),
     sa.Column('menu_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['business_id'], ['businesses.id'], ),
@@ -107,7 +106,7 @@ def upgrade():
     op.create_table('review_images',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('review_id', sa.Integer(), nullable=False),
-    sa.Column('url', sa.String(length=255), nullable=True),
+    sa.Column('url', sa.String(length=2000), nullable=True),
     sa.ForeignKeyConstraint(['review_id'], ['reviews.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
