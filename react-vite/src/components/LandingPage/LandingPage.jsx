@@ -15,6 +15,8 @@ import { MdOutlineTakeoutDining, MdOutlineDinnerDining, MdGroups, MdBrunchDining
 import { IoWineSharp } from "react-icons/io5";
 import { FaMoon } from "react-icons/fa";
 import { IoIosMore } from "react-icons/io";
+import { SiYelp } from "react-icons/si";
+
 
 import './LandingPage.css'
 
@@ -26,7 +28,7 @@ export default function LandingPage() {
 
 
 
-    console.log('data=>', data.Business)
+    // console.log('data=>', data.Business)
 
     useEffect(() => {
         dispatch(landingPageThunk())
@@ -44,8 +46,8 @@ export default function LandingPage() {
 
     const allBusiness = Object.values(data.Business)
 
-    console.log('@@@@@=>', allBusiness)
-    console.log('sixereviews', sixreviews)
+    // console.log('@@@@@=>', allBusiness)
+    // console.log('sixereviews', sixreviews)
     // Helper func: Business avg star rating by id
     function businessAvgRating(businessId) {
         let avgRating = 0
@@ -160,7 +162,7 @@ export default function LandingPage() {
                     {sixreviews.map(review => (
                         <NavLink to={`/business/${data?.Business[review?.business_id]?.id}`} className='landing-business-review-container' key={review.id}>
                             <div className='review-user'>
-                                <p>{data.Users[review.user_id].first_name} wrote a review</p>
+                                <p>{data.Users[review.user_id].first_name} wrote a review <SiYelp className='munch-logo-review'/></p>
                                 <p className='timeago'>{formatTimeAgo(review.createdAt)}</p>
                             </div>
                             <hr className='landing-hr'></hr>
@@ -181,8 +183,8 @@ export default function LandingPage() {
                                 </p>
                                 <img src='data?.Business[review?.business_id]?.url' alt='' />
                             </div>
-                            <p className='review-description'>{review.review}</p>
-                            <p className='review-image'>{review.image}</p>
+                            {/* <p className='review-description'>{review.review}</p>
+                            <p className='review-image'>{review.image}</p> */}
                         </NavLink>
                     ))}
                 </div>
@@ -190,14 +192,14 @@ export default function LandingPage() {
                 <div className='landing-categories'>
                     <h2 className='landing-categories-text'>Categories</h2>
                     <div className='landing-category-container'>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdOutlineDinnerDining /><p>Dinner</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdOutlineTakeoutDining /><p>Take Out</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdGroups /><p>Good For Groups</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdBrunchDining /><p>Brunch</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdOutlineIcecream /><p>Dessert</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><FaMoon /><p>Open Late</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><IoWineSharp /><p>Fine Dining</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><IoIosMore /><p>More</p></NavLink>
+                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdOutlineDinnerDining className='landing-cat-favicon'/><p>Dinner</p></NavLink>
+                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdOutlineTakeoutDining className='landing-cat-favicon'/><p>Take Out</p></NavLink>
+                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdGroups className='landing-cat-favicon'/><p>Good For Groups</p></NavLink>
+                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdBrunchDining className='landing-cat-favicon'/><p>Brunch</p></NavLink>
+                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdOutlineIcecream className='landing-cat-favicon'/><p>Dessert</p></NavLink>
+                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><FaMoon className='landing-cat-favicon'/><p>Open Late</p></NavLink>
+                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><IoWineSharp className='landing-cat-favicon'/><p>Fine Dining</p></NavLink>
+                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><IoIosMore className='landing-cat-favicon'/><p>More</p></NavLink>
                     </div>
                 </div>
             </div>
