@@ -52,22 +52,22 @@ function ProfileButton() {
         <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
-              <div>{user.username}</div>
-              <div>{user.email}</div>
-              <div><button onClick={logout}>Log Out</button></div>
+              <div className='prof-btn-items hello-user-text'>Hello {user.username}</div>
+              <div className='prof-btn-items'>{user.email}</div>
+              <div className='prof-btn-items'><button onClick={logout} className='logout-btn'>Log Out</button></div>
             </>
           ) : (
             <>
               <OpenModalMenuItem
                 itemText="Log In"
                 onItemClick={closeMenu}
-                className="dropdown-text"
+                className="dropdown-text login-btn"
                 modalComponent={<LoginFormModal />}
               />
               <OpenModalMenuItem
                 itemText="Sign Up"
                 onItemClick={closeMenu}
-                className="dropdown-text"
+                className="dropdown-text signup-btn"
                 modalComponent={<SignupFormModal />}
               />
             </>

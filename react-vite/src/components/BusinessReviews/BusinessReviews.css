@@ -1,5 +1,11 @@
 .review-container {
     margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start ;
 }
 
 .name-and-buttons {

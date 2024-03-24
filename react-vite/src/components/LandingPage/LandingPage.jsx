@@ -135,22 +135,23 @@ export default function LandingPage() {
                 </div>
             </div>
             <div>
-                    <h1>Select a business</h1>
-                </div>
+                <h1>Select a business</h1>
+            </div>
             <div className='all-business-container'>
 
                 {allBusiness.map(business => {
                     // const categories = Array.isArray(business.category) ? business.category : JSON.parse(business.category);
                     return (
                         <NavLink to={`/business/${business.id}`} className='business-card' key={business.id}>
-                            <h2>{business.title}</h2>
-                            <p>{renderPriceRating(business.price_rating)}</p>
-                            <p><strong>Phone Number:</strong> #{business.phone_number}</p>
-                            <p><strong>Country:</strong> {business.country}, <strong>State:</strong> {business.state}, <strong>City:</strong> {business.city}</p>
-                            <p><strong>Address:</strong> {business.address}</p>
-                            <p><strong>Categories:</strong> {business.category}</p>
-                            <div><strong>About:</strong></div>
-                            <p>{business.description}</p>
+                            <h2 className="landing-card-title">{business.title}</h2>
+                            <p className="landing-price-rating">{renderPriceRating(business.price_rating)}</p>
+                            <p><span className="landing-card-titles">Phone Number:</span> {business.phone_number}</p>
+                            <p><span className="landing-card-titles">Country:</span> {business.country}
+                            <p></p><span className="landing-card-titles">State:</span> {business.state} <span className="landing-card-titles">City:</span> {business.city}</p>
+                            <p><span className="landing-card-titles">Address:</span> {business.address}</p>
+                            <p><span className="landing-card-titles">Categories:</span> {business.category.split('"')}</p>
+                            <div><span className="landing-card-About">About:</span></div>
+                            <p className="landing-card-description">{business.description}</p>
                         </NavLink>
                     );
                 })}
@@ -162,7 +163,7 @@ export default function LandingPage() {
                     {sixreviews.map(review => (
                         <NavLink to={`/business/${data?.Business[review?.business_id]?.id}`} className='landing-business-review-container' key={review.id}>
                             <div className='review-user'>
-                                <p>{data.Users[review.user_id].first_name} wrote a review <SiYelp className='munch-logo-review'/></p>
+                                <p>{data.Users[review.user_id].first_name} wrote a review <SiYelp className='munch-logo-review' /></p>
                                 <p className='timeago'>{formatTimeAgo(review.createdAt)}</p>
                             </div>
                             <hr className='landing-hr'></hr>
@@ -192,14 +193,14 @@ export default function LandingPage() {
                 <div className='landing-categories'>
                     <h2 className='landing-categories-text'>Categories</h2>
                     <div className='landing-category-container'>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdOutlineDinnerDining className='landing-cat-favicon'/><p>Dinner</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdOutlineTakeoutDining className='landing-cat-favicon'/><p>Take Out</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdGroups className='landing-cat-favicon'/><p>Good For Groups</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdBrunchDining className='landing-cat-favicon'/><p>Brunch</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdOutlineIcecream className='landing-cat-favicon'/><p>Dessert</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><FaMoon className='landing-cat-favicon'/><p>Open Late</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><IoWineSharp className='landing-cat-favicon'/><p>Fine Dining</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><IoIosMore className='landing-cat-favicon'/><p>More</p></NavLink>
+                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdOutlineDinnerDining className='landing-cat-favicon' /><p>Dinner</p></NavLink>
+                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdOutlineTakeoutDining className='landing-cat-favicon' /><p>Take Out</p></NavLink>
+                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdGroups className='landing-cat-favicon' /><p>Good For Groups</p></NavLink>
+                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdBrunchDining className='landing-cat-favicon' /><p>Brunch</p></NavLink>
+                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdOutlineIcecream className='landing-cat-favicon' /><p>Dessert</p></NavLink>
+                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><FaMoon className='landing-cat-favicon' /><p>Open Late</p></NavLink>
+                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><IoWineSharp className='landing-cat-favicon' /><p>Fine Dining</p></NavLink>
+                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><IoIosMore className='landing-cat-favicon' /><p>More</p></NavLink>
                     </div>
                 </div>
             </div>

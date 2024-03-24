@@ -7,6 +7,8 @@
   justify-content: space-around;
   list-style-type: none;
   align-items: center;
+  z-index: 2;
+  position: relative;
 }
 
 .Landinglogo img {
@@ -41,4 +43,14 @@
 
 .Nav-btn:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.background-shadow{
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
 }

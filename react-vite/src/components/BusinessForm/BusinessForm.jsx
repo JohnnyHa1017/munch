@@ -8,6 +8,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const dispatch = useDispatch()
   const nav = useNavigate()
   const user = useSelector((state) => state.session.user)
+  const allbusiness = useSelector((state) => state.business)
   const { businessId } = useParams()
 
   let exisiting_price_rating = ''
@@ -47,7 +48,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [validations, setValidations] = useState({})
   const [submitted, setSubmitted] = useState(false)
   console.log(submitted)
-  console.log(setImage)
+  // console.log(setImage)
   let isValidated = false
 
   useEffect(() => {
@@ -71,7 +72,6 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       if (!country || (country.length > 50)) {
         errors.country = 'Country is required and can only be under 50 characters.'
       }
-
       if (!lat || (lat >= 90) || (lat <= -90)) {
         errors.lat = 'Latitude must be a number between -90 and 90.'
       }
@@ -123,8 +123,6 @@ const CreateNewBusiness = ({ buttonName, business }) => {
     const formData = new FormData();
     formData.append("image", image);
 
-
-
     // if (!Object.keys(validations).length) {
     // let createSchedule = `Monday: ${mondayopen} - ${mondayclose},
     //                       Tuesday: ${tuesdayopen} - ${tuesdayclose},
@@ -151,7 +149,6 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       schedule: createSchedule,
       // image
     };
-    console.log(business, '<------- BUSINESS OBJECT')
 
     await Promise.resolve(formData);
 
@@ -172,6 +169,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       }
     }
   };
+
 
   return (
     <form

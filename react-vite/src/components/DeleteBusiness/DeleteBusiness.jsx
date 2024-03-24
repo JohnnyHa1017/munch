@@ -7,12 +7,16 @@ import './DeleteBusiness.css'
 
 function DeleteBusiness({businessId, reRenderOnDelete}) {
     const state = useSelector(state => state.business)
-    const currUserId = useSelector(state => state.session.user.id)
+    const currUser = useSelector(state => state.session.user)
     const dispatch = useDispatch();
     const nav = useNavigate()
     const { closeModal } = useModal()
 
+    console.log(state)
     useEffect(()=>{
+        if(!currUser){
+            nav('/')
+        }
         dispatch(specificBusinessThunk(businessId))
     }, [businessId, dispatch])
 
@@ -21,7 +25,7 @@ function DeleteBusiness({businessId, reRenderOnDelete}) {
         dispatch(deleteBusinessThunk(state[businessId]))
         closeModal()
         reRenderOnDelete()
-        nav(`/user/${currUserId}/business`)
+        nav(`/user/${currUser.id}/business`)
     }
 
     return(
