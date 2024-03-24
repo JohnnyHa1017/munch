@@ -140,7 +140,7 @@ export default function LandingPage() {
             <div className='all-business-container'>
 
                 {allBusiness.map(business => {
-                    const categories = Array.isArray(business.category) ? business.category : JSON.parse(business.category);
+                    // const categories = Array.isArray(business.category) ? business.category : JSON.parse(business.category);
                     return (
                         <NavLink to={`/business/${business.id}`} className='business-card' key={business.id}>
                             <h2>{business.title}</h2>
@@ -148,7 +148,7 @@ export default function LandingPage() {
                             <p><strong>Phone Number:</strong> #{business.phone_number}</p>
                             <p><strong>Country:</strong> {business.country}, <strong>State:</strong> {business.state}, <strong>City:</strong> {business.city}</p>
                             <p><strong>Address:</strong> {business.address}</p>
-                            <p><strong>Categories:</strong> {categories.join(', ')}</p>
+                            <p><strong>Categories:</strong> {business.category}</p>
                             <div><strong>About:</strong></div>
                             <p>{business.description}</p>
                         </NavLink>

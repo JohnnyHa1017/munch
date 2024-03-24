@@ -31,7 +31,7 @@ function MenusByBusinessId() {
 
     return (
         <>
-            {business && menuImages ? ( // Added null check here
+            {business && menuImages.length > 1 ? ( // Added null check here
                 <div className='menu-page-container'>
                     <NavLink to={`/business/${businessId}`}><h1 className='menu-detail-text-black'>{business?.title}&apos;s Menu</h1></NavLink>
                     <div className='menu-page-all-items-container'>
