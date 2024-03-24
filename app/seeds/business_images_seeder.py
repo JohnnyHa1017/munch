@@ -47,8 +47,8 @@ def seed_business_images():
     ch_business_image9 = BusinessImage(business_id=4, url="https://i.postimg.cc/Pq537V2z/Continental-Hotel-Assorted-Baked-Clams.jpg", preview=False, menu_id=25)
     ch_business_image10 = BusinessImage(business_id=4, url="https://i.postimg.cc/wML0NCjH/Continental-Hotel-Pinot-Noir.jpg", preview=False, menu_id=26)
     ch_business_image11 = BusinessImage(business_id=4, url="https://i.postimg.cc/zB9xVz50/Continental-Hotel-Hibiki.png", preview=False, menu_id=27)
-    ch_business_image12 = BusinessImage(business_id=4, url="https://i.postimg.cc/L6jbg1Jf/Continental-Hotel-Gelato.jpg", preview=False, menu_id=27)
-    ch_business_image13 = BusinessImage(business_id=4, url="https://i.postimg.cc/rwcY1w4H/Continental-Hotel-Bandaid.jpg", preview=False, menu_id=28)
+    ch_business_image12 = BusinessImage(business_id=4, url="https://i.postimg.cc/L6jbg1Jf/Continental-Hotel-Gelato.jpg", preview=False, menu_id=28)
+    ch_business_image13 = BusinessImage(business_id=4, url="https://i.postimg.cc/rwcY1w4H/Continental-Hotel-Bandaid.jpg", preview=False, menu_id=29)
 
 
     # Baratie (6 Images Total)
