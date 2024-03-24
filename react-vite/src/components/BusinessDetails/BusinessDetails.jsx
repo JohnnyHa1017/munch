@@ -7,17 +7,17 @@ import { businessReviewThunk } from "../../redux/reviews";
 import './BusinessDetails.css'
 import BusinessReviews from "../BusinessReviews/BusinessReviews";
 import MenusByBusinessId from "../Menu/MenusByBusiness";
-import default_business_background from '../../images/default_business_background.jpg'
-import { PiBowlFoodFill } from "react-icons/pi";
-import { LuBean } from "react-icons/lu";
-import { BiGame, BiSolidGame, BiSolidBadgeDollar } from "react-icons/bi";
-import { IoCheckmarkCircle, IoCheckmarkCircleOutline, IoEarth } from "react-icons/io5";
-import { FaPhoneVolume, FaRegKeyboard } from "react-icons/fa";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import DeleteBusiness from "../DeleteBusiness/DeleteBusiness";
 
+import default_business_background from '../../images/default_business_background.jpg'
+import { PiBowlFoodFill } from "react-icons/pi";
+import { LuBean } from "react-icons/lu";
+import { MdOutlineRateReview } from "react-icons/md";
+import { BiGame, BiSolidGame, BiSolidBadgeDollar } from "react-icons/bi";
+import { IoCheckmarkCircle, IoCheckmarkCircleOutline, IoEarth } from "react-icons/io5";
+import { FaPhoneVolume, FaRegKeyboard } from "react-icons/fa";
 
-// TODO get current time and make Open/Closed dynamic
 
 
 export default function OneBusiness() {
@@ -153,7 +153,6 @@ export default function OneBusiness() {
         }
       }
     }
-    console.log('isPickup ==>', isPickup)
   }
   //business background image
   if (menus?.Business_Images) {
@@ -203,7 +202,7 @@ export default function OneBusiness() {
                     <BiGame className="bd-star" />
                     <BiGame className="bd-star" />
                     <BiGame className="bd-star" />
-                    <p>no review</p>
+                    <h3>no review</h3>
                   </>
                 )}
               </div>
@@ -223,9 +222,22 @@ export default function OneBusiness() {
           {hasUserLoggedIn &&
             <div className="business-detail-action-buttons-container">
               {!hasWrittenReview &&
-                <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/review/new`}><FaRegKeyboard />Write a review</NavLink></button>
+                <button className="bd-red-action-buttons">
+                  <NavLink className='red-button-text' to={`/business/${businessId}/review/new`}>
+                    <FaRegKeyboard />Write a review
+                  </NavLink>
+                </button>
               }
-              <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/menus`}><PiBowlFoodFill />View Menu</NavLink></button>
+              <button className="bd-red-action-buttons">
+                <NavLink className='red-button-text' to={`/business/${businessId}/menus`}>
+                  <PiBowlFoodFill />View Menu
+                </NavLink>
+              </button>
+              <button className="bd-red-action-buttons">
+                <NavLink className='red-button-text' to={`/business/${businessId}/reviews`}>
+                  <MdOutlineRateReview />View All Reviews
+                </NavLink>
+              </button>
               <button className="bd-blue-action-buttons" onClick={throwAlter}>Follow</button>
               <button className="bd-blue-action-buttons" onClick={throwAlter}>Share</button>
               <button className="bd-blue-action-buttons" onClick={throwAlter}>Save</button>
@@ -310,13 +322,24 @@ export default function OneBusiness() {
               </div>
               {isOwner &&
                 <div className="business-dtl-info-box">
-                  <h3>Owner box</h3>
-                  <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/menus/new`}>Add Menu</NavLink></button>
-                  <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/amenities`}>Add Amenity</NavLink></button>
-                  <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/edit`}>Edit My Business</NavLink></button>
-                  {/* <button className="bd-red-action-buttons"><NavLink className='red-button-text' to={`/business/${businessId}/delete`}>Delete My Business</NavLink></button> */}
+                  <h2>Owner's Hub</h2>
                   <button className="bd-red-action-buttons">
-                    <OpenModalMenuItem
+                    <NavLink className='red-button-text' to={`/business/${businessId}/menus/new`}>
+                      Add Menu Item
+                    </NavLink>
+                  </button>
+                  <button className="bd-red-action-buttons">
+                    <NavLink className='red-button-text' to={`/business/${businessId}/amenities`}>
+                      Add Amenity
+                    </NavLink>
+                  </button>
+                  <button className="bd-red-action-buttons">
+                    <NavLink className='red-button-text' to={`/business/${businessId}/edit`}>
+                      Edit My Business
+                    </NavLink>
+                  </button>
+                  <button className="bd-red-action-buttons">
+                    <OpenModalMenuItem className='red-button-text'
                       itemText='Delete Business'
                       modalComponent={<DeleteBusiness businessId={businessId} reRenderOnDelete={reRenderOnDelete} />}
                     />
