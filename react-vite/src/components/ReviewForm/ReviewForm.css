@@ -1,0 +1,10 @@
+.review-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 300px;
+}
+.review-textarea {
+    width: 100%;
+    margin-bottom: 10px;
+}

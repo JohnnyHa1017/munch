@@ -16,16 +16,15 @@ import { IoWineSharp } from "react-icons/io5";
 import { FaMoon } from "react-icons/fa";
 import { IoIosMore } from "react-icons/io";
 
-
 import './LandingPage.css'
 
 export default function LandingPage() {
 
     const dispatch = useDispatch()
     const data = useSelector((state) => state.business)
-
     const reviewsArray = data.Review
-    // const amenitiesArray = data.Amen
+
+    console.log('data=>',data.Business)
 
     useEffect(() => {
         dispatch(landingPageThunk())
@@ -35,13 +34,14 @@ export default function LandingPage() {
         return <div>Loading...</div>
     }
 
-    console.log('6reviews@@@@', reviewsArray)
+    console.log('RV ARRAY', reviewsArray)
 
     // 6 reviews on landing
     const sixreviews = []
     for (let i = 0; i < 6; i++) {
         sixreviews.push(reviewsArray[i])
     }
+
 
     // Helper func: Business avg star rating by id
     function businessAvgRating(businessId) {
@@ -130,7 +130,10 @@ export default function LandingPage() {
                 </div>
             </div>
 
-            <div className='all-business-container'></div>
+            <div className='all-business-container'>
+
+
+            </div>
 
             <div className='recent-activity-container'>
                 <h2 className='recent-actity-text'>Recent Activity</h2>

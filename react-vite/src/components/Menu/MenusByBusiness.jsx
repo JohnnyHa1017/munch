@@ -31,12 +31,12 @@ function MenusByBusinessId() {
 
     return (
         <>
-            {menu_images.length > 0 && business && menus ? ( // Added null check here
+            {business && menus ? ( // Added null check here
                 <div className='menu-page-container'>
                     <NavLink to={`/business/${businessId}`}><h1 className='menu-detail-text-black'>{business?.title}'s Menu</h1></NavLink>
                     <div className='menu-page-all-items-container'>
                         {menus.map((menu, index) => {
-                            const matchedImage = menu_images.find(image => image.menu_id === menu.id);
+                            const matchedImage = menu_images?.find(image => image.menu_id === menu.id);
                             return (
                                 <div className='menu-item-container' key={index}>
                                     <h2>{menu?.name}</h2>

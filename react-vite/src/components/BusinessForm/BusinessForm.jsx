@@ -10,14 +10,14 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const user = useSelector((state) => state.session.user)
   const { businessId } = useParams()
 
-  let exisiting_price_rating =''
-  if(business?.price_rating){
-    for(let i = 0; i <business?.price_rating; i++){
+  let exisiting_price_rating = ''
+  if (business?.price_rating) {
+    for (let i = 0; i < business?.price_rating; i++) {
       exisiting_price_rating += '$'
     }
   }
 
-  const [title, setTitle] = useState(business?.title );
+  const [title, setTitle] = useState(business?.title);
   const [address, setAddress] = useState(business?.address);
   const [city, setCity] = useState(business?.city);
   const [state, setState] = useState(business?.state);
@@ -47,7 +47,74 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [validations, setValidations] = useState({})
   const [submitted, setSubmitted] = useState(false)
   console.log(submitted)
+  let isValidated = false
 
+  useEffect(() => {
+    if (!user) {
+      nav('/')
+    }
+    const errors = {}
+    if (submitted){
+      if (!title || (title.length > 50)) {
+        errors.title = 'Title is required and can only be under 50 characters.'
+      }
+      if (!address || (address.length > 50)) {
+        errors.address = 'Address is required and can only be under 50 characters.'
+      }
+      if (!city || city.length > 50) {
+        errors.city = 'City is required and can only be under 50 characters.'
+      }
+      if (!state || (state.length > 50)) {
+        errors.state = 'State is required and can only be under 50 characters.'
+      }
+      if (!country || (country.length > 50)) {
+        errors.country = 'Country is required and can only be under 50 characters.'
+      }
+
+      if (!lat || (lat >= 90) || (lat <= -90)) {
+        errors.lat = 'Latitude must be a number between -90 and 90.'
+      }
+      if (isNaN(lat)&&lat.length>1) {
+        errors.lat_int = 'Latitude can only contain numbers.'
+      }
+      if (!lng || (lng >= 180) || (lng <= -180)) {
+        errors.lng = 'Longitude must be between -180 and 180.'
+      }
+      if (isNaN(lng)&&lng.length>1) {
+        errors.lng_int = 'Longitude can only contain numbers.'
+      }
+      if (!description || (description.length > 2000)) {
+        errors.description = 'Description is required and must be 2000 characters or less.'
+      }
+      if (phone_number.length > 20) {
+        errors.phone_number = "Phone Number cannot be more than 20 characters."
+      }
+      if (phone_number.length < 10) {
+        errors.phone_number_min = 'Phone Number must be at least 10 digits.'
+      }
+      const numberChars = '1234567890-()'
+      for (let char of phone_number) {
+        if (!numberChars.includes(char)) {
+          errors.phone_number_int = 'Phone Number must only contain numbers.'
+        }
+      }
+      if (!price_rating) {
+        errors.price_rating = "Price Rating is required."
+      }
+      if (price_rating !== '$' && price_rating !== '$$' && price_rating !== '$$$' && price_rating !== '$$$$') {
+        errors.price_range = 'Price rating must be between $ and $$$$.'
+      }
+      if (!category) {
+        errors.category = 'At least one category must be selected.'
+      }
+    }
+
+    setValidations(errors)
+    if (Object.keys(validations).length) {
+      isValidated = true
+    }
+  }, [submitted, title, address, city, state, country, lat, lng, description, phone_number, price_rating, category, image]
+  )
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,93 +122,39 @@ const CreateNewBusiness = ({ buttonName, business }) => {
     const formData = new FormData();
     formData.append("image", image);
 
-    const errors = {}
-    if (!user) {
-      nav('/')
-    }
-    if (!title || (title.length > 50)) {
-      errors.title = 'Title is required and can only be under 50 characters.'
-    }
-    if (!address || (address.length > 50)) {
-      errors.address = 'Address is required and can only be under 50 characters.'
-    }
-    if (!city || city.length > 50) {
-      errors.city = 'City is required and can only be under 50 characters.'
-    }
-    if (!state || (state.length > 50)) {
-      errors.state = 'State is required and can only be under 50 characters.'
-    }
-    if (!country || (country.length > 50)) {
-      errors.country = 'Country is required and can only be under 50 characters.'
-    }
 
-    if (!lat || (lat >= 90) || (lat <= -90)) {
-      errors.lat = 'Latitude must be a number between -90 and 90.'
-    }
-    if(isNaN(lat)){
-      errors.lat_int = 'Latitude can only contain numbers.'
-    }
-    if (!lng || (lng >= 180) || (lng <= -180)) {
-      errors.lng = 'Longitude must be between -180 and 180.'
-    }
-    if(isNaN(lng)){
-      errors.lng_int = 'Longitude can only contain numbers.'
-    }
-    if (!description || (description.length > 2000)) {
-      errors.description = 'Description is required and must be 2000 characters or less.'
-    }
-    if (phone_number.length > 20) {
-      errors.phone_number = "Phone Number cannot be more than 20 characters."
-    }
-    if(phone_number.length < 10){
-      errors.phone_number_min ='Phone Number must be at least 10 digits.'
-    }
-    const numberChars = '1234567890-()'
-    for (let char of phone_number){
-      if(!numberChars.includes(char)){
-        errors.phone_number_int = 'Phone Number must only contain numbers.'
-      }
-    }
-    if (!price_rating) {
-      errors.price_rating = "Price Rating is required."
-    }
-    if(price_rating !== '$' && price_rating !== '$$' && price_rating !== '$$$' && price_rating !== '$$$$'){
-      errors.price_range = 'Price rating must be between $ and $$$$.'
-    }
-    if (!category) {
-      errors.category = 'At least one category must be selected.'
-    }
-    setValidations(errors)
-  // let createSchedule = `Monday: ${mondayopen} - ${mondayclose},
-  //                       Tuesday: ${tuesdayopen} - ${tuesdayclose},
-  //                       Wednesday: ${wednesdayopen} - ${wednesdayclose},
-  //                       Thursday: ${thursdayopen} - ${thursdayclose},
-  //                       Friday: ${fridayopen} - ${fridayclose},
-  //                       Saturday: ${saturdayopen} - ${saturdayclose},
-  //                       Sunday: ${sundayclose} - ${sundayclose}
-  //                     `
-  let createSchedule = ''
 
-  let business ={
-    title,
-    address,
-    city,
-    state,
-    country,
-    description,
-    phone_number,
-    price_rating: price_rating.length,
-    lat,
-    lng,
-    category,
-    schedule: createSchedule,
-    image
-  };
-  console.log(business,'<------- BUSINESS OBJECT')
+    // if (!Object.keys(validations).length) {
+    // let createSchedule = `Monday: ${mondayopen} - ${mondayclose},
+    //                       Tuesday: ${tuesdayopen} - ${tuesdayclose},
+    //                       Wednesday: ${wednesdayopen} - ${wednesdayclose},
+    //                       Thursday: ${thursdayopen} - ${thursdayclose},
+    //                       Friday: ${fridayopen} - ${fridayclose},
+    //                       Saturday: ${saturdayopen} - ${saturdayclose},
+    //                       Sunday: ${sundayclose} - ${sundayclose}
+    //                     `
+    let createSchedule = ''
 
-  await Promise.resolve(formData);
+    let business = {
+      title,
+      address,
+      city,
+      state,
+      country,
+      description,
+      phone_number,
+      price_rating: price_rating.length,
+      lat,
+      lng,
+      category,
+      schedule: createSchedule,
+      image
+    };
+    console.log(business, '<------- BUSINESS OBJECT')
 
-  if (!Object.keys(validations).length) {
+    await Promise.resolve(formData);
+
+
     if (!businessId) {
       const createBusiness = await dispatch(createNewBusinessThunk(business));
       if (createBusiness && createBusiness.id) {
@@ -157,91 +170,90 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         nav(`/business/${businessId}`);
       }
     }
-  }
-};
+  };
 
-return (
-  <form
-    onSubmit={handleSubmit}
-    encType="multipart/form-data"
-    className='business-form'
-  >
-    <h3 className='create-form-h3'>Business Information</h3>
-    <p className='create-form-description'>Add your businesses information so Munch users can find you!</p>
-    <label className='create-label-container'>
-      Business Name :
-      <input
-        type='text'
-        name='title'
-        value={title}
-        placeholder='Name'
-        onChange={(e) => setTitle(e.target.value)}
-      ></input>
-    </label>
-    {validations.title && (<p className='validation-err-text'>{validations.title}</p>)}
-    <label className='create-label-container'>
-      Business Phone Number :
-      <input
-        type='text'
-        name='phone number'
-        value={phone_number}
-        placeholder='Phone Number'
-        onChange={(e) => setPhoneNumber(e.target.value)}
-      ></input>
-    </label>
-    {validations.phone_number && (<p className='validation-err-text'>{validations.phone_number}</p>)}
-    {validations.phone_number_min && (<p className='validation-err-text'>{validations.phone_number_min}</p>)}
-    {validations.phone_number_int && (<p className='validation-err-text'>{validations.phone_number_int}</p>)}
-    <hr className='create-form-line'></hr>
-    <h3 className='create-form-h3'>Location</h3>
-    <p className='create-form-description'>Where is your business located?</p>
-    <label>
-      Address :
-      <input
-        type='text'
-        name='address'
-        value={address}
-        placeholder='Address'
-        onChange={(e) => setAddress(e.target.value)}
-      ></input>
-    </label>
-    {validations.address && (<p className='validation-err-text'>{validations.address}</p>)}
-    <label>
-      City :
-      <input
-        type='text'
-        name='city'
-        value={city}
-        placeholder='City'
-        onChange={(e) => setCity(e.target.value)}
-      ></input>
-    </label>
-    {validations.city && (<p className='validation-err-text'>{validations.city}</p>)}
-    <label>
-      State :
-      <input
-        type='text'
-        name='state'
-        value={state}
-        placeholder='State'
-        onChange={(e) => setState(e.target.value)}
-      ></input>
-    </label>
-    {validations.state && (<p className='validation-err-text'>{validations.state}</p>)}
-    <label>
-      Country :
-      <input
-        type='text'
-        name='country'
-        value={country}
-        placeholder='Country'
-        onChange={(e) => setCountry(e.target.value)}
-      ></input>
-    </label>
-    {validations.country && (<p className='validation-err-text'>{validations.country}</p>)}
-    <label>
+  return (
+    <form
+      onSubmit={handleSubmit}
+      encType="multipart/form-data"
+      className='business-form'
+    >
+      <h3 className='create-form-h3'>Business Information</h3>
+      <p className='create-form-description'>Add your businesses information so Munch users can find you!</p>
+      <label className='create-label-container'>
+        Business Name :
+        <input
+          type='text'
+          name='title'
+          value={title}
+          placeholder='Name'
+          onChange={(e) => setTitle(e.target.value)}
+        ></input>
+      </label>
+      {validations.title && (<p className='validation-err-text'>{validations.title}</p>)}
+      <label className='create-label-container'>
+        Business Phone Number :
+        <input
+          type='text'
+          name='phone number'
+          value={phone_number}
+          placeholder='Phone Number'
+          onChange={(e) => setPhoneNumber(e.target.value)}
+        ></input>
+      </label>
+      {validations.phone_number && (<p className='validation-err-text'>{validations.phone_number}</p>)}
+      {validations.phone_number_min && (<p className='validation-err-text'>{validations.phone_number_min}</p>)}
+      {validations.phone_number_int && (<p className='validation-err-text'>{validations.phone_number_int}</p>)}
+      <hr className='create-form-line'></hr>
+      <h3 className='create-form-h3'>Location</h3>
+      <p className='create-form-description'>Where is your business located?</p>
+      <label>
+        Address :
+        <input
+          type='text'
+          name='address'
+          value={address}
+          placeholder='Address'
+          onChange={(e) => setAddress(e.target.value)}
+        ></input>
+      </label>
+      {validations.address && (<p className='validation-err-text'>{validations.address}</p>)}
+      <label>
+        City :
+        <input
+          type='text'
+          name='city'
+          value={city}
+          placeholder='City'
+          onChange={(e) => setCity(e.target.value)}
+        ></input>
+      </label>
+      {validations.city && (<p className='validation-err-text'>{validations.city}</p>)}
+      <label>
+        State :
+        <input
+          type='text'
+          name='state'
+          value={state}
+          placeholder='State'
+          onChange={(e) => setState(e.target.value)}
+        ></input>
+      </label>
+      {validations.state && (<p className='validation-err-text'>{validations.state}</p>)}
+      <label>
+        Country :
+        <input
+          type='text'
+          name='country'
+          value={country}
+          placeholder='Country'
+          onChange={(e) => setCountry(e.target.value)}
+        ></input>
+      </label>
+      {validations.country && (<p className='validation-err-text'>{validations.country}</p>)}
+      <label>
         Latitude :
-        <span className='optional-tag'> optional</span>
+        {/* <span className='optional-tag'> required</span> */}
         <input
           type='text'
           name='lat'
@@ -254,7 +266,7 @@ return (
       {validations.lat_int && (<p className='validation-err-text'>{validations.lat_int}</p>)}
       <label>
         Longitude :
-        <span className='optional-tag'> optional</span>
+        {/* <span className='optional-tag'> required</span> */}
         <input
           type='text'
           name='lng'
@@ -265,67 +277,67 @@ return (
       </label>
       {validations.lng && (<p className='validation-err-text'>{validations.lng}</p>)}
       {validations.lng_int && (<p className='validation-err-text'>{validations.lng_int}</p>)}
-    <hr className='create-form-line'></hr>
-    <h3 className='create-form-h3'>Select a price rating</h3>
-    <p className='create-form-description'>What is the approximate cost per person for your business?</p>
-    <label>
-      Price :
-      <input
-        list='price-categories'
-        type='categories'
-        name='price'
-        value={price_rating}
-        placeholder="$"
-        onChange={(e) => setPrice(e.target.value)}
-      ></input>
-      <datalist id='price-categories'>
-        <option value='$'></option>
-        <option value='$$'></option>
-        <option value='$$$'></option>
-        <option value='$$$$'></option>
-      </datalist>
-    </label>
-    {validations.price_rating && (<p className='validation-err-text'>{validations.price_rating}</p>)}
-    {validations.price_range && (<p className='validation-err-text'>{validations.price_range}</p>)}
-    <hr className='create-form-line'></hr>
-    <h3 className='create-form-h3'>Tell us about your business</h3>
-    <p className='create-form-description'>Add a category to your business to help Munch users search for your business.</p>
-    <label>
-      Category : <br></br>
-      <input
-        list='categories'
-        type='categories'
-        name='category'
-        value={category}
-        placeholder="Category"
-        onChange={(e) => setCategory(e.target.value)}
-      >
-      </input>
-      <datalist id='categories' >
-        <option value='Asian Fusion'></option>
-        <option value='Bar'></option>
-        <option value='Brunch'></option>
-        <option value='Cafe'></option>
-        <option value='Casual'></option>
-        <option value='Cocktail Bar'></option>
-        <option value='Deli'></option>
-        <option value='Dessert'></option>
-        <option value='Dinner'></option>
-        <option value='Fast Food'></option>
-        <option value='Fine Dining'></option>
-        <option value='German'></option>
-        <option value='Indian'></option>
-        <option value='Italian'></option>
-        <option value='Japanese'></option>
-        <option value='Mexican'></option>
-        <option value='Palestinian'></option>
-        <option value='Pub'></option>
-        <option value='Seafood'></option>
-        <option value='Tapas'></option>
-      </datalist>
-    </label>
-    {validations.category && (<p className='validation-err-text'>{validations.category}</p>)}
-<br></br>
+      <hr className='create-form-line'></hr>
+      <h3 className='create-form-h3'>Select a price rating</h3>
+      <p className='create-form-description'>What is the approximate cost per person for your business?</p>
+      <label>
+        Price :
+        <input
+          list='price-categories'
+          type='categories'
+          name='price'
+          value={price_rating}
+          placeholder="$"
+          onChange={(e) => setPrice(e.target.value)}
+        ></input>
+        <datalist id='price-categories'>
+          <option value='$'></option>
+          <option value='$$'></option>
+          <option value='$$$'></option>
+          <option value='$$$$'></option>
+        </datalist>
+      </label>
+      {validations.price_rating && (<p className='validation-err-text'>{validations.price_rating}</p>)}
+      {validations.price_range && (<p className='validation-err-text'>{validations.price_range}</p>)}
+      <hr className='create-form-line'></hr>
+      <h3 className='create-form-h3'>Tell us about your business</h3>
+      <p className='create-form-description'>Add a category to your business to help Munch users search for your business.</p>
+      <label>
+        Category : <br></br>
+        <input
+          list='categories'
+          type='categories'
+          name='category'
+          value={category}
+          placeholder="Category"
+          onChange={(e) => setCategory(e.target.value)}
+        >
+        </input>
+        <datalist id='categories' >
+          <option value='Asian Fusion'></option>
+          <option value='Bar'></option>
+          <option value='Brunch'></option>
+          <option value='Cafe'></option>
+          <option value='Casual'></option>
+          <option value='Cocktail Bar'></option>
+          <option value='Deli'></option>
+          <option value='Dessert'></option>
+          <option value='Dinner'></option>
+          <option value='Fast Food'></option>
+          <option value='Fine Dining'></option>
+          <option value='German'></option>
+          <option value='Indian'></option>
+          <option value='Italian'></option>
+          <option value='Japanese'></option>
+          <option value='Mexican'></option>
+          <option value='Palestinian'></option>
+          <option value='Pub'></option>
+          <option value='Seafood'></option>
+          <option value='Tapas'></option>
+        </datalist>
+      </label>
+      {validations.category && (<p className='validation-err-text'>{validations.category}</p>)}
+      <br></br>
       <p className='create-form-description'>What makes your business stand out from others? Tell Munch users why they should visit you!</p>
       <label>
         Description :
@@ -349,7 +361,7 @@ return (
           onChange={(e) => setImage(e.target.files[0])}
           placeholder='Add an Image'
         ></input>
-          {(imageLoading)&& <p>Loading...</p>}
+        {(imageLoading) && <p>Loading...</p>}
       </label>
       {validations.image && (<p className='validation-err-text'>{validations.image}</p>)}
       {/* <h2>Schedule</h2>
@@ -870,8 +882,8 @@ return (
           <option value='11:00pm'></option>
         </datalist>
       </label> */}
-      <button id='submit-button' type='submit' disabled={Object.keys(validations).length > 0}>{buttonName}</button>
-      { (imageLoading) && <p>Loading...</p>}
+      <button id='submit-button' type='submit' disabled={isValidated}>{buttonName}</button>
+      {(imageLoading) && <p>Loading...</p>}
     </form>
   )
 }
