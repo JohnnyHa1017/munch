@@ -115,7 +115,7 @@
 }
 
 .business-card {
-    background: linear-gradient(to right, rgb(209, 209, 209), rgb(141, 141, 141)
+    background: linear-gradient(to bottom left, rgb(209, 209, 209), rgb(26,121,255)
     );
     border-radius: 8px;
     background-size: 200% 200%;
@@ -129,7 +129,9 @@
 
 .business-card:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
-}
+
+    background: linear-gradient(to top right, rgb(209, 209, 209), rgb(26,121,255)
+    );}
 
 .munch-logo-review{
     color: rgb(26,121,255);
@@ -145,4 +147,28 @@
 .landing-business-review-container:hover .landing-business-name{
     color: rgb(26,121,255);
     text-decoration: underline;
+}
+
+.landing-price-rating{
+    color: rgb(0, 31, 204);
+}
+
+.landing-card-titles{
+    color: rgb(0, 31, 204);
+    font-weight: bold;
+}
+
+.landing-card-title{
+    color: black;
+    font-size: 30px;
+}
+
+.landing-card-description{
+    color: black;
+}
+
+.landing-card-About{
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
 }
