@@ -14,12 +14,31 @@
   height: 80px;
 }
 
-.Nav-create {
-  text-decoration: none;
-  
+@keyframes moveGradient {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
 }
 
-.Nav-manage {
-  text-decoration: none;
 
+.Nav-btn {
+  text-decoration: none;
+  color: white;
+  background: linear-gradient(to right, rgb(82, 134, 207), rgb(26,121,255)
+  );
+  animation: moveGradient 5s linear infinite;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.5s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.Nav-btn:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }

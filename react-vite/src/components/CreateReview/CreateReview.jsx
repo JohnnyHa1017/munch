@@ -1,5 +1,5 @@
 import CreateNewReview from "../ReviewForm/ReviewForm";
-
+import './CreateReview.css'
 const CreateReview = () => {
     const buttonName = 'Create Review'
 
@@ -12,7 +12,9 @@ const CreateReview = () => {
     return (
         <>
             <h1>Create a Review</h1>
+            <div>
             <CreateNewReview reviewToUpdate={review} buttonName={buttonName}/>
+            </div>
         </>
     )
 }
