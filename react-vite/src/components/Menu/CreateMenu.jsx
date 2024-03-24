@@ -32,6 +32,8 @@ function CreateMenu() {
     const [validations, setValidations] = useState('')
     const [submitted, setSubmitted] = useState(false)
 
+    let isValidated = false
+
     useEffect(() => {
         const errors = {}
         // if (!user || user.id != businessObj[businessId].owner) {
@@ -54,6 +56,9 @@ function CreateMenu() {
         }
 
         setValidations(errors)
+        if (Object.keys(validations).length) {
+            isValidated = true
+        }
     }, [user, nav, name, category, price, submitted])
 
 
@@ -63,10 +68,10 @@ function CreateMenu() {
         const newMenu = {
             name, category, price, description
         }
-        if (!Object.keys(validations).length) {
-            await dispatch(createMenuThunk(businessId, newMenu))
-            nav(`/business/${businessId}`)
-        }
+        // if (!Object.keys(validations).length) {
+        await dispatch(createMenuThunk(businessId, newMenu))
+        nav(`/business/${businessId}`)
+        // }
     }
 
     return (
@@ -117,7 +122,7 @@ function CreateMenu() {
                     ></input>
                 </label>
                 {validations.description && (<p className='validation-messages'>{validations.description}</p>)}
-                <button className='amen-create-btn' type='submit'>Create Menu</button>
+                <button className='amen-create-btn' type='submit' disabled={isValidated}>Create Menu</button>
             </form>
         </div>
     )

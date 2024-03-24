@@ -68,56 +68,56 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
 
     return (
         <>
-            {/* <h1>allReviews</h1> */}
-
-            <form
-                onSubmit={handleSubmit}
-                encType="multipart/form-data"
-                className='review-form'>
-                {/* <h1 className='title'>Create a Review</h1> */}
-                {validations.review && <p>{validations.message}</p>}
-                <textarea
-                    className='review-textarea'
-                    type='text'
-                    name='review'
-                    value={review}
-                    onChange={(e) => setReview(e.target.value)}
-                    placeholder='Leave your review here...'
-                    rows={7}
-                    cols={70}
-                />
-                <label>
-                    Submit an Image:
-                    <input
-                        type='file'
-                        accept="image/*"
-                        onChange={(e) => setImage(e.target.files[0])}
-                        placeholder='Add a Review Image'
-                    ></input>
-                </label>
-                {validations.image && (<p>{validations.image}</p>)}
-                <div className='Stars-field'>
-                    {[1, 2, 3, 4, 5].map((star, i) => {
-                        const ratingValue = i + 1
-                        return (
-                            <label key={i}>
-                                <span
-                                    className='Stars'
-                                    onClick={() => setStars(ratingValue)}
-                                    onMouseEnter={() => setHover(ratingValue)}
-                                    onMouseLeave={() => setHover(ratingValue)}
-                                >
-                                    {ratingValue <= (hover || star) ? '★' : '☆'}
-                                </span>
-                            </label>
-                        )
-                    })}
-                </div>
-                <div className='Review-Btn-container'>
-                    <button type='submit' className='Review-Submit-btn' disabled={star < 1}>{buttonName}</button>
-                    { (imageLoading) && <p>Loading...</p>}
-                </div>
-            </form>
+            <div className="review-form-container">
+                <form
+                    onSubmit={handleSubmit}
+                    encType="multipart/form-data"
+                    className='review-form'>
+                    {/* <h1 className='title'>Create a Review</h1> */}
+                    {validations.review && <p>{validations.message}</p>}
+                    <textarea
+                        className='review-textarea'
+                        type='text'
+                        name='review'
+                        value={review}
+                        onChange={(e) => setReview(e.target.value)}
+                        placeholder='Leave your review here...'
+                        rows={7}
+                        cols={70}
+                    />
+                    <label>
+                        Submit an Image:
+                        <input
+                            type='file'
+                            accept="image/*"
+                            onChange={(e) => setImage(e.target.files[0])}
+                            placeholder='Add a Review Image'
+                        ></input>
+                    </label>
+                    {validations.image && (<p>{validations.image}</p>)}
+                    <div className='Stars-field'>
+                        {[1, 2, 3, 4, 5].map((star, i) => {
+                            const ratingValue = i + 1
+                            return (
+                                <label key={i}>
+                                    <span
+                                        className='Stars'
+                                        onClick={() => setStars(ratingValue)}
+                                        onMouseEnter={() => setHover(ratingValue)}
+                                        onMouseLeave={() => setHover(ratingValue)}
+                                    >
+                                        {ratingValue <= (hover || star) ? '★' : '☆'}
+                                    </span>
+                                </label>
+                            )
+                        })}
+                    </div>
+                    <div className='Review-Btn-container'>
+                        <button type='submit' className='Review-Submit-btn' disabled={star < 1}>{buttonName}</button>
+                        {(imageLoading) && <p>Loading...</p>}
+                    </div>
+                </form>
+            </div>
         </>
     )
 }

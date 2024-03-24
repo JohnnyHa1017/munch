@@ -147,9 +147,9 @@ export default function OneBusiness() {
     }
   }
   //business background image
-  if (menus.Business_Images) {
-    businessPreviewImg = menus.Business_Images.filter(img => img.business_id == businessId && img.preview == true)[0]
-    businessPreviewImgUrl = businessPreviewImg.url
+  if (menus?.Business_Images) {
+    businessPreviewImg = menus?.Business_Images.filter(img => img.business_id == businessId && img.preview == true)[0]
+    businessPreviewImgUrl = businessPreviewImg?.url
   } else {
     businessPreviewImgUrl = default_business_background
   }
