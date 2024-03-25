@@ -17,9 +17,6 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       exisiting_price_rating += '$'
     }
   }
-  console.log(allbusiness)
-  console.log(setImage)
-
 
   const [title, setTitle] = useState(business?.title);
   const [address, setAddress] = useState(business?.address);
@@ -34,6 +31,8 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [category, setCategory] = useState(business?.category);
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
+  console.log(allbusiness)
+  console.log(setImage)
   // const [mondayopen, setMondayOpen] = useState('')
   // const [mondayclose, setMondayClose]= useState('')
   // const [tuesdayopen, setTuesdayOpen] = useState('')
