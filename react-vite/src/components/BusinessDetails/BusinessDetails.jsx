@@ -28,6 +28,7 @@ export default function OneBusiness() {
   const menus = useSelector(state => state.menus)
   const currUser = useSelector(state => state.session)
   const { businessId } = useParams()
+  // console.log('menus ==>', menus)
 
   const [deleteBus, setDeleteBus] = useState(false)
   const reRenderOnDelete = () => {
@@ -171,16 +172,13 @@ export default function OneBusiness() {
     dispatch(menuByBusinessThunk(businessId))
     dispatch(businessAmenitiesThunk(businessId))
     dispatch(businessReviewThunk(businessId))
-  }, [businessId, dispatch])
+  }, [businessId, dispatch, Object.keys(menus).length])
 
 
   return (
     <>
       {business ? (
         <div className="business-detail-page-container">
-          <div>
-            <h1 class='sticky' style={{position: 'sticky', top: '0'}}>BIG ASS STICKY</h1>
-          </div>
           <div className="business-detail-header-container">
             <div className="business-detail-header-img" style={{ backgroundImage: `url(${businessPreviewImgUrl})`, height: '360px' }}>
               {/* <div className="business-detail-header-img" style={{ backgroundImage: `url(../../images/default_business_background.jpg)`, height: '360px' }}> */}

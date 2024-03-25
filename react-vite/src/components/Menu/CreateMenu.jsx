@@ -92,6 +92,7 @@ function CreateMenu() {
                 <label className='create-menu-label-container'>
                     <h3>Menu Item Category</h3>
                     <select onChange={(e) => setCategory(e.target.value)}>
+                        <option value='' disabled selected hidden>Please select a category</option>
                         <option value='Appetizer' >Appetizer</option>
                         <option value='Drink' >Drink</option>
                         <option value='Entree' >Entree</option>

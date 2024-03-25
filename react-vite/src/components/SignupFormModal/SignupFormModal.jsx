@@ -57,7 +57,7 @@ function SignupFormModal() {
   return (
     <>
       <h1>Sign Up for Munch</h1>
-      {errors.server && <p>{errors.server}</p>}
+      {errors.server && <p className="sign-up-errors">* {errors.server}</p>}
       <form onSubmit={handleSubmit} className="signup-form">
       <label className='login-label'>
           <input
@@ -69,7 +69,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.first_name && <p>{errors.first_name}</p>}
+        {errors.first_name && <p className="sign-up-errors">* {errors.first_name}</p>}
         <label className='login-label'>
           <input
             className="signup-input"
@@ -91,7 +91,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className="sign-up-errors">* {errors.email}</p>}
         <label className='login-label'>
           <input
             className="signup-input"
@@ -102,7 +102,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && <p className="sign-up-errors">* {errors.username}</p>}
         <label className='login-label'>
           <input
             className="signup-input"
@@ -113,7 +113,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className="sign-up-errors">* {errors.password}</p>}
         <label className='login-label'>
           <input
             className="signup-input"
@@ -124,7 +124,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        {errors.confirmPassword && <p className="sign-up-errors">* {errors.confirmPassword}</p>}
         <button className='signup-btn' type="submit">Sign Up</button>
       </form>
     </>
