@@ -4,6 +4,8 @@ RUN apk add build-base
 
 RUN apk add postgresql-dev gcc python3-dev musl-dev
 
+RUN pip install email-validator
+
 ARG FLASK_APP
 ARG FLASK_ENV
 ARG DATABASE_URL
