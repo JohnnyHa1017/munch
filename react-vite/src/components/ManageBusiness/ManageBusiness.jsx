@@ -67,19 +67,19 @@ function ManageBusiness() {
         }
         return false
     }
-    // const menuArr = Object.keys(menus).map( key => ({
-    //     id: key,
-    //     ...menus[key]
-    // }))
+    const menuArr = Object.keys(menus).map( key => ({
+        id: key,
+        ...menus[key]
+    }))
 
-    // function checkMenu(businessId){
-    //     for(let m of menuArr){
-    //         if(m.business_id == businessId){
-    //             return true
-    //         }
-    //     }
-    //     return false
-    // }
+    function checkMenu(businessId){
+        for(let m of menuArr){
+            if(m.business_id == businessId){
+                return true
+            }
+        }
+        return false
+    }
 
     return(
         <>
