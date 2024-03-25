@@ -120,7 +120,7 @@ export default function OneBusiness() {
     }
     console.log('amenities ==>', amenities)
     for (const key in amenities) {
-      if (amenities.hasOwnProperty(key)) {
+      // if (amenities.hasOwnProperty(key)) {
         switch (key) {
           case 'accepts_credit_card': //to get each key
             isAccepts_cc = amenities[key] //assign boolean values
@@ -152,7 +152,7 @@ export default function OneBusiness() {
           default:
             break
         }
-      }
+      // }
     }
   }
   //business background image
@@ -329,7 +329,7 @@ export default function OneBusiness() {
               </div>
               {isOwner &&
                 <div className="business-dtl-info-box">
-                  <h2>Owner's Hub</h2>
+                  <h2>Owner&apos;s Hub</h2>
                   <button className="bd-red-action-buttons">
                     <NavLink className='red-button-text' to={`/business/${businessId}/menus/new`}>
                       Add Menu Item

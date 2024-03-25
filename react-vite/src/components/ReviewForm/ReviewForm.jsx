@@ -19,6 +19,8 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
     const [hover, setHover] = useState(null)
 
     console.log(submitted)
+    console.log(setImage)
+    console.log(imageLoading)
 
     // console.log('buttonName in CreateReview =>', buttonName)
     // console.log('reviewToUpdate in CreateReview =>', reviewToUpdate)

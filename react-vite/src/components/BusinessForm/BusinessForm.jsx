@@ -17,6 +17,9 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       exisiting_price_rating += '$'
     }
   }
+  console.log(allbusiness)
+  console.log(setImage)
+
 
   const [title, setTitle] = useState(business?.title);
   const [address, setAddress] = useState(business?.address);
