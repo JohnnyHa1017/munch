@@ -4,7 +4,7 @@ RUN apk add build-base
 
 RUN apk add postgresql-dev gcc python3-dev musl-dev
 
-RUN pip install email-validator
+
 
 ARG FLASK_APP
 ARG FLASK_ENV
@@ -18,6 +18,7 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 RUN pip install psycopg2
+RUN pip install email-validator
 
 COPY . .
 
