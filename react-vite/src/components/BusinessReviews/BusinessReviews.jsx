@@ -70,9 +70,9 @@ function BusinessReviews() {
                             <p>{renderStars(review.star)}</p> <p>{formatDate(review.createdAt)}</p>
                         </div>
                         <p className="BR-Review_desc">{review.review}</p>
-                        {reviewImages?.find((image) => image.review_id === review.id) && (
+                        {/* {reviewImages?.find((image) => image.review_id === review.id) && (
                             <img src={reviewImages.find((image) => image.review_id === review.id).url} alt="Review Image" />
-                        )}
+                        )} */}
                         {/* <hr /> */}
                     </div>
                 ))
