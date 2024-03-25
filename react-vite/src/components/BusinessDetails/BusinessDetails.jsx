@@ -246,10 +246,9 @@ export default function OneBusiness() {
           }
           <div className="business-detail-context-container">
             <div className="business-contexts">
-              {Object.keys(menus).length > 1 &&
                 <div className="menu-container">
                   <MenusByBusinessId />
-                </div>}
+                </div>
               <div className="business-info-container">
                 {businessSchedule &&
                   <>

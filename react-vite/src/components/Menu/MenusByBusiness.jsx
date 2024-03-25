@@ -10,10 +10,13 @@ import { specificBusinessThunk } from '../../redux/business'
 function MenusByBusinessId() {
     const dispatch = useDispatch()
     const { businessId } = useParams()
-    const menus = useSelector((state) => state.menus.Menu)
+    const stateMenus = useSelector((state) => state.menus.Menu)
     const menuImages = useSelector((state) => state.menus.Business_Images)
     const business = useSelector((state) => state.business[businessId])
 
+    
+    // console.log('menus ==>', menus)
+    let menus = []
     let menu_images = []
     let appetizers = []
     let drinks = []
@@ -21,16 +24,15 @@ function MenusByBusinessId() {
     let desserts = []
     let specials = []
 
-    if (menuImages) {
-        console.log('menuImages ==>', menuImages)
+    if (menuImages && stateMenus) {
+        menus = stateMenus.filter(ele => ele.business_id == businessId)
         for (let img of menuImages) {
             if (img.business_id == businessId && img.menu_id) {
                 menu_images.push(img)
             }
         }
-        
         console.log('menu_images =>', menu_images)
-        if (menu_images?.length > 0) {
+        if (menus.length > 0) {
             appetizers = menus.filter(e => e.category == 'Appetizer')
             drinks = menus.filter(e => e.category == 'Drink')
             entrees = menus.filter(e => e.category == 'Entree')
