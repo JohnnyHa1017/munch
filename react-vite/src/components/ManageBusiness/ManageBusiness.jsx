@@ -67,19 +67,19 @@ function ManageBusiness() {
         }
         return false
     }
-    const menuArr = Object.keys(menus).map( key => ({
-        id: key,
-        ...menus[key]
-    }))
+    // const menuArr = Object.keys(menus).map( key => ({
+    //     id: key,
+    //     ...menus[key]
+    // }))
 
-    function checkMenu(businessId){
-        for(let m of menuArr){
-            if(m.business_id == businessId){
-                return true
-            }
-        }
-        return false
-    }
+    // function checkMenu(businessId){
+    //     for(let m of menuArr){
+    //         if(m.business_id == businessId){
+    //             return true
+    //         }
+    //     }
+    //     return false
+    // }
 
     return(
         <>
@@ -120,11 +120,9 @@ function ManageBusiness() {
                                 modalComponent={<DeleteBusiness businessId={bus.id} reRenderOnDelete={reRenderOnDelete}/>}
                             />
                         </button>
+                        <button className='manage-btns'><NavLink to={`/business/${bus.id}/menus/new`} className='manage-btn-text'>Add Menu Item</NavLink></button>
                         {!checkAmenity(bus.id) && (
                             <button className='manage-btns'><NavLink to={`/business/${bus.id}/amenities`} className='manage-btn-text'>Add Amenities</NavLink></button>
-                        )}
-                        {!checkMenu(bus.id) && (
-                            <button className='manage-btns'><NavLink to={`/business/${bus.id}/menus/new`} className='manage-btn-text'>Add Menu</NavLink></button>
                         )}
                     </div>
                 ))}

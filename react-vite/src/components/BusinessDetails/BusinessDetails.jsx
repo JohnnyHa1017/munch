@@ -335,11 +335,11 @@ export default function OneBusiness() {
                       Add Menu Item
                     </NavLink>
                   </button>
-                  <button className="bd-red-action-buttons">
+                  {/* <button className="bd-red-action-buttons">
                     <NavLink className='red-button-text' to={`/business/${businessId}/amenities`}>
                       Add Amenity
                     </NavLink>
-                  </button>
+                  </button> */}
                   <button className="bd-red-action-buttons">
                     <NavLink className='red-button-text' to={`/business/${businessId}/edit`}>
                       Edit My Business

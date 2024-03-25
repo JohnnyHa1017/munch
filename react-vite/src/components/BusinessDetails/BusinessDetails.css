@@ -173,6 +173,7 @@
     color: white;
     border: 1px solid rgb(175, 17, 17);
     box-shadow: 3px 3px 3px grey;
+    list-style: none;
 }
 .bd-red-action-buttons:hover{
     background-color: rgb(26,121,255);
